@@ -33,20 +33,23 @@ export function buildTextPage(config: FastingConfig) {
   const time = rest ? '' : (isFasting ? `${fmt(remaining)} left` : `${fmt(remaining)} in`)
   const blink = (Math.floor(Date.now()/800)%2===0) ? '\u25CF' : '\u25CB'
 
-  // Overlap containers to eliminate seams; extend right edge off-canvas
-  const OVER = 576
+  const rightPart = time ? `${blink} ${time}` : ''
+  const lineW = 66 // chars per line on 576px canvas
+  const spaces = Math.max(1, lineW - name.length - rightPart.length)
 
+  // Top bar: preset name left-aligned, time right-aligned via padding
   const topBar = new TextContainerProperty({
-    xPosition: 0, yPosition: 0, width: OVER, height: 32,
+    xPosition: 0, yPosition: 0, width: 576, height: 32,
     containerID: 1, isEventCapture: 1,
-    content: `${name}                      ${blink} ${time}`,
+    content: name + ' '.repeat(spaces) + rightPart,
     borderWidth: 0, borderColor: 0, borderRadius: 0, paddingLength: 4,
   })
 
+  // Bottom bar: status left-aligned
   const bottomBar = new TextContainerProperty({
-    xPosition: 0, yPosition: 250, width: OVER, height: 38,
+    xPosition: 0, yPosition: 250, width: 576, height: 38,
     containerID: 2, isEventCapture: 0,
-    content: `                     ${status}`,
+    content: status,
     borderWidth: 0, borderColor: 0, borderRadius: 0, paddingLength: 4,
   })
 
