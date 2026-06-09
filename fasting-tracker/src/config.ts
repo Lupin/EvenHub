@@ -23,11 +23,11 @@ export const FASTING_PRESETS: FastingPreset[] = [
   },
   {
     id: '5:2-week', name: '5:2 — Weekday', desc: '5d eat · 2d fast',
-    fastStart: '00:00', fastEnd: '24:00', activeDays: [2, 4], fullDay: true, color: '#607D8B',
+    fastStart: '00:00', fastEnd: '00:00', activeDays: [2, 4], fullDay: true, color: '#607D8B',
   },
   {
     id: 'adf', name: 'ADF — Alt. Day', desc: 'Fast every other day',
-    fastStart: '00:00', fastEnd: '24:00', activeDays: undefined, fullDay: true, color: '#795548',
+    fastStart: '00:00', fastEnd: '00:00', activeDays: undefined, fullDay: true, color: '#795548',
   },
 ]
 

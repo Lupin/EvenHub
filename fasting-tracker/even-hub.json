@@ -7,5 +7,5 @@
   "entry": "index.html",
   "permissions": ["storage"],
   "type": "plugin",
-  "settings": "src/phone-config/settings.html"
+  "settings": "settings.html"
 }
