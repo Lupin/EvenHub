@@ -13,7 +13,7 @@
 
 **Canvas:** 576×288 px per eye, 4-bit greyscale (16 shades of green)
 
-**Repo:** `/Users/gael/Documents/GitHub/EvenHub/`
+**Repo:** `/Users/gael/Documents/GitHub/EvenHub/fasting-tracker/`
 
 ---
 
@@ -170,8 +170,7 @@ even-fasting-tracker/
     ├── storage.ts
     ├── input.ts
     ├── phone-config/
-    │   ├── App.tsx          (optionnel, companion React)
-    │   └── SettingsPage.tsx
+    │   └── settings.html     (self-contained companion app)
     └── display/
         ├── index.ts
         ├── text-mode.ts
@@ -1290,8 +1289,7 @@ npx evenhub-simulator http://localhost:5173
 | `ws/even-fasting-tracker/src/display/index.ts` | Créer |
 | `ws/even-fasting-tracker/src/display/text-mode.ts` | Créer |
 | `ws/even-fasting-tracker/src/display/timeline-mode.ts` | Créer |
-| `ws/even-fasting-tracker/src/phone-config/App.tsx` | Créer (optionnel) |
-| `ws/even-fasting-tracker/src/phone-config/SettingsPage.tsx` | Créer (optionnel) |
+|| `src/phone-config/settings.html` | Créer (self-contained) |
 
 ## Risques et questions ouvertes
 

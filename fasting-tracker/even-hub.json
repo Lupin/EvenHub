@@ -1,8 +1,9 @@
 {
   "name": "Fasting Tracker",
   "version": "1.0.0",
-  "description": "Intermittent fasting tracker for Even G2 — discreet text and timeline display modes with 7 fasting presets",
+  "description": "Intermittent fasting tracker for Even G2 — discreet text and timeline display modes with 7 fasting presets, EN/FR i18n, companion settings app",
   "author": "Gael",
+  "icon": "icon.png",
   "entry": "index.html",
   "permissions": ["storage"],
   "type": "plugin",
