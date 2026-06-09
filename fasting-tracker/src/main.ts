@@ -1,5 +1,5 @@
 import { waitForEvenAppBridge } from '@evenrealities/even_hub_sdk'
-import { renderCurrentMode } from './display'
+import { renderCurrentMode, rebuildCurrentMode } from './display'
 import { setupInputHandlers } from './input'
 import { loadConfig } from './storage'
 import { getPreset, isFastingDay } from './config'
@@ -16,32 +16,26 @@ async function main() {
       console.log('[FastingTracker] Rest day — no fasting today')
     }
 
-    // Initial render
+    // First render: createStartUpPageContainer
     await renderCurrentMode(bridge)
 
-    // Setup touchpad event handling (swipe to toggle modes)
+    // Touchpad event handling (swipe to toggle modes)
     setupInputHandlers(bridge)
 
-    // Expose immediate refresh for phone UI save button
+    // Expose refresh function for phone UI Save button
     window.__fastingRefresh = async () => {
-      await renderCurrentMode(bridge)
+      await rebuildCurrentMode(bridge)
     }
-
-    // Also listen for custom event from phone UI
-    window.addEventListener('fasting-config-changed', async () => {
-      await renderCurrentMode(bridge)
-    })
 
     // Periodic refresh every 30 seconds
     setInterval(async () => {
-      await renderCurrentMode(bridge)
+      await rebuildCurrentMode(bridge)
     }, 30000)
   } catch (err) {
     console.error('[FastingTracker] Failed to init:', err)
   }
 }
 
-// Extend Window interface for our global
 declare global {
   interface Window {
     __fastingRefresh?: () => Promise<void>

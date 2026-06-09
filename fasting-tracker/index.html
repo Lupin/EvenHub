@@ -171,7 +171,10 @@ document.getElementById('langToggle').addEventListener('click',function(e){var b
 document.getElementById('fastStart').addEventListener('input',function(){cfg.schedule.fastStart=this.value;cfg.presetId='custom';render()});
 document.getElementById('fastEnd').addEventListener('input',function(){cfg.schedule.fastEnd=this.value;cfg.presetId='custom';render()});
 document.getElementById('modeSelector').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cfg.displayMode=b.dataset.mode;render()});
-document.getElementById('btnSave').addEventListener('click',function(){cfg.schedule.fastStart=document.getElementById('fastStart').value;cfg.schedule.fastEnd=document.getElementById('fastEnd').value;save();var toast=document.getElementById('toast');toast.textContent=t('saved');toast.classList.add('show');setTimeout(function(){location.reload()},800)});
+document.getElementById('btnSave').addEventListener('click',function(){cfg.schedule.fastStart=document.getElementById('fastStart').value;cfg.schedule.fastEnd=document.getElementById('fastEnd').value;save();var toast=document.getElementById('toast');toast.textContent=t('saved');toast.classList.add('show');setTimeout(function(){toast.classList.remove('show')},1500);
+  // Refresh glasses via SDK rebuild (no page reload)
+  if (window.__fastingRefresh) window.__fastingRefresh();
+});
 document.getElementById('btnCancel').addEventListener('click',function(){try{var r=localStorage.getItem('even-fasting-config');if(r){var p=JSON.parse(r);Object.assign(cfg,p)}}catch(e){}render()});
 
 document.getElementById('phone-ui').style.display = 'block';

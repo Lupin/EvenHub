@@ -5,11 +5,10 @@
  */
 import type { EvenAppBridge } from '@evenrealities/even_hub_sdk'
 import { OsEventTypeList } from '@evenrealities/even_hub_sdk'
-import { toggleDisplayMode, renderCurrentMode } from './display'
+import { toggleDisplayMode, rebuildCurrentMode } from './display'
 
 export function setupInputHandlers(bridge: EvenAppBridge): () => void {
   const unsubscribe = bridge.onEvenHubEvent((event) => {
-    // Events arrive on the capture container's textEvent or sysEvent
     const evt = event.textEvent || event.sysEvent
     if (!evt?.eventType) return
 
@@ -19,10 +18,10 @@ export function setupInputHandlers(bridge: EvenAppBridge): () => void {
         : OsEventTypeList.fromJson(evt.eventType)
 
     switch (type) {
-      case OsEventTypeList.SCROLL_TOP_EVENT:    // swipe down (scrolls content to top)
-      case OsEventTypeList.SCROLL_BOTTOM_EVENT: // swipe up (scrolls content to bottom)
+      case OsEventTypeList.SCROLL_TOP_EVENT:
+      case OsEventTypeList.SCROLL_BOTTOM_EVENT:
         toggleDisplayMode()
-        renderCurrentMode(bridge)
+        rebuildCurrentMode(bridge)
         break
     }
   })
