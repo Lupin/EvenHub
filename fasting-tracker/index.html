@@ -63,9 +63,10 @@
   <h3 id="schedLabel">Schedule</h3>
   <div id="scheduleSection">
     <label class="time-label" id="startLabel">Fasting starts at</label>
-    <input type="time" class="time-input" id="fastStart" style="width:100%;margin-bottom:8px">
+    <input type="time" class="time-input" id="fastStart" style="width:100%;max-width:200px;margin-bottom:8px">
     <label class="time-label" id="endLabel">Fasting ends at</label>
-    <input type="time" class="time-input" id="fastEnd" style="width:100%">
+    <input type="time" class="time-input" id="fastEnd" style="width:100%;max-width:200px" readonly>
+    <small style="color:var(--tc2);font-size:11px;display:block;margin-top:4px" id="hintLabel">End auto-adjusts to keep same duration</small>
   </div>
 
   <h3 id="displayLabel">Display Mode</h3>
@@ -158,9 +159,6 @@ function render(){
   cc.onclick=function(){sel('custom')};g.appendChild(cc);
   document.getElementById('fastStart').value=cfg.schedule.fastStart;
   document.getElementById('fastEnd').value=cfg.schedule.fastEnd;
-  // Show schedule only when Custom is selected
-  document.getElementById('scheduleSection').style.display = cfg.presetId === 'custom' ? 'block' : 'none';
-  document.getElementById('schedLabel').style.display = cfg.presetId === 'custom' ? 'block' : 'none';
   var mbs=document.querySelectorAll('#modeSelector button');
   mbs.forEach(function(b){b.classList.toggle('active',b.dataset.mode===cfg.displayMode)});
 }
@@ -174,22 +172,18 @@ document.getElementById('fastStart').addEventListener('input',function(){
   var newStart = this.value;
   var oldStart = cfg.schedule.fastStart;
   cfg.schedule.fastStart = newStart;
-  if (cfg.presetId !== 'custom') {
-    // Auto-shift fastEnd to keep same fasting duration
-    var oldH = parseInt(oldStart.split(':')[0]), oldM = parseInt(oldStart.split(':')[1]);
-    var oldStartMin = oldH * 60 + oldM;
-    var endH = parseInt(cfg.schedule.fastEnd.split(':')[0]), endM = parseInt(cfg.schedule.fastEnd.split(':')[1]);
-    var oldEndMin = endH * 60 + endM;
-    // Duration: if end < start (overnight), add 24h
-    var duration = oldEndMin <= oldStartMin ? oldEndMin + 1440 - oldStartMin : oldEndMin - oldStartMin;
-    // New end = new start + duration
-    var newH = parseInt(newStart.split(':')[0]), newM = parseInt(newStart.split(':')[1]);
-    var newStartMin = newH * 60 + newM;
-    var newEndMin = (newStartMin + duration) % 1440;
-    var eh = Math.floor(newEndMin / 60), em = newEndMin % 60;
-    cfg.schedule.fastEnd = String(eh).padStart(2,'0') + ':' + String(em).padStart(2,'0');
-  }
-  cfg.presetId = 'custom';
+  // Auto-shift fastEnd to keep same fasting duration
+  var oldH = parseInt(oldStart.split(':')[0]), oldM = parseInt(oldStart.split(':')[1]);
+  var oldStartMin = oldH * 60 + oldM;
+  var endH = parseInt(cfg.schedule.fastEnd.split(':')[0]), endM = parseInt(cfg.schedule.fastEnd.split(':')[1]);
+  var oldEndMin = endH * 60 + endM;
+  var duration = oldEndMin <= oldStartMin ? oldEndMin + 1440 - oldStartMin : oldEndMin - oldStartMin;
+  var newH = parseInt(newStart.split(':')[0]), newM = parseInt(newStart.split(':')[1]);
+  var newStartMin = newH * 60 + newM;
+  var newEndMin = (newStartMin + duration) % 1440;
+  var eh = Math.floor(newEndMin / 60), em = newEndMin % 60;
+  cfg.schedule.fastEnd = String(eh).padStart(2,'0') + ':' + String(em).padStart(2,'0');
+  // Don't switch to custom — keep preset selected with shifted times
   render();
 });
 document.getElementById('fastEnd').addEventListener('input',function(){cfg.schedule.fastEnd=this.value;cfg.presetId='custom';render()});
