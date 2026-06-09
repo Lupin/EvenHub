@@ -49,33 +49,41 @@ export function buildTextPage(config: FastingConfig) {
   const presetName = preset?.name ?? config.presetId
   const isRestDay = preset?.fullDay && !isFastingDay(preset!)
   const statusLine = isRestDay ? 'REST DAY' : (isFasting ? 'FASTING' : 'EATING')
-
-  // Time label: "3h left" (fasting → countdown to eating) or "5h in" (eating → countdown to next fast)
   const timeLabel = isRestDay ? '' : (isFasting ? `${formatTime(remainingSec)} left` : `${formatTime(remainingSec)} in`)
 
-  // Blinking dot: alternates between filled and hollow
-  const blink = (Math.floor(Date.now() / 800) % 2 === 0) ? '\u25CF' : '\u25CB'
+  // Blink dot: alternates between dim (7) and bright (15) borderColor
+  const blinkFrame = Math.floor(Date.now() / 800) % 2
+  const blinkColor = blinkFrame === 0 ? 15 : 7
 
-  // Top-left: preset name
+  // 1) Top-left: preset name
   const presetText = new TextContainerProperty({
     xPosition: 6, yPosition: 6, width: 280, height: 32,
     containerID: 1, isEventCapture: 1,
     content: presetName, borderWidth: 0, paddingLength: 4,
   })
 
-  // Top-right: blink dot + time label
-  const timeText = new TextContainerProperty({
-    xPosition: 290, yPosition: 6, width: 280, height: 32,
-    containerID: 2, borderWidth: 0, paddingLength: 4,
-    content: `${blink} ${timeLabel}`,
+  // 2) Blink dot: small bordered square at 50% grey
+  const blinkDot = new TextContainerProperty({
+    xPosition: 292, yPosition: 10,
+    width: 14, height: 14,
+    containerID: 4, containerName: 'blink',
+    content: ' ', borderWidth: 2, borderColor: blinkColor,
+    paddingLength: 0, isEventCapture: 0,
   })
 
-  // Bottom-center: status
+  // 3) Top-right: time label
+  const timeText = new TextContainerProperty({
+    xPosition: 312, yPosition: 6, width: 258, height: 32,
+    containerID: 2, borderWidth: 0, paddingLength: 4,
+    content: timeLabel,
+  })
+
+  // 4) Bottom-center: status
   const statusText = new TextContainerProperty({
     xPosition: 4, yPosition: 254, width: 568, height: 28,
     containerID: 3, borderWidth: 0, paddingLength: 4,
     content: statusLine,
   })
 
-  return { presetText, timeText, statusText, isFasting }
+  return { presetText, blinkDot, timeText, statusText, isFasting }
 }

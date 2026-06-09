@@ -8,9 +8,9 @@ import { buildTimelinePage } from './timeline-mode'
 export async function renderCurrentMode(bridge: EvenAppBridge) {
   const config = loadConfig()
   if (config.displayMode === 'text') {
-    const { presetText, timeText, statusText } = buildTextPage(config)
+    const { presetText, blinkDot, timeText, statusText } = buildTextPage(config)
     return bridge.createStartUpPageContainer(
-      new CreateStartUpPageContainer({ containerTotalNum: 3, textObject: [presetText, timeText, statusText] })
+      new CreateStartUpPageContainer({ containerTotalNum: 4, textObject: [presetText, blinkDot, timeText, statusText] })
     )
   } else {
     const { singleLine } = buildTimelinePage(config)
@@ -24,9 +24,9 @@ export async function renderCurrentMode(bridge: EvenAppBridge) {
 export async function rebuildCurrentMode(bridge: EvenAppBridge) {
   const config = loadConfig()
   if (config.displayMode === 'text') {
-    const { presetText, timeText, statusText } = buildTextPage(config)
+    const { presetText, blinkDot, timeText, statusText } = buildTextPage(config)
     return bridge.rebuildPageContainer(
-      new RebuildPageContainer({ containerTotalNum: 3, textObject: [presetText, timeText, statusText] })
+      new RebuildPageContainer({ containerTotalNum: 4, textObject: [presetText, blinkDot, timeText, statusText] })
     )
   } else {
     const { singleLine } = buildTimelinePage(config)

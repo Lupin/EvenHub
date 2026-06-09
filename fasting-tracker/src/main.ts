@@ -33,9 +33,7 @@ async function main() {
     }, 30000)
 
     // Fast refresh every 800ms for blinking indicator
-    let blinkFrame = false
     setInterval(async () => {
-      blinkFrame = !blinkFrame
       await rebuildCurrentMode(bridge)
     }, 800)
   } catch (err) {
