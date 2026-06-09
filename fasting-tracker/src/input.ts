@@ -17,8 +17,11 @@ export function setupInputHandlers(bridge: EvenAppBridge): () => void {
         ? evt.eventType
         : OsEventTypeList.fromJson(evt.eventType)
 
+    console.log('[FastingTracker] Event:', type, OsEventTypeList[type ?? -1])
+
     switch (type) {
       case OsEventTypeList.CLICK_EVENT:
+      case OsEventTypeList.DOUBLE_CLICK_EVENT:
         toggleDisplayMode()
         rebuildCurrentMode(bridge)
         break
