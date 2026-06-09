@@ -3,8 +3,8 @@ import type { FastingConfig } from '../types'
 import { getCurrentFastingState, getPreset, isFastingDay } from '../config'
 
 /**
- * Single-line timeline, fits in 576px without scrolling.
- * Format: "20:00 ━━━■─── 12:00"
+ * Single-line timeline that fits without horizontal scroll.
+ * Compact: short bar + inline times.
  */
 export function buildTimelinePage(config: FastingConfig) {
   const now = new Date()
@@ -13,12 +13,11 @@ export function buildTimelinePage(config: FastingConfig) {
   const dayProgress = nowSec / 86400
   const state = preset?.fullDay ? { isFasting: isFastingDay(preset!) } : getCurrentFastingState(config.schedule)
 
-  // Fewer chars so the line fits without horizontal scroll
-  const barChars = 34
-  const cursorPos = Math.round(dayProgress * (barChars - 1))
+  const totalChars = 20
+  const cursorPos = Math.round(dayProgress * (totalChars - 1))
 
   let bar = ''
-  for (let i = 0; i < barChars; i++) {
+  for (let i = 0; i < totalChars; i++) {
     if (i === cursorPos) bar += '\u25A0'
     else if (i < cursorPos) bar += '\u2501'
     else bar += '\u2500'
@@ -27,7 +26,7 @@ export function buildTimelinePage(config: FastingConfig) {
   const singleLine = new TextContainerProperty({
     xPosition: 0, yPosition: 130, width: 576, height: 28,
     containerID: 1, containerName: 'timeline',
-    content: `${config.schedule.fastStart} ${bar} ${config.schedule.fastEnd}`,
+    content: `${config.schedule.fastStart}  ${bar}  ${config.schedule.fastEnd}`,
     borderWidth: 0, paddingLength: 4,
     isEventCapture: 1,
   })

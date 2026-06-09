@@ -50,23 +50,15 @@ export function buildTextPage(config: FastingConfig) {
   const isRestDay = preset?.fullDay && !isFastingDay(preset!)
   const statusLine = isRestDay ? 'REST DAY' : (isFasting ? 'FASTING' : 'EATING')
   const timeLabel = isRestDay ? '' : (isFasting ? `${formatTime(remainingSec)} left` : `${formatTime(remainingSec)} in`)
-
   const blink = (Math.floor(Date.now() / 800) % 2 === 0) ? '\u25CF' : '\u25CB'
 
-  // Full-width top bar: preset name left, blink + time right — as one container
-  const topBar = new TextContainerProperty({
-    xPosition: 0, yPosition: 0, width: 576, height: 32,
+  // Single container for everything — no seams possible
+  const page = new TextContainerProperty({
+    xPosition: 0, yPosition: 0, width: 576, height: 288,
     containerID: 1, isEventCapture: 1,
-    content: `${presetName}${' '.repeat(18)}${blink} ${timeLabel}`,
+    content: `${presetName}           ${blink} ${timeLabel}\n\n\n\n\n\n\n\n\n\n\n\n\n                     ${statusLine}`,
     borderWidth: 0, paddingLength: 4,
   })
 
-  // Bottom: status centered
-  const statusText = new TextContainerProperty({
-    xPosition: 0, yPosition: 254, width: 576, height: 28,
-    containerID: 2, borderWidth: 0, paddingLength: 4,
-    content: statusLine,
-  })
-
-  return { topBar, statusText, isFasting }
+  return { page, isFasting }
 }
