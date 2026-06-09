@@ -1,186 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Fasting Tracker — Settings</title>
-  <style>
-    :root {
-      --bg: #111;
-      --card: #1a1a1a;
-      --text: #e0e0e0;
-      --muted: #888;
-      --accent: #2196F3;
-      --border: #333;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; padding: 16px;
-      background: var(--bg); color: var(--text);
-      font-family: system-ui, -apple-system, sans-serif;
-      min-height: 100vh; min-height: 100dvh;
-    }
-    h2 { margin: 0 0 12px; font-size: 20px; }
-    h3 {
-      margin: 16px 0 8px; font-size: 14px;
-      color: var(--muted); text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .lang-toggle { display: flex; gap: 8px; margin-bottom: 4px; }
-    .lang-toggle button {
-      flex: 1; padding: 8px; border: 1px solid var(--border);
-      border-radius: 6px; background: var(--card);
-      color: var(--text); cursor: pointer; font-size: 14px; font-weight: 600;
-    }
-    .lang-toggle button.active {
-      border-color: var(--accent); background: #1a2a3a;
-    }
-    .preset-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px; margin: 8px 0;
-    }
-    .preset-card {
-      border: 1px solid var(--border); border-radius: 8px;
-      padding: 10px; display: flex; align-items: center;
-      gap: 10px; cursor: pointer; background: var(--card);
-      transition: border-color .2s;
-    }
-    .preset-card.active {
-      border-color: var(--accent); background: #1a2a3a;
-    }
-    .dot {
-      width: 20px; height: 20px; border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .dot.custom { border: 2px dashed var(--muted); background: transparent; }
-    .preset-card .info { flex: 1; min-width: 0; }
-    .preset-card .name { font-size: 13px; font-weight: 600; display: block; }
-    .preset-card .desc { font-size: 11px; color: var(--muted); }
-    .time-section { margin: 8px 0; }
-    .time-inputs { display: flex; align-items: center; gap: 10px; }
-    .time-inputs label { font-size: 13px; color: var(--muted); }
-    .time-inputs input {
-      padding: 8px; border: 1px solid var(--border);
-      border-radius: 6px; background: var(--card);
-      color: var(--text); font-size: 14px; width: 100px;
-    }
-    .arrow { font-size: 18px; color: var(--muted); }
-    .mode-selector { display: flex; gap: 8px; margin: 8px 0; }
-    .mode-selector button {
-      flex: 1; padding: 12px; border: 1px solid var(--border);
-      border-radius: 8px; background: var(--card);
-      color: var(--text); cursor: pointer; text-align: center;
-    }
-    .mode-selector button.active {
-      border-color: var(--accent); background: #1a2a3a;
-    }
-    .mode-selector .icon { font-size: 24px; display: block; margin-bottom: 4px; }
-    .mode-selector small {
-      display: block; font-size: 10px; color: var(--muted); margin-top: 2px;
-    }
-    .actions { display: flex; gap: 8px; margin-top: 20px; }
-    .actions button {
-      flex: 1; padding: 12px; border: none;
-      border-radius: 8px; font-size: 15px; cursor: pointer; font-weight: 600;
-    }
-    .btn-save { background: var(--accent); color: #fff; }
-    .btn-cancel { background: var(--card); color: var(--text); border: 1px solid var(--border); }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fasting Tracker</title>
+<style>
+:root{--bg:#111;--card:#1a1a1a;--text:#e0e0e0;--muted:#888;--accent:#2196F3;--border:#333}
+*{box-sizing:border-box}
+body{margin:0;padding:16px;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;min-height:100dvh}
+h2{margin:0 0 12px;font-size:20px}
+h3{margin:16px 0 8px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.lang-toggle{display:flex;gap:8px;margin-bottom:4px}
+.lang-toggle button{flex:1;padding:8px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);cursor:pointer;font-size:14px;font-weight:600}
+.lang-toggle button.active{border-color:var(--accent);background:#1a2a3a}
+.preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.preset-card{border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;align-items:center;gap:10px;cursor:pointer;background:var(--card);transition:border-color .2s}
+.preset-card.active{background:#1a2a3a}
+.dot{width:20px;height:20px;border-radius:50%;flex-shrink:0}
+.dot.custom{border:2px dashed var(--muted);background:transparent}
+.preset-card .info{flex:1;min-width:0}
+.preset-card .name{font-size:13px;font-weight:600;display:block}
+.preset-card .desc{font-size:11px;color:var(--muted)}
+.time-section{margin:8px 0}
+.time-inputs{display:flex;align-items:center;gap:10px}
+.time-inputs label{font-size:13px;color:var(--muted)}
+.time-inputs input{padding:8px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);font-size:14px;width:100px}
+.arrow{font-size:18px;color:var(--muted)}
+.mode-selector{display:flex;gap:8px;margin:8px 0}
+.mode-selector button{flex:1;padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);cursor:pointer;text-align:center}
+.mode-selector button.active{border-color:var(--accent);background:#1a2a3a}
+.mode-selector .icon{font-size:24px;display:block;margin-bottom:4px}
+.mode-selector small{display:block;font-size:10px;color:var(--muted);margin-top:2px}
+.actions{display:flex;gap:8px;margin-top:20px}
+.actions button{flex:1;padding:12px;border:none;border-radius:8px;font-size:15px;cursor:pointer;font-weight:600}
+.btn-save{background:var(--accent);color:#fff}
+.btn-cancel{background:var(--card);color:var(--text);border:1px solid var(--border)}
+.saved-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:10}
+.saved-toast.show{opacity:1}
+</style>
 </head>
 <body>
 
-  <!-- Language Toggle -->
-  <h3 data-i18n="language">Language</h3>
-  <div class="lang-toggle" id="langToggle">
-    <button data-lang="en">EN</button>
-    <button data-lang="fr">FR</button>
-  </div>
+<h2 id="pageTitle">Fasting Tracker</h2>
 
-  <!-- Fasting Type -->
-  <h3 data-i18n="fastingType">Fasting Type</h3>
-  <div class="preset-grid" id="presetGrid"></div>
+<!-- Language -->
+<h3 id="labelLang">Language</h3>
+<div class="lang-toggle" id="langToggle">
+  <button data-lang="en" class="active">EN</button>
+  <button data-lang="fr">FR</button>
+</div>
 
-  <!-- Schedule / Time inputs -->
-  <div class="time-section">
-    <h3 data-i18n="schedule">Schedule</h3>
-    <div class="time-inputs">
-      <label data-i18n="fastStart">Fast start</label>
-      <input type="time" id="fastStart">
-      <span class="arrow">→</span>
-      <label data-i18n="fastEnd">Fast end</label>
-      <input type="time" id="fastEnd">
-    </div>
-  </div>
+<!-- Fasting Type -->
+<h3 id="labelType">Fasting Type</h3>
+<div class="preset-grid" id="presetGrid"></div>
 
-  <!-- Display Mode -->
-  <h3 data-i18n="displayMode">Display Mode</h3>
-  <div class="mode-selector" id="modeSelector">
-    <button data-mode="text">
-      <span class="icon">⊞</span>
-      <span data-i18n="textMode">Text (corners)</span>
-      <small data-i18n="textModeDesc">Discreet, upper corners</small>
-    </button>
-    <button data-mode="timeline">
-      <span class="icon">▬</span>
-      <span data-i18n="timelineMode">Timeline (bar)</span>
-      <small data-i18n="timelineModeDesc">Day progress bar</small>
-    </button>
-  </div>
+<!-- Schedule -->
+<h3 id="labelSchedule">Schedule</h3>
+<div class="time-inputs">
+  <label id="labelStart">Fast start</label>
+  <input type="time" id="fastStart">
+  <span class="arrow">→</span>
+  <label id="labelEnd">Fast end</label>
+  <input type="time" id="fastEnd">
+</div>
 
-  <!-- Actions -->
-  <div class="actions">
-    <button class="btn-cancel" id="btnCancel" data-i18n="cancel">Cancel</button>
-    <button class="btn-save" id="btnSave" data-i18n="save">Save</button>
-  </div>
+<!-- Display Mode -->
+<h3 id="labelDisplay">Display Mode</h3>
+<div class="mode-selector" id="modeSelector">
+  <button data-mode="text" class="active">
+    <span class="icon">&#9638;</span>
+    <span id="labelTextMode">Text (corners)</span>
+    <small id="labelTextDesc">Discreet, corners</small>
+  </button>
+  <button data-mode="timeline">
+    <span class="icon">&#9641;</span>
+    <span id="labelTimelineMode">Timeline (bar)</span>
+    <small id="labelTimelineDesc">Day progress bar</small>
+  </button>
+</div>
 
-  <!-- Embedded data -->
-  <script>
-    window.__FASTING_PRESETS = [
-      { id: '14:10', name: '14:10 — Beginner', desc: '14h fast · 10h eating', fastStart: '20:00', fastEnd: '10:00', color: '#4CAF50' },
-      { id: '16:8',  name: '16:8 — Leangains',  desc: '16h fast · 8h eating',  fastStart: '20:00', fastEnd: '12:00', color: '#2196F3' },
-      { id: '18:6',  name: '18:6 — Extended',   desc: '18h fast · 6h eating',  fastStart: '20:00', fastEnd: '14:00', color: '#9C27B0' },
-      { id: '20:4',  name: '20:4 — Warrior Diet', desc: '20h fast · 4h eating', fastStart: '20:00', fastEnd: '16:00', color: '#FF9800' },
-      { id: '23:1',  name: 'OMAD — One Meal A Day', desc: '23h fast · 1 meal',fastStart: '19:00', fastEnd: '18:00', color: '#F44336' },
-      { id: '5:2-week', name: '5:2 — Weekday',   desc: '5d normal · 2d fast (Tue+Thu)', fastStart: '20:00', fastEnd: '12:00', color: '#607D8B', activeDays: [2,4] },
-      { id: 'adf',   name: 'ADF — Alternate Day', desc: 'Fast every other day', fastStart: '20:00', fastEnd: '12:00', color: '#795548' }
-    ];
+<!-- Actions -->
+<div class="actions">
+  <button class="btn-cancel" id="btnCancel">Cancel</button>
+  <button class="btn-save" id="btnSave">Save</button>
+</div>
 
-    window.__TRANSLATIONS = {
-      en: {
-        appTitle: 'Fasting Tracker', fastingType: 'Fasting Type',
-        schedule: 'Schedule', fastStart: 'Fast start', fastEnd: 'Fast end',
-        displayMode: 'Display Mode', textMode: 'Text (corners)',
-        textModeDesc: 'Discreet, upper corners', timelineMode: 'Timeline (bar)',
-        timelineModeDesc: 'Day progress bar', custom: 'Custom',
-        customDesc: 'Set your own hours', cancel: 'Cancel', save: 'Save',
-        language: 'Language', fasting: 'FASTING', eating: 'EATING', restDay: 'REST DAY',
-        preset_14_10_name: '14:10 — Beginner', preset_14_10_desc: '14h fast · 10h eating',
-        preset_16_8_name: '16:8 — Leangains', preset_16_8_desc: '16h fast · 8h eating',
-        preset_18_6_name: '18:6 — Extended', preset_18_6_desc: '18h fast · 6h eating',
-        preset_20_4_name: '20:4 — Warrior Diet', preset_20_4_desc: '20h fast · 4h eating',
-        preset_23_1_name: 'OMAD — One Meal A Day', preset_23_1_desc: '23h fast · 1 meal',
-        preset_5_2_week_name: '5:2 — Weekday', preset_5_2_week_desc: '5d normal · 2d fast (Tue+Thu)',
-        preset_adf_name: 'ADF — Alternate Day', preset_adf_desc: 'Fast every other day'
-      },
-      fr: {
-        appTitle: 'Suivi Jeûne', fastingType: 'Type de jeûne',
-        schedule: 'Horaires', fastStart: 'Début du jeûne', fastEnd: 'Fin du jeûne',
-        displayMode: "Mode d'affichage", textMode: 'Texte (coins)',
-        textModeDesc: 'Discret, coins supérieurs', timelineMode: 'Barre (timeline)',
-        timelineModeDesc: 'Barre de progression', custom: 'Personnalisé',
-        customDesc: 'Définir vos horaires', cancel: 'Annuler', save: 'Enregistrer',
-        language: 'Langue', fasting: 'JEÛNE', eating: 'REPAS', restDay: 'JOUR REPOS',
-        preset_14_10_name: '14:10 — Débutant', preset_14_10_desc: '14h jeûne · 10h repas',
-        preset_16_8_name: '16:8 — Leangains', preset_16_8_desc: '16h jeûne · 8h repas',
-        preset_18_6_name: '18:6 — Avancé', preset_18_6_desc: '18h jeûne · 6h repas',
-        preset_20_4_name: '20:4 — Warrior Diet', preset_20_4_desc: '20h jeûne · 4h repas',
-        preset_23_1_name: 'OMAD — Un repas par jour', preset_23_1_desc: '23h jeûne · 1 repas',
-        preset_5_2_week_name: '5:2 — Semaine', preset_5_2_week_desc: '5j normal · 2j jeûne (Mar+Jeu)',
-        preset_adf_name: 'ADF — Jour alterné', preset_adf_desc: 'Jeûne un jour sur deux'
-      }
-    };
-  </script>
+<div class="saved-toast" id="toast">Saved!</div>
 
-  <script src="settings.js"></script>
+<script>
+(function(){
+'use strict';
+
+// ── Translations ────────────────────────────────────────────
+var T = {
+  en: { title:'Fasting Tracker', lang:'Language', type:'Fasting Type',
+    schedule:'Schedule', start:'Fast start', end:'Fast end',
+    display:'Display Mode', text:'Text (corners)', textDesc:'Discreet, corners',
+    timeline:'Timeline (bar)', timelineDesc:'Day progress bar',
+    custom:'Custom', customDesc:'Set your own hours',
+    cancel:'Cancel', save:'Save', saved:'Settings saved!',
+    fasting:'FASTING', eating:'EATING', restDay:'REST DAY',
+    p14n:'14:10 — Beginner', p14d:'14h fast · 10h eating',
+    p16n:'16:8 — Leangains', p16d:'16h fast · 8h eating',
+    p18n:'18:6 — Extended', p18d:'18h fast · 6h eating',
+    p20n:'20:4 — Warrior Diet', p20d:'20h fast · 4h eating',
+    p23n:'OMAD — One Meal A Day', p23d:'23h fast · 1 meal',
+    p52n:'5:2 — Weekday', p52d:'5d normal · 2d fast (Tue+Thu)',
+    padfn:'ADF — Alternate Day', padfd:'Fast every other day' },
+  fr: { title:'Suivi Jeûne', lang:'Langue', type:'Type de jeûne',
+    schedule:'Horaires', start:'Début jeûne', end:'Fin jeûne',
+    display:'Affichage', text:'Texte (coins)', textDesc:'Discret, coins',
+    timeline:'Barre (timeline)', timelineDesc:'Barre progression',
+    custom:'Perso', customDesc:'Vos horaires',
+    cancel:'Annuler', save:'Enregistrer', saved:'Sauvegardé !',
+    fasting:'JEÛNE', eating:'REPAS', restDay:'JOUR REPOS',
+    p14n:'14:10 — Débutant', p14d:'14h jeûne · 10h repas',
+    p16n:'16:8 — Leangains', p16d:'16h jeûne · 8h repas',
+    p18n:'18:6 — Avancé', p18d:'18h jeûne · 6h repas',
+    p20n:'20:4 — Warrior Diet', p20d:'20h jeûne · 4h repas',
+    p23n:'OMAD — Un repas/jour', p23d:'23h jeûne · 1 repas',
+    p52n:'5:2 — Semaine', p52d:'5j normal · 2j jeûne (Mar+Jeu)',
+    padfn:'ADF — Jour alterné', padfd:'Jeûne un jour sur deux' }
+};
+
+var PRESETS = [
+  {id:'14:10',start:'20:00',end:'10:00',color:'#4CAF50'},
+  {id:'16:8',start:'20:00',end:'12:00',color:'#2196F3'},
+  {id:'18:6',start:'20:00',end:'14:00',color:'#9C27B0'},
+  {id:'20:4',start:'20:00',end:'16:00',color:'#FF9800'},
+  {id:'23:1',start:'19:00',end:'18:00',color:'#F44336'},
+  {id:'5:2-week',start:'20:00',end:'12:00',color:'#607D8B',activeDays:[2,4]},
+  {id:'adf',start:'20:00',end:'12:00',color:'#795548'}
+];
+
+function t(k){var d=T[cfg.lang]||T.en;return d[k]||(T.en[k]||k)}
+function pn(id){var m={'14:10':'p14n','16:8':'p16n','18:6':'p18n','20:4':'p20n','23:1':'p23n','5:2-week':'p52n','adf':'padfn'};return t(m[id]||'custom')}
+function pd(id){var m={'14:10':'p14d','16:8':'p16d','18:6':'p18d','20:4':'p20d','23:1':'p23d','5:2-week':'p52d','adf':'padfd'};return t(m[id]||'customDesc')}
+
+// ── Config ──────────────────────────────────────────────────
+var cfg = {presetId:'16:8',schedule:{fastStart:'20:00',fastEnd:'12:00'},displayMode:'text',lang:'en'};
+try{var raw=localStorage.getItem('even-fasting-config');if(raw){var p=JSON.parse(raw);cfg.presetId=p.presetId||cfg.presetId;cfg.schedule=p.schedule||cfg.schedule;cfg.displayMode=p.displayMode||cfg.displayMode;cfg.lang=p.lang||cfg.lang}}catch(e){}
+
+function save(){localStorage.setItem('even-fasting-config',JSON.stringify(cfg))}
+
+// ── Render ──────────────────────────────────────────────────
+function render(){
+  document.title=t('title');
+  document.getElementById('pageTitle').textContent=t('title');
+  document.getElementById('labelLang').textContent=t('lang');
+  document.getElementById('labelType').textContent=t('type');
+  document.getElementById('labelSchedule').textContent=t('schedule');
+  document.getElementById('labelStart').textContent=t('start');
+  document.getElementById('labelEnd').textContent=t('end');
+  document.getElementById('labelDisplay').textContent=t('display');
+  document.getElementById('labelTextMode').textContent=t('text');
+  document.getElementById('labelTextDesc').textContent=t('textDesc');
+  document.getElementById('labelTimelineMode').textContent=t('timeline');
+  document.getElementById('labelTimelineDesc').textContent=t('timelineDesc');
+  document.getElementById('btnCancel').textContent=t('cancel');
+  document.getElementById('btnSave').textContent=t('save');
+
+  // Language toggle
+  var lbs=document.querySelectorAll('#langToggle button');
+  lbs.forEach(function(b){b.classList.toggle('active',b.dataset.lang===cfg.lang)});
+
+  // Preset grid
+  var grid=document.getElementById('presetGrid');grid.innerHTML='';
+  PRESETS.forEach(function(p){
+    var c=document.createElement('div');c.className='preset-card';
+    if(cfg.presetId===p.id)c.classList.add('active');
+    if(cfg.presetId===p.id)c.style.borderColor=p.color;
+
+    var d=document.createElement('div');d.className='dot';d.style.background=p.color;
+    var i=document.createElement('div');i.className='info';
+    var n=document.createElement('span');n.className='name';n.textContent=pn(p.id);
+    var ds=document.createElement('span');ds.className='desc';ds.textContent=pd(p.id);
+    i.appendChild(n);i.appendChild(ds);c.appendChild(d);c.appendChild(i);
+    c.onclick=function(){selectPreset(p.id)};grid.appendChild(c);
+  });
+  // Custom
+  var cc=document.createElement('div');cc.className='preset-card';
+  if(cfg.presetId==='custom')cc.classList.add('active');
+  var cd=document.createElement('div');cd.className='dot custom';
+  var ci=document.createElement('div');ci.className='info';
+  var cn=document.createElement('span');cn.className='name';cn.textContent=t('custom');
+  var cds=document.createElement('span');cds.className='desc';cds.textContent=t('customDesc');
+  ci.appendChild(cn);ci.appendChild(cds);cc.appendChild(cd);cc.appendChild(ci);
+  cc.onclick=function(){selectPreset('custom')};grid.appendChild(cc);
+
+  // Time inputs
+  document.getElementById('fastStart').value=cfg.schedule.fastStart;
+  document.getElementById('fastEnd').value=cfg.schedule.fastEnd;
+
+  // Mode selector
+  var mbs=document.querySelectorAll('#modeSelector button');
+  mbs.forEach(function(b){b.classList.toggle('active',b.dataset.mode===cfg.displayMode)});
+}
+
+function selectPreset(id){
+  cfg.presetId=id;
+  if(id!=='custom'){
+    var p=PRESETS.find(function(x){return x.id===id});
+    if(p){cfg.schedule.fastStart=p.start;cfg.schedule.fastEnd=p.end}
+  }
+  render();
+}
+
+// ── Events ──────────────────────────────────────────────────
+document.getElementById('langToggle').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  cfg.lang=b.dataset.lang;document.documentElement.lang=cfg.lang;render()
+});
+
+document.getElementById('fastStart').addEventListener('input',function(){
+  cfg.schedule.fastStart=this.value;cfg.presetId='custom';render()
+});
+document.getElementById('fastEnd').addEventListener('input',function(){
+  cfg.schedule.fastEnd=this.value;cfg.presetId='custom';render()
+});
+
+document.getElementById('modeSelector').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  cfg.displayMode=b.dataset.mode;render()
+});
+
+document.getElementById('btnSave').addEventListener('click',function(){
+  cfg.schedule.fastStart=document.getElementById('fastStart').value;
+  cfg.schedule.fastEnd=document.getElementById('fastEnd').value;
+  save();
+  var toast=document.getElementById('toast');toast.textContent=t('saved');toast.classList.add('show');
+  setTimeout(function(){toast.classList.remove('show')},1500)
+});
+
+document.getElementById('btnCancel').addEventListener('click',function(){
+  try{var raw=localStorage.getItem('even-fasting-config');if(raw){var p=JSON.parse(raw);cfg.presetId=p.presetId||cfg.presetId;cfg.schedule=p.schedule||cfg.schedule;cfg.displayMode=p.displayMode||cfg.displayMode;cfg.lang=p.lang||cfg.lang}}catch(e){}
+  render()
+});
+
+render();
+})();
+</script>
 </body>
 </html>

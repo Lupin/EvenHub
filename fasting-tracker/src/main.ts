@@ -1,5 +1,6 @@
 import { waitForEvenAppBridge } from '@evenrealities/even_hub_sdk'
 import { renderCurrentMode } from './display'
+import { setupInputHandlers } from './input'
 import { loadConfig } from './storage'
 import { getPreset, isFastingDay } from './config'
 
@@ -17,6 +18,9 @@ async function main() {
 
     // Initial render
     await renderCurrentMode(bridge)
+
+    // Setup touchpad event handling (swipe to toggle modes)
+    setupInputHandlers(bridge)
 
     // Periodic refresh every 30 seconds
     setInterval(async () => {
