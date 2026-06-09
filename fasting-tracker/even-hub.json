@@ -1,0 +1,10 @@
+{
+  "name": "Fasting Tracker",
+  "version": "1.0.0",
+  "description": "Intermittent fasting tracker for Even G2 — discreet text and timeline display modes with 7 fasting presets",
+  "author": "Gael",
+  "entry": "index.html",
+  "permissions": ["storage"],
+  "type": "plugin",
+  "settings": "src/phone-config/settings.html"
+}
