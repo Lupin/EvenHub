@@ -6,7 +6,7 @@
   "author": "Gael",
   "edition": "202601",
   "min_app_version": "2.0.0",
-  "min_sdk_version": "1.0.0",
+  "min_sdk_version": "0.0.10",
   "entrypoint": "index.html",
   "permissions": [
     { "name": "network", "desc": "Load config from localStorage, no external network needed" }
