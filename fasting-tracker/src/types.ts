@@ -19,6 +19,8 @@ export interface FastingPreset {
   fastStart: string
   fastEnd: string
   activeDays?: number[]
+  /** If true, fasts full 24h days (entire day = fasting zone on fasting days) */
+  fullDay?: boolean
   color: string
 }
 
