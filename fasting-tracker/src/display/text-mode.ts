@@ -51,29 +51,22 @@ export function buildTextPage(config: FastingConfig) {
   const statusLine = isRestDay ? 'REST DAY' : (isFasting ? 'FASTING' : 'EATING')
   const timeLabel = isRestDay ? '' : (isFasting ? `${formatTime(remainingSec)} left` : `${formatTime(remainingSec)} in`)
 
-  // Inline blink: alternates ● (full) and ○ (hollow) directly in the time text
   const blink = (Math.floor(Date.now() / 800) % 2 === 0) ? '\u25CF' : '\u25CB'
 
-  // Top-left: preset name
-  const presetText = new TextContainerProperty({
-    xPosition: 6, yPosition: 6, width: 300, height: 32,
+  // Full-width top bar: preset name left, blink + time right — as one container
+  const topBar = new TextContainerProperty({
+    xPosition: 0, yPosition: 0, width: 576, height: 32,
     containerID: 1, isEventCapture: 1,
-    content: presetName, borderWidth: 0, paddingLength: 4,
+    content: `${presetName}${' '.repeat(18)}${blink} ${timeLabel}`,
+    borderWidth: 0, paddingLength: 4,
   })
 
-  // Top-right: blink + time label
-  const timeText = new TextContainerProperty({
-    xPosition: 310, yPosition: 6, width: 260, height: 32,
-    containerID: 2, borderWidth: 0, paddingLength: 4,
-    content: `${blink} ${timeLabel}`,
-  })
-
-  // Bottom-center: status
+  // Bottom: status centered
   const statusText = new TextContainerProperty({
-    xPosition: 4, yPosition: 254, width: 568, height: 28,
-    containerID: 3, borderWidth: 0, paddingLength: 4,
+    xPosition: 0, yPosition: 254, width: 576, height: 28,
+    containerID: 2, borderWidth: 0, paddingLength: 4,
     content: statusLine,
   })
 
-  return { presetText, timeText, statusText, isFasting }
+  return { topBar, statusText, isFasting }
 }

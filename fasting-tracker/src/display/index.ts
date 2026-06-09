@@ -4,13 +4,12 @@ import { loadConfig, saveConfig } from '../storage'
 import { buildTextPage } from './text-mode'
 import { buildTimelinePage } from './timeline-mode'
 
-/** First render: createStartUpPageContainer */
 export async function renderCurrentMode(bridge: EvenAppBridge) {
   const config = loadConfig()
   if (config.displayMode === 'text') {
-    const { presetText, timeText, statusText } = buildTextPage(config)
+    const { topBar, statusText } = buildTextPage(config)
     return bridge.createStartUpPageContainer(
-      new CreateStartUpPageContainer({ containerTotalNum: 3, textObject: [presetText, timeText, statusText] })
+      new CreateStartUpPageContainer({ containerTotalNum: 2, textObject: [topBar, statusText] })
     )
   } else {
     const { singleLine } = buildTimelinePage(config)
@@ -20,13 +19,12 @@ export async function renderCurrentMode(bridge: EvenAppBridge) {
   }
 }
 
-/** Subsequent updates: rebuildPageContainer (no page reload needed) */
 export async function rebuildCurrentMode(bridge: EvenAppBridge) {
   const config = loadConfig()
   if (config.displayMode === 'text') {
-    const { presetText, timeText, statusText } = buildTextPage(config)
+    const { topBar, statusText } = buildTextPage(config)
     return bridge.rebuildPageContainer(
-      new RebuildPageContainer({ containerTotalNum: 3, textObject: [presetText, timeText, statusText] })
+      new RebuildPageContainer({ containerTotalNum: 2, textObject: [topBar, statusText] })
     )
   } else {
     const { singleLine } = buildTimelinePage(config)
