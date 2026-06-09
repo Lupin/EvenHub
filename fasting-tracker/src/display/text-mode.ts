@@ -33,29 +33,22 @@ export function buildTextPage(config: FastingConfig) {
   const time = rest ? '' : (isFasting ? `${fmt(remaining)} left` : `${fmt(remaining)} in`)
   const blink = (Math.floor(Date.now()/800)%2===0) ? '\u25CF' : '\u25CB'
 
-  // Build content: single string with explicit spacing
-  // Canvas: 576×288 at roughly 8-9px per char ≈ 64-72 chars wide
-  const w = 64 // chars per line
-  const rightPart = time || ''
-  const spaces = w - name.length - rightPart.length
-  const topLine = name + (spaces > 0 ? ' '.repeat(spaces) : ' ') + rightPart
-  const statusPad = Math.floor((w - status.length) / 2)
-  const content = topLine + '\n\n\n\n\n\n\n\n\n\n\n\n' + ' '.repeat(statusPad) + status
+  // Overlap containers to eliminate seams; extend right edge off-canvas
+  const OVER = 576
 
-  const c = new TextContainerProperty({
-    xPosition: 0,
-    yPosition: 0,
-    width: 576,
-    height: 288,
-    containerID: 1,
-    containerName: 'main',
-    content,
-    borderWidth: 0,
-    borderColor: 0,
-    borderRadius: 0,
-    paddingLength: 0,
-    isEventCapture: 1,
+  const topBar = new TextContainerProperty({
+    xPosition: 0, yPosition: 0, width: OVER, height: 32,
+    containerID: 1, isEventCapture: 1,
+    content: `${name}                      ${blink} ${time}`,
+    borderWidth: 0, borderColor: 0, borderRadius: 0, paddingLength: 4,
   })
 
-  return { page: c, isFasting }
+  const bottomBar = new TextContainerProperty({
+    xPosition: 0, yPosition: 250, width: OVER, height: 38,
+    containerID: 2, isEventCapture: 0,
+    content: `                     ${status}`,
+    borderWidth: 0, borderColor: 0, borderRadius: 0, paddingLength: 4,
+  })
+
+  return { topBar, bottomBar, isFasting }
 }
