@@ -52,14 +52,14 @@
   <h2 id="pageTitle">Fasting Tracker</h2>
 
   <h3 id="langLabel">Language</h3>
-  <div class="lang-row" id="langToggle">
-    <button data-lang="en" class="active">English</button>
-    <button data-lang="fr">Français</button>
-  </div>
+  <select id="langSelect" style="width:100%;padding:10px 12px;font-size:15px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--tc1)">
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+  </select>
 
-  <div class="lang-row" id="timeToggle">
-    <button data-time="24h" class="active">24h</button>
-    <button data-time="12h">AM/PM</button>
+  <div style="display:flex;align-items:center;gap:10px;margin:12px 0">
+    <span style="font-size:13px;color:var(--tc2)">Time format</span>
+    <button id="timeToggle" style="padding:8px 16px;font-size:13px;font-weight:600;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--tc1);cursor:pointer">24h</button>
   </div>
 
   <h3 id="typeLabel">Fasting Type</h3>
@@ -151,6 +151,7 @@ function render(){
   document.title=t('title');
   var ids={'pageTitle':'title','langLabel':'lang','typeLabel':'type','schedLabel':'schedule','startLabel':'start','endLabel':'end','displayLabel':'display','textLabel':'text','textSub':'textDesc','tlLabel':'timeline','tlSub':'timelineDesc','btnCancel':'cancel','btnSave':'save'};
   for(var k in ids){var el=document.getElementById(k);if(el)el.textContent=t(ids[k])}
+  document.getElementById('langSelect').value = cfg.lang;
   var lbs=document.querySelectorAll('#langToggle button');
   lbs.forEach(function(b){b.classList.toggle('active',b.dataset.lang===cfg.lang)});
   // Time format toggle
@@ -175,8 +176,8 @@ function sel(id){
   if(id!=='custom'){var p=PRESETS.find(function(x){return x.id===id});if(p){cfg.schedule.fastStart=p.start;cfg.schedule.fastEnd=p.end}}
   render();
 }
-document.getElementById('langToggle').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cfg.lang=b.dataset.lang;document.documentElement.lang=cfg.lang;render()});
-document.getElementById('timeToggle').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cfg.timeFormat=b.dataset.time;render()});
+document.getElementById('langSelect').addEventListener('change',function(){cfg.lang=this.value;document.documentElement.lang=cfg.lang;render()});
+document.getElementById('timeToggle').addEventListener('click',function(){cfg.timeFormat=cfg.timeFormat==='24h'?'12h':'24h';this.textContent=cfg.timeFormat==='24h'?'24h':'AM/PM';render()});
 document.getElementById('fastStart').addEventListener('input',function(){
   var newStart = this.value;
   var oldStart = cfg.schedule.fastStart;
