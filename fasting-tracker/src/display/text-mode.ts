@@ -52,12 +52,22 @@ export function buildTextPage(config: FastingConfig) {
   const timeLabel = isRestDay ? '' : (isFasting ? `${formatTime(remainingSec)} left` : `${formatTime(remainingSec)} in`)
   const blink = (Math.floor(Date.now() / 800) % 2 === 0) ? '\u25CF' : '\u25CB'
 
-  // Single container for everything — no seams possible
+  // Right-align time: pad with spaces between preset name and time
+  const lineLen = 48  // approximate chars per line
+  const leftPart = presetName
+  const rightPart = timeLabel ? `${blink} ${timeLabel}` : ''
+  const gap = Math.max(1, lineLen - leftPart.length - rightPart.length)
+  const topLine = leftPart + ' '.repeat(gap) + rightPart
+
+  // Bottom line: centered status
+  const statusPad = Math.floor((lineLen - statusLine.length) / 2)
+  const bottomLine = '\n\n\n\n\n\n\n\n\n\n\n\n' + ' '.repeat(statusPad) + statusLine
+
   const page = new TextContainerProperty({
     xPosition: 0, yPosition: 0, width: 576, height: 288,
     containerID: 1, isEventCapture: 1,
-    content: `${presetName}           ${blink} ${timeLabel}\n\n\n\n\n\n\n\n\n\n\n\n\n                     ${statusLine}`,
-    borderWidth: 0, paddingLength: 4,
+    content: topLine + bottomLine,
+    borderWidth: 0, paddingLength: 0,
   })
 
   return { page, isFasting }
