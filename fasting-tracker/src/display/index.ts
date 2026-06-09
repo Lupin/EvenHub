@@ -12,9 +12,9 @@ export async function renderCurrentMode(bridge: EvenAppBridge) {
       new CreateStartUpPageContainer({ containerTotalNum: 2, textObject: [topBar, bottomBar] })
     )
   } else {
-    const { singleLine } = buildTimelinePage(config)
+    const { barLine, statusLine } = buildTimelinePage(config)
     return bridge.createStartUpPageContainer(
-      new CreateStartUpPageContainer({ containerTotalNum: 1, textObject: [singleLine] })
+      new CreateStartUpPageContainer({ containerTotalNum: 2, textObject: [barLine, statusLine] })
     )
   }
 }
@@ -27,9 +27,9 @@ export async function rebuildCurrentMode(bridge: EvenAppBridge) {
       new RebuildPageContainer({ containerTotalNum: 2, textObject: [topBar, bottomBar] })
     )
   } else {
-    const { singleLine } = buildTimelinePage(config)
+    const { barLine, statusLine } = buildTimelinePage(config)
     return bridge.rebuildPageContainer(
-      new RebuildPageContainer({ containerTotalNum: 1, textObject: [singleLine] })
+      new RebuildPageContainer({ containerTotalNum: 2, textObject: [barLine, statusLine] })
     )
   }
 }
