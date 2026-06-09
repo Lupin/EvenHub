@@ -44,21 +44,21 @@ export function buildTimelinePage(config: FastingConfig) {
 
   // Single bar container in the center
   const barContainer = new TextContainerProperty({
-    xPosition: 4, yPosition: 132,
-    width: 568, height: 24,
+    xPosition: 4, yPosition: 128,
+    width: 568, height: 28,
     containerID: 1, containerName: 'bar',
     content: bar,
-    borderWidth: 0, paddingLength: 2,
+    borderWidth: 0, paddingLength: 4,
     isEventCapture: 1,
   })
 
   // Labels above: start time left, end time + clock right
   const labels = new TextContainerProperty({
-    xPosition: 4, yPosition: 108,
-    width: 568, height: 20,
+    xPosition: 4, yPosition: 104,
+    width: 568, height: 28,
     containerID: 2, containerName: 'labels',
     content: `${startTime}${' '.repeat(barChars - 10)}${config.schedule.fastEnd} ${timeStr}`,
-    borderWidth: 0, paddingLength: 1,
+    borderWidth: 0, paddingLength: 4,
     isEventCapture: 0,
   })
 
@@ -68,10 +68,10 @@ export function buildTimelinePage(config: FastingConfig) {
     : (isFasting ? 'FASTING' : 'EATING')
   const statusContainer = new TextContainerProperty({
     xPosition: 4, yPosition: 160,
-    width: 568, height: 20,
+    width: 568, height: 28,
     containerID: 3, containerName: 'status',
     content: statusLine,
-    borderWidth: 0, paddingLength: 2,
+    borderWidth: 0, paddingLength: 4,
     isEventCapture: 0,
   })
 

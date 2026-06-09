@@ -17,17 +17,14 @@ export function buildTextPage(config: FastingConfig) {
   if (preset?.fullDay) {
     const isFastDay = isFastingDay(preset)
     if (isFastDay) {
-      // Full-day fast: entire day is fasting
       isFasting = true
       const now = new Date()
       remainingSec = 86400 - (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds())
     } else {
-      // Rest day
       isFasting = false
       remainingSec = 0
     }
   } else {
-    // Hourly window mode
     const { isFasting: f, fastStartMs, fastEndMs, nowMs } = getCurrentFastingState(config.schedule)
     isFasting = f
 
@@ -53,21 +50,24 @@ export function buildTextPage(config: FastingConfig) {
   const isRestDay = preset?.fullDay && !isFastingDay(preset!)
   const statusLine = isRestDay ? 'REST DAY' : (isFasting ? 'FASTING' : 'EATING')
 
+  // Top-left: preset name — taller container to avoid cropping descenders (g,p,y,j)
   const presetText = new TextContainerProperty({
-    xPosition: 4, yPosition: 4, width: 300, height: 24,
+    xPosition: 6, yPosition: 6, width: 300, height: 32,
     containerID: 1, isEventCapture: 1,
-    content: presetName, borderWidth: 0, paddingLength: 2,
+    content: presetName, borderWidth: 0, paddingLength: 4,
   })
 
+  // Top-right: time remaining
   const timeText = new TextContainerProperty({
-    xPosition: 372, yPosition: 4, width: 200, height: 24,
-    containerID: 2, borderWidth: 0, paddingLength: 2,
+    xPosition: 370, yPosition: 6, width: 200, height: 32,
+    containerID: 2, borderWidth: 0, paddingLength: 4,
     content: isRestDay ? '' : formatTime(remainingSec),
   })
 
+  // Bottom-center: status — moved up from 268 to 254
   const statusText = new TextContainerProperty({
-    xPosition: 4, yPosition: 268, width: 568, height: 20,
-    containerID: 3, borderWidth: 0, paddingLength: 2,
+    xPosition: 4, yPosition: 254, width: 568, height: 28,
+    containerID: 3, borderWidth: 0, paddingLength: 4,
     content: statusLine,
   })
 
