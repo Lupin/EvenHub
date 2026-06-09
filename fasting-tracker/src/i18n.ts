@@ -19,7 +19,7 @@ export interface Translations {
 export const translations: Record<Language, Translations> = {
   en: {
     appTitle: 'Fasting Tracker', fastingType: 'Fasting Type',
-    schedule: 'Schedule', fastStart: 'Fast start', fastEnd: 'Fast end',
+    schedule: 'Schedule', fastStart: 'Fasting starts at', fastEnd: 'Fasting ends at',
     displayMode: 'Display Mode', textMode: 'Text (corners)',
     textModeDesc: 'Discreet, upper corners', timelineMode: 'Timeline (bar)',
     timelineModeDesc: 'Day progress bar', custom: 'Custom',

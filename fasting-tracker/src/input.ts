@@ -18,8 +18,7 @@ export function setupInputHandlers(bridge: EvenAppBridge): () => void {
         : OsEventTypeList.fromJson(evt.eventType)
 
     switch (type) {
-      case OsEventTypeList.SCROLL_TOP_EVENT:
-      case OsEventTypeList.SCROLL_BOTTOM_EVENT:
+      case OsEventTypeList.CLICK_EVENT:
         toggleDisplayMode()
         rebuildCurrentMode(bridge)
         break

@@ -61,12 +61,11 @@
   <div class="preset-grid" id="presetGrid"></div>
 
   <h3 id="schedLabel">Schedule</h3>
-  <div class="time-row">
-    <span class="time-label" id="startLabel">Start</span>
-    <input type="time" class="time-input" id="fastStart">
-    <span class="time-sep">→</span>
-    <span class="time-label" id="endLabel">End</span>
-    <input type="time" class="time-input" id="fastEnd">
+  <div id="scheduleSection">
+    <label class="time-label" id="startLabel">Fasting starts at</label>
+    <input type="time" class="time-input" id="fastStart" style="width:100%;margin-bottom:8px">
+    <label class="time-label" id="endLabel">Fasting ends at</label>
+    <input type="time" class="time-input" id="fastEnd" style="width:100%">
   </div>
 
   <h3 id="displayLabel">Display Mode</h3>
@@ -96,7 +95,7 @@
 'use strict';
 var T={en:{
   title:'Fasting Tracker',lang:'Language',type:'Fasting Type',
-  schedule:'Schedule',start:'Start',end:'End',
+  schedule:'Schedule',start:'Fasting starts at',end:'Fasting ends at',
   display:'Display Mode',text:'Text',textDesc:'Corner display',
   timeline:'Timeline',timelineDesc:'Progress bar',
   custom:'Custom',customDesc:'Your own hours',
@@ -111,7 +110,7 @@ var T={en:{
   padfn:'ADF — Alt. Day',padfd:'Fast every other day'},
 fr:{
   title:'Tracker Jeûne',lang:'Langue',type:'Protocole',
-  schedule:'Horaires',start:'Début',end:'Fin',
+  schedule:'Horaires',start:'Début du jeûne',end:'Fin du jeûne',
   display:'Affichage',text:'Texte',textDesc:'Coins discrets',
   timeline:'Barre',timelineDesc:'Ligne progression',
   custom:'Perso',customDesc:'Vos horaires',
@@ -159,6 +158,9 @@ function render(){
   cc.onclick=function(){sel('custom')};g.appendChild(cc);
   document.getElementById('fastStart').value=cfg.schedule.fastStart;
   document.getElementById('fastEnd').value=cfg.schedule.fastEnd;
+  // Show schedule only when Custom is selected
+  document.getElementById('scheduleSection').style.display = cfg.presetId === 'custom' ? 'block' : 'none';
+  document.getElementById('schedLabel').style.display = cfg.presetId === 'custom' ? 'block' : 'none';
   var mbs=document.querySelectorAll('#modeSelector button');
   mbs.forEach(function(b){b.classList.toggle('active',b.dataset.mode===cfg.displayMode)});
 }
