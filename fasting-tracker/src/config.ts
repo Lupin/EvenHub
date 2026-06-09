@@ -44,6 +44,7 @@ export const DEFAULT_CONFIG: FastingConfig = {
   schedule: { fastStart: '20:00', fastEnd: '12:00' },
   displayMode: 'text',
   lang: 'en',
+  timeFormat: '24h',
   bgColor: 0,
   textColor: 12,
 }

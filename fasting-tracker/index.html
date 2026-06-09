@@ -57,6 +57,11 @@
     <button data-lang="fr">Français</button>
   </div>
 
+  <div class="lang-row" id="timeToggle">
+    <button data-time="24h" class="active">24h</button>
+    <button data-time="12h">AM/PM</button>
+  </div>
+
   <h3 id="typeLabel">Fasting Type</h3>
   <div class="preset-grid" id="presetGrid"></div>
 
@@ -134,7 +139,7 @@ var PRESETS=[
   {id:'23:1',start:'19:00',end:'18:00',color:'#F44336'},
   {id:'5:2-week',start:'00:00',end:'00:00',color:'#607D8B'},
   {id:'adf',start:'00:00',end:'00:00',color:'#795548'}];
-var cfg={presetId:'16:8',schedule:{fastStart:'20:00',fastEnd:'12:00'},displayMode:'text',lang:'en'};
+var cfg={presetId:'16:8',schedule:{fastStart:'20:00',fastEnd:'12:00'},displayMode:'text',lang:'en',timeFormat:'24h'};
 try{var r=localStorage.getItem('even-fasting-config');if(r){var p=JSON.parse(r);Object.assign(cfg,p)}}catch(e){}
 function t(k){var d=T[cfg.lang]||T.en;return d[k]||T.en[k]||k}
 function pn(id){var m={'14:10':'p14n','16:8':'p16n','18:6':'p18n','20:4':'p20n','23:1':'p23n','5:2-week':'p52n','adf':'padfn'};return t(m[id]||'custom')}
@@ -148,6 +153,9 @@ function render(){
   for(var k in ids){var el=document.getElementById(k);if(el)el.textContent=t(ids[k])}
   var lbs=document.querySelectorAll('#langToggle button');
   lbs.forEach(function(b){b.classList.toggle('active',b.dataset.lang===cfg.lang)});
+  // Time format toggle
+  var tbs=document.querySelectorAll('#timeToggle button');
+  tbs.forEach(function(b){b.classList.toggle('active',b.dataset.time===cfg.timeFormat)});
   var g=document.getElementById('presetGrid');g.innerHTML='';
   PRESETS.forEach(function(p){
     var c=document.createElement('div');c.className='preset-card';
@@ -168,6 +176,7 @@ function sel(id){
   render();
 }
 document.getElementById('langToggle').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cfg.lang=b.dataset.lang;document.documentElement.lang=cfg.lang;render()});
+document.getElementById('timeToggle').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cfg.timeFormat=b.dataset.time;render()});
 document.getElementById('fastStart').addEventListener('input',function(){
   var newStart = this.value;
   var oldStart = cfg.schedule.fastStart;

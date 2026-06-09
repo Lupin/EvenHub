@@ -34,6 +34,7 @@ export interface FastingConfig {
   schedule: FastingWindow
   displayMode: DisplayMode
   lang: Language
+  timeFormat: '24h' | '12h'
   bgColor: number
   textColor: number
 }
