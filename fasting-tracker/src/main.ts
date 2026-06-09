@@ -22,12 +22,29 @@ async function main() {
     // Setup touchpad event handling (swipe to toggle modes)
     setupInputHandlers(bridge)
 
+    // Expose immediate refresh for phone UI save button
+    window.__fastingRefresh = async () => {
+      await renderCurrentMode(bridge)
+    }
+
+    // Also listen for custom event from phone UI
+    window.addEventListener('fasting-config-changed', async () => {
+      await renderCurrentMode(bridge)
+    })
+
     // Periodic refresh every 30 seconds
     setInterval(async () => {
       await renderCurrentMode(bridge)
     }, 30000)
   } catch (err) {
     console.error('[FastingTracker] Failed to init:', err)
+  }
+}
+
+// Extend Window interface for our global
+declare global {
+  interface Window {
+    __fastingRefresh?: () => Promise<void>
   }
 }
 
