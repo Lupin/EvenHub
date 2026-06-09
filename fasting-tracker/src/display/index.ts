@@ -13,9 +13,9 @@ export async function renderCurrentMode(bridge: EvenAppBridge) {
     )
     return result
   } else {
-    const { cursor, fastingSegment, eatingSegment, leftLabel, rightLabel } = buildTimelinePage(config)
+    const { barContainer, labels, statusContainer } = buildTimelinePage(config)
     const result = await bridge.createStartUpPageContainer(
-      new CreateStartUpPageContainer({ containerTotalNum: 5, textObject: [cursor, fastingSegment, eatingSegment, leftLabel, rightLabel] })
+      new CreateStartUpPageContainer({ containerTotalNum: 3, textObject: [barContainer, labels, statusContainer] })
     )
     return result
   }

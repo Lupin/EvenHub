@@ -2,6 +2,11 @@ import { TextContainerProperty } from '@evenrealities/even_hub_sdk'
 import type { FastingConfig } from '../types'
 import { getCurrentFastingState, getPreset, isFastingDay } from '../config'
 
+/**
+ * Build a Unicode progress bar using ━ (fasting) and ─ (eating) characters.
+ * Even Hub design guidelines recommend Unicode block chars over border tricks.
+ * Canvas: 576×288 px. Bar: fits ~56 chars at readable size.
+ */
 export function buildTimelinePage(config: FastingConfig) {
   const now = new Date()
   const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()
@@ -11,9 +16,7 @@ export function buildTimelinePage(config: FastingConfig) {
   let dayProgress: number
 
   if (preset?.fullDay) {
-    const isFastDay = isFastingDay(preset)
-    isFasting = isFastDay
-    // Full-day: timeline shows full bar as fasting zone on fast days, eating on rest days
+    isFasting = isFastingDay(preset!)
     dayProgress = nowSec / 86400
   } else {
     const state = getCurrentFastingState(config.schedule)
@@ -21,57 +24,56 @@ export function buildTimelinePage(config: FastingConfig) {
     dayProgress = nowSec / 86400
   }
 
-  const barY = 135
-  const barLeft = 8
-  const barRight = 568
-  const barWidth = barRight - barLeft
-  const barHeight = 6
-  const cursorSize = 10
+  const barChars = 52  // number of block chars in bar
+  const cursorPos = Math.round(dayProgress * (barChars - 1))
 
-  const cursorX = barLeft + Math.round(dayProgress * (barWidth - cursorSize))
+  // Build bar string: ━ for fasting zone, ─ for eating zone, ■ for cursor
+  let bar = ''
+  for (let i = 0; i < barChars; i++) {
+    if (i === cursorPos) {
+      bar += '\u25A0' // ■ filled square as cursor
+    } else if (i < cursorPos) {
+      bar += '\u2501' // ━ heavy horizontal (fasting zone)
+    } else {
+      bar += '\u2500' // ─ light horizontal (eating window)
+    }
+  }
 
-  const cursor = new TextContainerProperty({
-    xPosition: cursorX, yPosition: barY - 3,
-    width: cursorSize, height: cursorSize,
-    borderWidth: 2, borderColor: 15, paddingLength: 0,
-    containerID: 1, containerName: 'cursor',
-    content: ' ', isEventCapture: 1,
-  })
-
-  const fastingSegment = new TextContainerProperty({
-    xPosition: barLeft, yPosition: barY,
-    width: Math.round(dayProgress * barWidth), height: barHeight,
-    borderWidth: 1, borderColor: 4, paddingLength: 0,
-    containerID: 2, containerName: 'fastingBar',
-    content: ' ', isEventCapture: 0,
-  })
-
-  const eatingSegment = new TextContainerProperty({
-    xPosition: barLeft + Math.round(dayProgress * barWidth),
-    yPosition: barY,
-    width: barWidth - Math.round(dayProgress * barWidth),
-    height: barHeight,
-    borderWidth: 1, borderColor: 10, paddingLength: 0,
-    containerID: 3, containerName: 'eatingBar',
-    content: ' ', isEventCapture: 0,
-  })
-
-  const leftLabel = new TextContainerProperty({
-    xPosition: 8, yPosition: barY + 10, width: 60, height: 16,
-    borderWidth: 0, paddingLength: 1,
-    containerID: 4, containerName: 'startTime',
-    content: config.schedule.fastStart === '00:00' ? '00:00' : config.schedule.fastStart,
-    isEventCapture: 0,
-  })
-
+  const startTime = config.schedule.fastStart
   const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
-  const rightLabel = new TextContainerProperty({
-    xPosition: 490, yPosition: barY + 10, width: 86, height: 16,
+
+  // Single bar container in the center
+  const barContainer = new TextContainerProperty({
+    xPosition: 4, yPosition: 132,
+    width: 568, height: 24,
+    containerID: 1, containerName: 'bar',
+    content: bar,
+    borderWidth: 0, paddingLength: 2,
+    isEventCapture: 1,
+  })
+
+  // Labels above: start time left, end time + clock right
+  const labels = new TextContainerProperty({
+    xPosition: 4, yPosition: 108,
+    width: 568, height: 20,
+    containerID: 2, containerName: 'labels',
+    content: `${startTime}${' '.repeat(barChars - 10)}${config.schedule.fastEnd} ${timeStr}`,
     borderWidth: 0, paddingLength: 1,
-    containerID: 5, containerName: 'endTime',
-    content: `${config.schedule.fastEnd} ${timeStr}`,
     isEventCapture: 0,
   })
 
-  return { cursor, fastingSegment, eatingSegment, leftLabel, rightLabel, isFasting }
+  // Status below
+  const statusLine = preset?.fullDay && !isFastingDay(preset!)
+    ? 'REST DAY'
+    : (isFasting ? 'FASTING' : 'EATING')
+  const statusContainer = new TextContainerProperty({
+    xPosition: 4, yPosition: 160,
+    width: 568, height: 20,
+    containerID: 3, containerName: 'status',
+    content: statusLine,
+    borderWidth: 0, paddingLength: 2,
+    isEventCapture: 0,
+  })
+
+  return { barContainer, labels, statusContainer, isFasting }
 }

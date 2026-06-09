@@ -14,19 +14,19 @@ export const FASTING_PRESETS: FastingPreset[] = [
     fastStart: '20:00', fastEnd: '14:00', color: '#9C27B0',
   },
   {
-    id: '20:4', name: '20:4 — Warrior Diet', desc: '20h fast · 4h eating',
+    id: '20:4', name: '20:4 — Warrior', desc: '20h fast · 4h eating',
     fastStart: '20:00', fastEnd: '16:00', color: '#FF9800',
   },
   {
-    id: '23:1', name: 'OMAD — One Meal A Day', desc: '23h fast · 1 meal',
+    id: '23:1', name: 'OMAD — One Meal', desc: '23h fast · 1 meal',
     fastStart: '19:00', fastEnd: '18:00', color: '#F44336',
   },
   {
-    id: '5:2-week', name: '5:2 — Weekday', desc: '5d normal · 2d fast (Tue+Thu)',
+    id: '5:2-week', name: '5:2 — Weekday', desc: '5d eat · 2d fast',
     fastStart: '00:00', fastEnd: '24:00', activeDays: [2, 4], fullDay: true, color: '#607D8B',
   },
   {
-    id: 'adf', name: 'ADF — Alternate Day', desc: 'Fast every other day',
+    id: 'adf', name: 'ADF — Alt. Day', desc: 'Fast every other day',
     fastStart: '00:00', fastEnd: '24:00', activeDays: undefined, fullDay: true, color: '#795548',
   },
 ]
