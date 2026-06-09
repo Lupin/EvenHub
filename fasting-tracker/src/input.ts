@@ -1,7 +1,7 @@
 /**
  * input.ts — Touchpad event handling for Even G2 glasses.
- * Listens for swipe up/down via EvenAppBridge.onEvenHubEvent()
- * to toggle between text mode and timeline mode.
+ * Only DOUBLE_CLICK reliably reaches custom event handlers.
+ * CLICK and SCROLL events are consumed by the SDK internally.
  */
 import type { EvenAppBridge } from '@evenrealities/even_hub_sdk'
 import { OsEventTypeList } from '@evenrealities/even_hub_sdk'
@@ -17,16 +17,9 @@ export function setupInputHandlers(bridge: EvenAppBridge): () => void {
         ? evt.eventType
         : OsEventTypeList.fromJson(evt.eventType)
 
-    console.log('[FastingTracker] Event:', type, OsEventTypeList[type ?? -1])
-
-    switch (type) {
-      case OsEventTypeList.CLICK_EVENT:
-      case OsEventTypeList.DOUBLE_CLICK_EVENT:
-      case OsEventTypeList.SCROLL_TOP_EVENT:
-      case OsEventTypeList.SCROLL_BOTTOM_EVENT:
-        toggleDisplayMode()
-        rebuildCurrentMode(bridge)
-        break
+    if (type === OsEventTypeList.DOUBLE_CLICK_EVENT) {
+      toggleDisplayMode()
+      rebuildCurrentMode(bridge)
     }
   })
 
