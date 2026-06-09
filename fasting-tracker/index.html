@@ -168,7 +168,28 @@ function sel(id){
   render();
 }
 document.getElementById('langToggle').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cfg.lang=b.dataset.lang;document.documentElement.lang=cfg.lang;render()});
-document.getElementById('fastStart').addEventListener('input',function(){cfg.schedule.fastStart=this.value;cfg.presetId='custom';render()});
+document.getElementById('fastStart').addEventListener('input',function(){
+  var newStart = this.value;
+  var oldStart = cfg.schedule.fastStart;
+  cfg.schedule.fastStart = newStart;
+  if (cfg.presetId !== 'custom') {
+    // Auto-shift fastEnd to keep same fasting duration
+    var oldH = parseInt(oldStart.split(':')[0]), oldM = parseInt(oldStart.split(':')[1]);
+    var oldStartMin = oldH * 60 + oldM;
+    var endH = parseInt(cfg.schedule.fastEnd.split(':')[0]), endM = parseInt(cfg.schedule.fastEnd.split(':')[1]);
+    var oldEndMin = endH * 60 + endM;
+    // Duration: if end < start (overnight), add 24h
+    var duration = oldEndMin <= oldStartMin ? oldEndMin + 1440 - oldStartMin : oldEndMin - oldStartMin;
+    // New end = new start + duration
+    var newH = parseInt(newStart.split(':')[0]), newM = parseInt(newStart.split(':')[1]);
+    var newStartMin = newH * 60 + newM;
+    var newEndMin = (newStartMin + duration) % 1440;
+    var eh = Math.floor(newEndMin / 60), em = newEndMin % 60;
+    cfg.schedule.fastEnd = String(eh).padStart(2,'0') + ':' + String(em).padStart(2,'0');
+  }
+  cfg.presetId = 'custom';
+  render();
+});
 document.getElementById('fastEnd').addEventListener('input',function(){cfg.schedule.fastEnd=this.value;cfg.presetId='custom';render()});
 document.getElementById('modeSelector').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cfg.displayMode=b.dataset.mode;render()});
 document.getElementById('btnSave').addEventListener('click',function(){cfg.schedule.fastStart=document.getElementById('fastStart').value;cfg.schedule.fastEnd=document.getElementById('fastEnd').value;save();var toast=document.getElementById('toast');toast.textContent=t('saved');toast.classList.add('show');setTimeout(function(){toast.classList.remove('show')},1500);

@@ -50,21 +50,27 @@ export function buildTextPage(config: FastingConfig) {
   const isRestDay = preset?.fullDay && !isFastingDay(preset!)
   const statusLine = isRestDay ? 'REST DAY' : (isFasting ? 'FASTING' : 'EATING')
 
-  // Top-left: preset name — taller container to avoid cropping descenders (g,p,y,j)
+  // Time label: "3h left" (fasting → countdown to eating) or "5h in" (eating → countdown to next fast)
+  const timeLabel = isRestDay ? '' : (isFasting ? `${formatTime(remainingSec)} left` : `${formatTime(remainingSec)} in`)
+
+  // Blinking dot: alternates between filled and hollow
+  const blink = (Math.floor(Date.now() / 800) % 2 === 0) ? '\u25CF' : '\u25CB'
+
+  // Top-left: preset name
   const presetText = new TextContainerProperty({
-    xPosition: 6, yPosition: 6, width: 300, height: 32,
+    xPosition: 6, yPosition: 6, width: 280, height: 32,
     containerID: 1, isEventCapture: 1,
     content: presetName, borderWidth: 0, paddingLength: 4,
   })
 
-  // Top-right: time remaining
+  // Top-right: blink dot + time label
   const timeText = new TextContainerProperty({
-    xPosition: 370, yPosition: 6, width: 200, height: 32,
+    xPosition: 290, yPosition: 6, width: 280, height: 32,
     containerID: 2, borderWidth: 0, paddingLength: 4,
-    content: isRestDay ? '' : formatTime(remainingSec),
+    content: `${blink} ${timeLabel}`,
   })
 
-  // Bottom-center: status — moved up from 268 to 254
+  // Bottom-center: status
   const statusText = new TextContainerProperty({
     xPosition: 4, yPosition: 254, width: 568, height: 28,
     containerID: 3, borderWidth: 0, paddingLength: 4,

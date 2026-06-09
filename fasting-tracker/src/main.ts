@@ -27,10 +27,17 @@ async function main() {
       await rebuildCurrentMode(bridge)
     }
 
-    // Periodic refresh every 30 seconds
+    // Periodic refresh every 30 seconds for time updates
     setInterval(async () => {
       await rebuildCurrentMode(bridge)
     }, 30000)
+
+    // Fast refresh every 800ms for blinking indicator
+    let blinkFrame = false
+    setInterval(async () => {
+      blinkFrame = !blinkFrame
+      await rebuildCurrentMode(bridge)
+    }, 800)
   } catch (err) {
     console.error('[FastingTracker] Failed to init:', err)
   }
