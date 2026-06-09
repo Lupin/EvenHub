@@ -2,73 +2,60 @@ import { TextContainerProperty } from '@evenrealities/even_hub_sdk'
 import type { FastingConfig } from '../types'
 import { getCurrentFastingState, getPreset, isFastingDay } from '../config'
 
-function formatTime(seconds: number): string {
-  const h = Math.floor(seconds / 3600)
-  const m = Math.floor((seconds % 3600) / 60)
-  return `${h}h ${m.toString().padStart(2, '0')}m`
+function fmt(sec: number): string {
+  const h = Math.floor(sec / 3600)
+  const m = Math.floor((sec % 3600) / 60)
+  return `${h}h${m.toString().padStart(2,'0')}m`
 }
 
 export function buildTextPage(config: FastingConfig) {
   const preset = getPreset(config.presetId)
-
-  let isFasting: boolean
-  let remainingSec: number
+  let isFasting = false, remaining = 0
 
   if (preset?.fullDay) {
-    const isFastDay = isFastingDay(preset)
-    if (isFastDay) {
-      isFasting = true
-      const now = new Date()
-      remainingSec = 86400 - (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds())
-    } else {
-      isFasting = false
-      remainingSec = 0
-    }
+    const fd = isFastingDay(preset)
+    if (fd) { isFasting = true; const n = new Date(); remaining = 86400 - (n.getHours()*3600 + n.getMinutes()*60 + n.getSeconds()) }
   } else {
-    const { isFasting: f, fastStartMs, fastEndMs, nowMs } = getCurrentFastingState(config.schedule)
-    isFasting = f
-
+    const s = getCurrentFastingState(config.schedule)
+    isFasting = s.isFasting
     if (isFasting) {
-      if (fastEndMs <= fastStartMs && fastEndMs < nowMs) {
-        remainingSec = (fastEndMs + 86400) - nowMs
-      } else {
-        remainingSec = fastEndMs - nowMs
-      }
+      remaining = s.fastEndMs <= s.fastStartMs && s.fastEndMs < s.nowMs ? (s.fastEndMs+86400)-s.nowMs : s.fastEndMs-s.nowMs
     } else {
-      const fastStartSec = config.schedule?.fastStart
-        ? (() => { const [h,m] = config.schedule.fastStart.split(':').map(Number); return h*3600+m*60 })()
-        : 0
-      if (fastStartSec < nowMs) {
-        remainingSec = (fastStartSec + 86400) - nowMs
-      } else {
-        remainingSec = fastStartSec - nowMs
-      }
+      const [h,m] = config.schedule.fastStart.split(':').map(Number)
+      const startSec = h*3600+m*60
+      remaining = startSec < s.nowMs ? (startSec+86400)-s.nowMs : startSec-s.nowMs
     }
   }
 
-  const presetName = preset?.name ?? config.presetId
-  const isRestDay = preset?.fullDay && !isFastingDay(preset!)
-  const statusLine = isRestDay ? 'REST DAY' : (isFasting ? 'FASTING' : 'EATING')
-  const timeLabel = isRestDay ? '' : (isFasting ? `${formatTime(remainingSec)} left` : `${formatTime(remainingSec)} in`)
-  const blink = (Math.floor(Date.now() / 800) % 2 === 0) ? '\u25CF' : '\u25CB'
+  const name = preset?.name ?? config.presetId
+  const rest = preset?.fullDay && !isFastingDay(preset!)
+  const status = rest ? 'REST DAY' : (isFasting ? 'FASTING' : 'EATING')
+  const time = rest ? '' : (isFasting ? `${fmt(remaining)} left` : `${fmt(remaining)} in`)
+  const blink = (Math.floor(Date.now()/800)%2===0) ? '\u25CF' : '\u25CB'
 
-  // Right-align time: pad with spaces between preset name and time
-  const lineLen = 48  // approximate chars per line
-  const leftPart = presetName
-  const rightPart = timeLabel ? `${blink} ${timeLabel}` : ''
-  const gap = Math.max(1, lineLen - leftPart.length - rightPart.length)
-  const topLine = leftPart + ' '.repeat(gap) + rightPart
+  // Build content: single string with explicit spacing
+  // Canvas: 576×288 at roughly 8-9px per char ≈ 64-72 chars wide
+  const w = 64 // chars per line
+  const rightPart = time ? `${blink} ${time}` : ''
+  const spaces = w - name.length - rightPart.length
+  const topLine = name + (spaces > 0 ? ' '.repeat(spaces) : ' ') + rightPart
+  const statusPad = Math.floor((w - status.length) / 2)
+  const content = topLine + '\n\n\n\n\n\n\n\n\n\n\n\n' + ' '.repeat(statusPad) + status
 
-  // Bottom line: centered status
-  const statusPad = Math.floor((lineLen - statusLine.length) / 2)
-  const bottomLine = '\n\n\n\n\n\n\n\n\n\n\n\n' + ' '.repeat(statusPad) + statusLine
-
-  const page = new TextContainerProperty({
-    xPosition: 0, yPosition: 0, width: 576, height: 288,
-    containerID: 1, isEventCapture: 1,
-    content: topLine + bottomLine,
-    borderWidth: 0, paddingLength: 0,
+  const c = new TextContainerProperty({
+    xPosition: 0,
+    yPosition: 0,
+    width: 576,
+    height: 288,
+    containerID: 1,
+    containerName: 'main',
+    content,
+    borderWidth: 0,
+    borderColor: 0,
+    borderRadius: 0,
+    paddingLength: 0,
+    isEventCapture: 1,
   })
 
-  return { page, isFasting }
+  return { page: c, isFasting }
 }
