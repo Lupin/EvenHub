@@ -21,7 +21,6 @@ export function setupInputHandlers(bridge: EvenAppBridge): () => void {
 
     switch (type) {
       case OsEventTypeList.CLICK_EVENT:
-      case OsEventTypeList.DOUBLE_CLICK_EVENT:
         toggleDisplayMode()
         rebuildCurrentMode(bridge)
         break
