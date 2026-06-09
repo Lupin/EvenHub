@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+*.DS_Store
+fasting-tracker/node_modules/
+fasting-tracker/dist/
+
