@@ -63,10 +63,12 @@
   <h3 id="schedLabel">Schedule</h3>
   <div id="scheduleSection">
     <label class="time-label" id="startLabel">Fasting starts at</label>
-    <input type="time" class="time-input" id="fastStart" style="width:100%;max-width:200px;margin-bottom:8px">
-    <label class="time-label" id="endLabel">Fasting ends at</label>
-    <input type="time" class="time-input" id="fastEnd" style="width:100%;max-width:200px" readonly>
-    <small style="color:var(--tc2);font-size:11px;display:block;margin-top:4px" id="hintLabel">End auto-adjusts to keep same duration</small>
+    <input type="time" class="time-input" id="fastStart" style="width:100%;max-width:160px;display:block;margin-bottom:8px">
+    <div id="endSection">
+      <label class="time-label" id="endLabel">Fasting ends at</label>
+      <input type="time" class="time-input" id="fastEnd" style="width:100%;max-width:160px;display:block" readonly>
+      <small style="color:var(--tc2);font-size:11px;display:block;margin-top:4px" id="hintLabel">Auto-adjusted to keep same duration</small>
+    </div>
   </div>
 
   <h3 id="displayLabel">Display Mode</h3>
@@ -153,12 +155,10 @@ function render(){
     c.innerHTML='<div class="dot" style="background:'+p.color+'"></div><div><span class="card-name">'+pn(p.id)+'</span><span class="card-desc">'+pd(p.id)+'</span></div>';
     c.onclick=function(){sel(p.id)};g.appendChild(c);
   });
-  var cc=document.createElement('div');cc.className='preset-card';
-  if(cfg.presetId==='custom')cc.classList.add('active');
-  cc.innerHTML='<div class="dot custom"></div><div><span class="card-name">'+t('custom')+'</span><span class="card-desc">'+t('customDesc')+'</span></div>';
-  cc.onclick=function(){sel('custom')};g.appendChild(cc);
   document.getElementById('fastStart').value=cfg.schedule.fastStart;
   document.getElementById('fastEnd').value=cfg.schedule.fastEnd;
+  // Show end time only when Custom selected (but we removed Custom, so always hide)
+  document.getElementById('endSection').style.display = 'none';
   var mbs=document.querySelectorAll('#modeSelector button');
   mbs.forEach(function(b){b.classList.toggle('active',b.dataset.mode===cfg.displayMode)});
 }
