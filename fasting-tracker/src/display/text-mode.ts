@@ -36,7 +36,7 @@ export function buildTextPage(config: FastingConfig) {
   // Build content: single string with explicit spacing
   // Canvas: 576×288 at roughly 8-9px per char ≈ 64-72 chars wide
   const w = 64 // chars per line
-  const rightPart = time ? `${blink} ${time}` : ''
+  const rightPart = time || ''
   const spaces = w - name.length - rightPart.length
   const topLine = name + (spaces > 0 ? ' '.repeat(spaces) : ' ') + rightPart
   const statusPad = Math.floor((w - status.length) / 2)
