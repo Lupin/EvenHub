@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
-# g2-convert — macOS executable wrapper for the G2 Image Converter
+# g2-convert — G2 Image Converter (macOS wrapper)
 #
-# Auto-manages a Python venv with Pillow and runs the conversion script.
-# Drop an image on this file or run from Terminal:
-#   g2-convert input.jpg output.png
-#   g2-convert photo.png g2-photo.png --crop --contrast 1.5
+# Three ways to use:
+#   1. CLI:        g2-convert input.jpg output.png [--crop] [--contrast 1.5] ...
+#   2. Drag & drop: drop an image onto this file → save dialog → convert
+#   3. Double-click: select image → select save location → convert
 #
 # Part of the EvenHub Toolbox:
 #   /Users/gael/Documents/GitHub/EvenHub/toolbox/
@@ -16,15 +16,118 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 VENV_DIR="$HOME/.even-toolbox/venv"
 PYTHON_SCRIPT="$SCRIPT_DIR/g2-convert.py"
+DEFAULT_WIDTH=288
+DEFAULT_HEIGHT=144
 
 # ── Ensure venv exists ───────────────────────────────────────────────────────
 if [[ ! -f "$VENV_DIR/bin/python3" ]]; then
-    echo "🔧 First run — setting up Python venv..."
+    osascript -e 'display dialog "First run — installing dependencies (Pillow)…" with title "G2 Convert" buttons {"OK"} default button "OK" giving up after 3' &
     mkdir -p "$(dirname "$VENV_DIR")"
     python3 -m venv "$VENV_DIR"
     "$VENV_DIR/bin/pip" install --quiet Pillow
-    echo "✓ venv ready at $VENV_DIR"
 fi
 
-# ── Run the script ───────────────────────────────────────────────────────────
-exec "$VENV_DIR/bin/python3" "$PYTHON_SCRIPT" "$@"
+# ═══════════════════════════════════════════════════════════════════════════════
+# MODE 1: CLI — 2+ arguments → pass through to Python script
+# ═══════════════════════════════════════════════════════════════════════════════
+if [[ $# -ge 2 ]]; then
+    exec "$VENV_DIR/bin/python3" "$PYTHON_SCRIPT" "$@"
+fi
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MODE 2 & 3: Interactive — drag & drop (1 arg) or double-click (0 args)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── Step 1: Determine input image ────────────────────────────────────────────
+if [[ $# -ge 1 ]] && [[ -f "$1" ]]; then
+    # Drag & drop: file path is $1
+    INPUT="$1"
+else
+    # Double-click: ask user to choose an image
+    INPUT=$(osascript -e '
+        set theFile to choose file of type {"public.image"} \
+            with prompt "Select an image to convert for Even Realities G2:"
+        return POSIX path of theFile
+    ' 2>/dev/null) || true
+
+    if [[ -z "$INPUT" ]]; then
+        osascript -e 'display dialog "No image selected — cancelled." with title "G2 Convert" buttons {"OK"} default button "OK" giving up after 5' &
+        exit 0
+    fi
+fi
+
+echo "📥 Input:  $INPUT"
+
+# ── Step 2: Ask where to save ────────────────────────────────────────────────
+BASENAME="$(basename "$INPUT")"
+NAME="${BASENAME%.*}"
+# Clean the default name: remove common suffix patterns
+NAME=$(echo "$NAME" | sed -E 's/[[:space:]]*-[[:space:]]*(original|copy|large|full|screen|photo|img)$//i')
+
+OUTPUT=$(osascript -e '
+    on run
+        set defaultName to "'"${NAME}"'-g2.png"
+        set defaultFolder to POSIX file (POSIX path of (path to desktop folder))
+        try
+            set savePath to choose file name \
+                with prompt "Save G2-converted image as:" \
+                default name defaultName \
+                default location defaultFolder
+            return POSIX path of savePath
+        on error
+            return ""
+        end try
+    end run
+' 2>/dev/null) || true
+
+if [[ -z "$OUTPUT" ]]; then
+    osascript -e 'display dialog "Save cancelled." with title "G2 Convert" buttons {"OK"} default button "OK" giving up after 5' &
+    exit 0
+fi
+
+# Ensure .png extension
+if [[ "$OUTPUT" != *.png ]] && [[ "$OUTPUT" != *.PNG ]]; then
+    OUTPUT="${OUTPUT}.png"
+fi
+
+echo "📤 Output: $OUTPUT"
+
+# ── Step 3: Convert ──────────────────────────────────────────────────────────
+echo "🔄 Converting ${DEFAULT_WIDTH}×${DEFAULT_HEIGHT}…"
+
+# Run conversion and capture output
+CONVERT_OUTPUT=$("$VENV_DIR/bin/python3" "$PYTHON_SCRIPT" \
+    "$INPUT" "$OUTPUT" \
+    --width "$DEFAULT_WIDTH" \
+    --height "$DEFAULT_HEIGHT" \
+    2>&1)
+CONVERT_EXIT=$?
+
+echo "$CONVERT_OUTPUT"
+
+# ── Step 4: Notify ───────────────────────────────────────────────────────────
+if [[ $CONVERT_EXIT -eq 0 ]]; then
+    SIZE_KB=$(du -h "$OUTPUT" | cut -f1)
+    osascript -e '
+        display notification "Saved as '"$(basename "$OUTPUT")"' ('"$SIZE_KB"')" \
+            with title "G2 Convert ✓" \
+            subtitle "288×144 — 4-bit greyscale" \
+            sound name "Glass"
+    ' &
+
+    # Also reveal in Finder
+    open -R "$OUTPUT"
+
+    echo ""
+    echo "✅ Done! File revealed in Finder."
+else
+    osascript -e '
+        display dialog "Conversion failed. Check Terminal for details." \
+            with title "G2 Convert ✗" \
+            buttons {"OK"} \
+            default button "OK" \
+            with icon stop
+    ' &
+    echo "❌ Conversion failed (exit code $CONVERT_EXIT)"
+    exit $CONVERT_EXIT
+fi

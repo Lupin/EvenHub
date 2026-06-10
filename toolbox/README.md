@@ -8,9 +8,13 @@ Boîte à outils pour le développement d'applications Even Realities G2.
 
 ## Outils disponibles
 
-### `scripts/g2-convert` — Convertisseur d'images G2
+### `scripts/g2-convert` — Convertisseur d'images G2 (CLI)
 
-Exécutable macOS autonome. Convertit n'importe quelle image pour l'écran G2 (576×288, 4-bit greyscale, 16 nuances de vert).
+Exécutable macOS autonome (shell). Convertit n'importe quelle image pour l'écran G2 (576×288, 4-bit greyscale, 16 nuances de vert).
+
+### `apps/G2 Convert.app` — Convertisseur d'images G2 (App)
+
+Application macOS double-cliquable. Sélecteur de fichier → sélecteur de destination → conversion → notification + ouverture dans le Finder. Supporte aussi le drag & drop d'images sur l'icône.
 
 **Usage :**
 ```bash
@@ -42,8 +46,11 @@ Exécutable macOS autonome. Convertit n'importe quelle image pour l'écran G2 (5
 toolbox/
 ├── README.md                ← ce fichier
 ├── skills-overview.md       ← catalogue des skills Even Reality
+├── apps/
+│   └── G2 Convert.app       ← app macOS double-cliquable
+│       └── G2 Convert.applescript  ← source AppleScript
 └── scripts/
-    ├── g2-convert           ← exécutable macOS (wrapper bash + venv auto)
+    ├── g2-convert           ← exécutable CLI (wrapper bash + venv auto)
     └── g2-convert.py        ← script Python standalone
 ```
 
