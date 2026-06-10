@@ -1,0 +1,508 @@
+/* Header */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 20px 0px;
+gap: 1021px;
+
+width: 1360px;
+height: 60px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Brand essential graphics */
+
+width: 24px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* #ER-Brandmark 20px */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #D3D3D3;
+
+
+/* Even Realities UIUX Design Guidelines 2025 */
+
+width: 1336px;
+height: 16.02px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 16px;
+/* or 100% */
+text-align: right;
+letter-spacing: -0.05em;
+
+color: #D3D3D3;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Colors */
+
+width: 694px;
+height: 77px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 60px;
+line-height: 77px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+text-transform: capitalize;
+
+color: #D3D3D3;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Common Rule */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 32px;
+
+width: 1360px;
+height: 128px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Typograpgy Template - Companion App */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 12px;
+
+width: 1360px;
+height: 128px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* App Title 1 - 17 */
+
+width: 1360px;
+height: 128px;
+
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Block */
+
+position: absolute;
+width: 1360px;
+height: 128px;
+left: 0px;
+top: 0px;
+
+background: #2F2F2F;
+
+
+/* Even Roster Grotesk */
+
+position: absolute;
+width: 154px;
+height: 22px;
+left: 48px;
+top: 67px;
+
+/* App - EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #919191;
+
+
+
+/* 20 */
+
+position: absolute;
+width: 21px;
+height: 22px;
+left: 599px;
+top: 67px;
+
+/* App - EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #919191;
+
+
+
+/* 400 */
+
+position: absolute;
+width: 33px;
+height: 22px;
+left: 760px;
+top: 67px;
+
+/* App - EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #919191;
+
+
+
+/* normal */
+
+position: absolute;
+width: 53px;
+height: 22px;
+left: 920px;
+top: 67px;
+
+/* App - EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #919191;
+
+
+
+/* 0px */
+
+position: absolute;
+width: 30px;
+height: 22px;
+left: 1080px;
+top: 67px;
+
+/* App - EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #919191;
+
+
+
+/* App Typography */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 146px;
+height: 28px;
+left: 48px;
+top: calc(50% - 28px/2 - 14px);
+
+
+
+/* App Title 1 */
+
+width: 146px;
+height: 28px;
+
+font-family: 'Even Roster Grotesk';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 28px;
+/* identical to box height, or 140% */
+display: flex;
+align-items: center;
+
+color: #D3D3D3;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* App Typography */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 65px;
+height: 22px;
+left: 599px;
+top: calc(50% - 22px/2 - 14px);
+
+
+
+/* App Title 1 */
+
+width: 65px;
+height: 22px;
+
+/* App/App Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #D3D3D3;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* App Typography */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 86px;
+height: 22px;
+left: 760px;
+top: calc(50% - 22px/2 - 14px);
+
+
+
+/* App Title 1 */
+
+width: 86px;
+height: 22px;
+
+/* App/App Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #D3D3D3;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* App Typography */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 80px;
+height: 22px;
+left: 920px;
+top: calc(50% - 22px/2 - 14px);
+
+
+
+/* App Title 1 */
+
+width: 80px;
+height: 22px;
+
+/* App/App Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #D3D3D3;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* App Typography */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 103px;
+height: 22px;
+left: 1080px;
+top: calc(50% - 22px/2 - 14px);
+
+
+
+/* App Title 1 */
+
+width: 103px;
+height: 22px;
+
+/* App/App Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #D3D3D3;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;

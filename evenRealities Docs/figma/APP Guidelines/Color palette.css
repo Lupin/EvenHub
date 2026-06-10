@@ -1,0 +1,8627 @@
+/* Color Palette - Even OS 2.0 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 0px 120px 120px;
+gap: 80px;
+
+position: relative;
+width: 1600px;
+height: 5657px;
+
+background: #F6F6F6;
+
+
+/* Header */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 20px 0px;
+gap: 1021px;
+
+width: 1360px;
+height: 60px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Brand essential graphics */
+
+width: 24px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* #ER-Brandmark 20px */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #232323;
+
+
+/* Header Text */
+
+width: 1336px;
+height: 16.02px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 16px;
+/* or 100% */
+text-align: right;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Colors */
+
+width: 1360px;
+height: 77px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 60px;
+line-height: 77px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+text-transform: capitalize;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 40px;
+
+width: 1360px;
+height: 1527px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Table Header */
+
+width: 1360px;
+height: 42px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Bright Mode */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+height: 42px;
+left: 25.59%;
+right: 47.17%;
+top: calc(50% - 42px/2);
+
+
+
+/* Bright Mode */
+
+width: 370.51px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+text-transform: capitalize;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Divider */
+
+width: 1012px;
+height: 1px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Components/Divider */
+
+position: absolute;
+width: 1012px;
+height: 1px;
+left: 0px;
+top: 0px;
+
+background: #BDBDBD;
+
+
+/* Name Code */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+left: 0%;
+right: 77.91%;
+top: 0%;
+bottom: 0%;
+
+
+
+/* Name Code */
+
+width: 300.42px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+text-transform: capitalize;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Components/Divider */
+
+width: 300.42px;
+height: 1px;
+
+background: #BDBDBD;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Color */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 80px;
+
+width: 1360px;
+height: 1445px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* TC Container */
+
+width: 1360px;
+height: 535px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* TC (Text Color) */
+
+position: absolute;
+width: 151px;
+height: 31px;
+left: 0px;
+top: 0px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+text-transform: capitalize;
+
+color: #232323;
+
+
+
+/* TC - 2nd Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 95.59%;
+top: calc(50% - 12px/2 - 457.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* TC - 1st Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 96.25%;
+top: calc(50% - 12px/2 - 537.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* TC - Highlight Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 93.09%;
+top: calc(50% - 12px/2 - 617.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* TC - Red Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 95.51%;
+top: calc(50% - 12px/2 - 297.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* TC - Green Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 94.49%;
+top: calc(50% - 12px/2 - 217.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* TC - Accent Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 94.04%;
+top: calc(50% - 12px/2 - 377.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* FF453A */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 395px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FF453A;
+
+
+/* FF453A */
+
+position: absolute;
+height: 12px;
+left: 32.46%;
+right: 32.46%;
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #FFFFFF;
+
+
+
+/* FF453A */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 475px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #4BB956;
+
+
+/* FF453A */
+
+position: absolute;
+height: 12px;
+left: 29.35%;
+right: 28.73%;
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #FFFFFF;
+
+
+
+/* #232323 */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 315px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #232323;
+
+
+/* #232323 */
+
+position: absolute;
+height: 12px;
+left: 30.6%;
+right: 29.98%;
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #FFFFFF;
+
+
+
+/* Block */
+
+position: absolute;
+left: 25.59%;
+right: 0%;
+top: 16.26%;
+bottom: 79.58%;
+
+background: #7B7B7B;
+
+
+/* #7B7B7B */
+
+position: absolute;
+height: 12px;
+left: 47.43%;
+right: 21.84%;
+top: calc(50% - 12px/2 - 457.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #FFFFFF;
+
+
+
+/* #232323 */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 155px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #232323;
+
+
+/* #232323 */
+
+position: absolute;
+height: 12px;
+left: 30.6%;
+right: 29.98%;
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #FFFFFF;
+
+
+
+/* #FFFFFF */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 75px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* #FFFFFF */
+
+position: absolute;
+height: 12px;
+left: 29.98%;
+right: 29.98%;
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* BC Container */
+
+width: 1360px;
+height: 535px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* BC (Background Color) */
+
+position: absolute;
+width: 235px;
+height: 31px;
+left: 0px;
+top: 615px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+text-transform: capitalize;
+
+color: #232323;
+
+
+
+/* BC - Accent Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 93.97%;
+top: calc(50% - 12px/2 + 397.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* BC - 4th Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 95.74%;
+top: calc(50% - 12px/2 + 317.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* BC - 3rd (Main Background) Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 86.03%;
+top: calc(50% - 12px/2 + 237.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* BC - 2nd Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 95.51%;
+top: calc(50% - 12px/2 + 157.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* BC - 1st Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 96.18%;
+top: calc(50% - 12px/2 + 77.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* BC - Highlight Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 93.01%;
+top: calc(50% - 12px/2 - 2.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* #FEF991 */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 1090px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FEF991;
+
+
+/* #FEF991 */
+
+position: absolute;
+height: 12px;
+left: 30.6%;
+right: 30.6%;
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* #E4E4E4 */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 1010px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #E4E4E4;
+
+
+/* #E4E4E4 */
+
+position: absolute;
+height: 12px;
+left: 28.73%;
+right: 28.73%;
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* #EEEEEE */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 930px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #EEEEEE;
+
+
+/* #EEEEEE */
+
+position: absolute;
+height: 12px;
+left: 28.73%;
+right: 28.73%;
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* #F6F6F6 */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 850px;
+
+
+
+/* Block */
+
+box-sizing: border-box;
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #F6F6F6;
+border: 1px solid #FFFFFF;
+
+
+/* #F6F6F6 */
+
+position: absolute;
+height: 12px;
+left: 29.98%;
+right: 29.35%;
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/*  #FFFFFF */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 770px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/*  #FFFFFF */
+
+position: absolute;
+height: 12px;
+left: 28.73%;
+right: 28.73%;
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/*  #232323 */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 690px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #232323;
+
+
+/*  #232323 */
+
+position: absolute;
+height: 12px;
+left: 29.35%;
+right: 28.73%;
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #FFFFFF;
+
+
+
+/* SC Container */
+
+width: 1360px;
+height: 215px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* SC (Shaded Color) */
+
+position: absolute;
+width: 191px;
+height: 31px;
+left: 0px;
+top: 1230px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+text-transform: capitalize;
+
+color: #232323;
+
+
+
+/* SC - 1st Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 96.18%;
+top: calc(50% - 12px/2 + 612.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* SC - 2nd Label */
+
+position: absolute;
+height: 12px;
+left: 0%;
+right: 95.51%;
+top: calc(50% - 12px/2 + 692.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Black 50% */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 1305px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: rgba(0, 0, 0, 0.5);
+
+
+/* 50% #000000 */
+
+position: absolute;
+width: 527px;
+height: 12px;
+left: calc(50% - 527px/2 - 0.5px);
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #FFFFFF;
+
+
+
+/* Black 50% */
+
+position: absolute;
+width: 1012px;
+height: 60px;
+left: 348px;
+top: 1385px;
+
+
+
+/* Block */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: rgba(35, 35, 35, 0.08);
+
+
+/* 50% #000000 */
+
+position: absolute;
+width: 442px;
+height: 12px;
+left: calc(50% - 442px/2);
+top: calc(50% - 12px/2);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 22px;
+/* or 138% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Text Colors (Bright Mode) */
+
+width: 1360px;
+height: 1327px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+position: absolute;
+width: 212px;
+height: 41px;
+left: 0px;
+top: 0px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 32px;
+line-height: 41px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+text-transform: capitalize;
+
+color: #232323;
+
+
+
+/* Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 121px;
+
+
+
+/* Colors */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 9.12%;
+bottom: 76.56%;
+
+
+
+/* Color */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 9.12%;
+bottom: 76.56%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 9.12%;
+bottom: 76.56%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 3.38%;
+right: 91.62%;
+top: calc(50% - 22px/2 - 376.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 9.12%;
+bottom: 80.33%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 92px;
+left: 348px;
+top: 219px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 41px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 928px;
+top: 121px;
+
+background: #EEEEEE;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 13px 16px;
+gap: 16px;
+isolation: isolate;
+
+position: absolute;
+width: 369px;
+height: 48px;
+left: calc(50% - 369px/2 - 0.5px);
+top: calc(50% - 48px/2);
+
+background: #232323;
+border-radius: 6px;
+
+
+/* Icon */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+border: 0.0375px solid rgba(255, 69, 58, 0.5);
+
+
+/* Go */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+
+
+/* Go */
+
+position: absolute;
+width: 21px;
+height: 19.5px;
+left: 1.5px;
+top: 2.25px;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+width: 18px;
+height: 1.5px;
+left: 1.5px;
+top: 11.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 18px;
+top: 8.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 16.5px;
+top: 6.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 15px;
+top: 5.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 13.5px;
+top: 3.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 2.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 18px;
+top: 14.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 16.5px;
+top: 15.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 15px;
+top: 17.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 13.5px;
+top: 18.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 20.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 81.25%;
+right: 12.5%;
+top: 53.12%;
+bottom: 40.62%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 81.25%;
+right: 12.5%;
+top: 40.62%;
+bottom: 53.12%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 87.5%;
+right: 6.25%;
+top: 46.88%;
+bottom: 46.88%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Button Text */
+
+width: 89px;
+height: 24px;
+min-height: 24px;
+
+/* EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Pressing */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Pressing
+
+Black 12%
+*/
+background: rgba(0, 0, 0, 0.12);
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+z-index: 2;
+
+
+/* Unavailble */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Unavailable
+
+White 80%
+*/
+background: rgba(255, 255, 255, 0.8);
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+z-index: 3;
+
+
+/* Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 375px;
+
+
+
+/* Color */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 28.26%;
+bottom: 57.42%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 28.26%;
+bottom: 57.42%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 3.46%;
+right: 91.69%;
+top: calc(50% - 22px/2 - 122.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 28.26%;
+bottom: 61.19%;
+
+background: #232323;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 72px;
+left: 348px;
+top: 493px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 21px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 928px;
+top: 375px;
+
+background: #EEEEEE;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 13px 16px;
+gap: 16px;
+isolation: isolate;
+
+position: absolute;
+width: 369px;
+height: 48px;
+left: calc(50% - 369px/2 - 0.5px);
+top: calc(50% - 48px/2);
+
+background: #FFFFFF;
+border-radius: 6px;
+
+
+/* Icon */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+border: 0.0375px solid rgba(255, 69, 58, 0.5);
+
+
+/* Go */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+
+
+/* Go */
+
+position: absolute;
+width: 21px;
+height: 19.5px;
+left: 1.5px;
+top: 2.25px;
+
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 18px;
+height: 1.5px;
+left: 1.5px;
+top: 11.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 18px;
+top: 8.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 16.5px;
+top: 6.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 15px;
+top: 5.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 13.5px;
+top: 3.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 2.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 18px;
+top: 14.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 16.5px;
+top: 15.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 15px;
+top: 17.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 13.5px;
+top: 18.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 20.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 81.25%;
+right: 12.5%;
+top: 53.12%;
+bottom: 40.62%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 81.25%;
+right: 12.5%;
+top: 40.62%;
+bottom: 53.12%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 87.5%;
+right: 6.25%;
+top: 46.88%;
+bottom: 46.88%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Button Text */
+
+width: 89px;
+height: 24px;
+min-height: 24px;
+
+/* EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Pressing */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Pressing
+
+Black 12%
+*/
+background: rgba(0, 0, 0, 0.12);
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+z-index: 2;
+
+
+/* Unavailble */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Unavailable
+
+White 80%
+*/
+background: rgba(255, 255, 255, 0.8);
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+z-index: 3;
+
+
+/* Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 629px;
+
+
+
+/* Color */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 47.4%;
+bottom: 38.28%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 47.4%;
+bottom: 38.28%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 3.38%;
+right: 91.54%;
+top: calc(50% - 22px/2 + 131.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 47.4%;
+bottom: 42.05%;
+
+background: #7B7B7B;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 72px;
+left: 348px;
+top: 747px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 21px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 928px;
+top: 629px;
+
+background: #EEEEEE;
+
+
+/* Default-list-item */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 16px;
+gap: 16px;
+isolation: isolate;
+
+position: absolute;
+width: 369px;
+height: 74px;
+left: calc(50% - 369px/2 - 0.5px);
+top: calc(50% - 74px/2);
+
+background: #FFFFFF;
+
+
+/* Left Icon */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 1;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+border: 0.0375px solid rgba(255, 69, 58, 0.5);
+
+
+/* Account */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+
+
+/* Account */
+
+position: absolute;
+width: 16.5px;
+height: 19.5px;
+left: 3.75px;
+top: 2.25px;
+
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 28.12%;
+right: 28.12%;
+top: 53.12%;
+bottom: 40.63%;
+
+/* APP Black/ER-Black */
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 9.38%;
+bottom: 84.38%;
+
+/* APP Black/ER-Black */
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 6px;
+left: 3.75px;
+top: 15.75px;
+
+/* APP Black/ER-Black */
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 6px;
+left: 18.75px;
+top: 15.75px;
+
+/* APP Black/ER-Black */
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 5.25px;
+top: 14.25px;
+
+/* APP Black/ER-Black */
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 17.25px;
+top: 14.25px;
+
+/* APP Black/ER-Black */
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 6px;
+left: 7.5px;
+top: 3.75px;
+
+/* APP Black/ER-Black */
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 6px;
+left: 15px;
+top: 3.75px;
+
+/* APP Black/ER-Black */
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 6px;
+height: 1.5px;
+left: 9px;
+top: 9.75px;
+
+/* APP Black/ER-Black */
+background: #232323;
+
+
+/* Text */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+gap: 4px;
+
+width: 297px;
+height: 42px;
+min-height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+z-index: 0;
+
+
+/* Single Text Line */
+
+width: 297px;
+height: 20px;
+min-height: 20px;
+
+/* EN/Title 2 - 15
+
+15 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 19px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub Text */
+
+width: 297px;
+height: 18px;
+min-height: 18px;
+
+/* EN/Subtitle - 13 Regular
+
+13 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 17px;
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #7B7B7B;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 883px;
+
+
+
+/* Colors */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 66.54%;
+bottom: 19.14%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 66.54%;
+bottom: 19.14%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 3.38%;
+right: 91.62%;
+top: calc(50% - 22px/2 + 385.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 66.54%;
+bottom: 22.91%;
+
+background: #FF453A;
+
+
+/* Container */
+
+position: absolute;
+width: 416px;
+height: 72px;
+left: 348px;
+top: 1001px;
+
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 72px;
+left: 348px;
+top: 1001px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 21px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 928px;
+top: 883px;
+
+background: #EEEEEE;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 13px 16px;
+gap: 16px;
+isolation: isolate;
+
+position: absolute;
+width: 369px;
+height: 48px;
+left: calc(50% - 369px/2 - 0.5px);
+top: calc(50% - 48px/2);
+
+background: #FFFFFF;
+border-radius: 6px;
+
+
+/* Icon */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+border: 0.0375px solid rgba(255, 69, 58, 0.5);
+
+
+/* Go */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+
+
+/* Go */
+
+position: absolute;
+width: 21px;
+height: 19.5px;
+left: 1.5px;
+top: 2.25px;
+
+background: #FF453A;
+
+
+/* Vector */
+
+position: absolute;
+width: 18px;
+height: 1.5px;
+left: 1.5px;
+top: 11.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 18px;
+top: 8.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 16.5px;
+top: 6.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 15px;
+top: 5.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 13.5px;
+top: 3.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 2.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 18px;
+top: 14.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 16.5px;
+top: 15.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 15px;
+top: 17.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 13.5px;
+top: 18.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 20.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 81.25%;
+right: 12.5%;
+top: 53.12%;
+bottom: 40.62%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 81.25%;
+right: 12.5%;
+top: 40.62%;
+bottom: 53.12%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 87.5%;
+right: 6.25%;
+top: 46.88%;
+bottom: 46.88%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Button Text */
+
+width: 89px;
+height: 24px;
+min-height: 24px;
+
+/* EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #FF453A;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Pressing */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Pressing
+
+Black 12%
+*/
+background: rgba(0, 0, 0, 0.12);
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+z-index: 2;
+
+
+/* Unavailble */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Unavailable
+
+White 80%
+*/
+background: rgba(255, 255, 255, 0.8);
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+z-index: 3;
+
+
+/* Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 1137px;
+
+
+
+/* Colors */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 85.68%;
+bottom: 0%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 85.68%;
+bottom: 0%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 3.31%;
+right: 91.47%;
+top: calc(50% - 22px/2 + 639.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 85.68%;
+bottom: 3.77%;
+
+background: #4BB956;
+
+
+/* Container */
+
+position: absolute;
+width: 416px;
+height: 72px;
+left: 348px;
+top: 1255px;
+
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 72px;
+left: 348px;
+top: 1255px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 21px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 928px;
+top: 1137px;
+
+background: #EEEEEE;
+
+
+/* Devices list item */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 16px;
+gap: 12px;
+isolation: isolate;
+
+position: absolute;
+width: 369px;
+height: 74px;
+left: calc(50% - 369px/2 - 0.5px);
+top: calc(50% - 74px/2);
+
+background: #FFFFFF;
+border-radius: 6px;
+
+
+/* Picture */
+
+width: 70px;
+height: 42px;
+
+background: #E4E4E4;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 2;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: calc(50% - 24px/2);
+top: calc(50% - 24px/2);
+
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+
+
+/* Email */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+
+
+/* Email */
+
+position: absolute;
+width: 21px;
+height: 18px;
+left: 1.5px;
+top: 3px;
+
+background: #BDBDBD;
+
+
+/* Vector */
+
+position: absolute;
+left: 6.25%;
+right: 87.5%;
+top: 18.75%;
+bottom: 18.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 12.5%;
+bottom: 81.25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 81.25%;
+bottom: 12.5%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 31.25%;
+right: 56.25%;
+top: 25%;
+bottom: 68.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 43.75%;
+right: 43.75%;
+top: 31.25%;
+bottom: 62.5%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 25%;
+right: 62.5%;
+top: 31.25%;
+bottom: 62.5%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 31.25%;
+right: 56.25%;
+top: 43.75%;
+bottom: 50%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 81.25%;
+top: 68.75%;
+bottom: 25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 18.75%;
+right: 75%;
+top: 62.5%;
+bottom: 31.25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 25%;
+right: 68.75%;
+top: 56.25%;
+bottom: 37.5%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 31.25%;
+right: 62.5%;
+top: 62.5%;
+bottom: 31.25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 43.75%;
+right: 50%;
+top: 62.5%;
+bottom: 31.25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 50%;
+right: 43.75%;
+top: 56.25%;
+bottom: 37.5%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 56.25%;
+right: 37.5%;
+top: 50%;
+bottom: 43.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 62.5%;
+right: 31.25%;
+top: 43.75%;
+bottom: 50%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 68.75%;
+right: 25%;
+top: 50%;
+bottom: 43.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 75%;
+right: 18.75%;
+top: 56.25%;
+bottom: 37.5%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 81.25%;
+right: 12.5%;
+top: 62.5%;
+bottom: 31.25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 56.25%;
+top: 68.75%;
+bottom: 25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 43.75%;
+right: 50%;
+top: 75%;
+bottom: 18.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 87.5%;
+right: 6.25%;
+top: 18.75%;
+bottom: 18.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Text */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+gap: 4px;
+
+width: 219px;
+height: 42px;
+min-height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+z-index: 1;
+
+
+/* Single Text Line */
+
+width: 219px;
+height: 20px;
+min-height: 20px;
+
+/* EN/Title 2 - 15
+
+15 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 19px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub Text */
+
+width: 219px;
+height: 18px;
+min-height: 18px;
+
+/* EN/Subtitle - 13 Regular
+
+13 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 17px;
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #4BB956;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Right container */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: center;
+padding: 0px;
+gap: 16px;
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+z-index: 0;
+
+
+/* Loading */
+
+display: none;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Info */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+border: 0.0375px solid rgba(255, 69, 58, 0.5);
+
+
+/* Info. */
+
+position: absolute;
+width: 18px;
+height: 18px;
+left: 3px;
+top: 3px;
+
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 46.88%;
+right: 46.88%;
+top: 40.62%;
+bottom: 28.12%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 46.88%;
+right: 46.88%;
+top: 28.12%;
+bottom: 65.62%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 43.75%;
+right: 53.12%;
+top: 40.62%;
+bottom: 53.12%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 43.75%;
+right: 50%;
+top: 65.62%;
+bottom: 28.12%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 43.75%;
+right: 43.75%;
+top: 65.62%;
+bottom: 28.12%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 15px;
+height: 1.5px;
+left: 4.5px;
+top: 3px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 15px;
+height: 1.5px;
+left: 4.5px;
+top: 19.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 15px;
+height: 1.5px;
+left: 3px;
+top: 4.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 15px;
+height: 1.5px;
+left: 19.5px;
+top: 4.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(90deg);
+
+
+/* BC (Background Color) */
+
+width: 1360px;
+height: 1581px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* BC (Background Color) */
+
+position: absolute;
+width: 306px;
+height: 41px;
+left: 0px;
+top: 0px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 32px;
+line-height: 41px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+text-transform: capitalize;
+
+color: #232323;
+
+
+
+/* Section Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 121px;
+
+
+
+/* Color */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 7.65%;
+bottom: 80.33%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 7.65%;
+bottom: 80.33%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 3.31%;
+right: 91.54%;
+top: calc(50% - 22px/2 - 503.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 7.65%;
+bottom: 83.49%;
+
+background: #232323;
+border: 0.64px solid #BDBDBD;
+
+
+/* Description Content */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 92px;
+left: 348px;
+top: 219px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 41px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Feature Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 928px;
+top: 121px;
+
+background: #EEEEEE;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 13px 16px;
+gap: 16px;
+isolation: isolate;
+
+position: absolute;
+width: 369px;
+height: 48px;
+left: calc(50% - 369px/2 - 0.5px);
+top: calc(50% - 48px/2);
+
+background: #232323;
+border-radius: 6px;
+
+
+/* Icon */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+border: 0.0375px solid rgba(255, 69, 58, 0.5);
+
+
+/* Go */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+
+
+/* Go */
+
+position: absolute;
+width: 21px;
+height: 19.5px;
+left: 1.5px;
+top: 2.25px;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+width: 18px;
+height: 1.5px;
+left: 1.5px;
+top: 11.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 18px;
+top: 8.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 16.5px;
+top: 6.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 15px;
+top: 5.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 13.5px;
+top: 3.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 2.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 18px;
+top: 14.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 16.5px;
+top: 15.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 15px;
+top: 17.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 13.5px;
+top: 18.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 20.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 81.25%;
+right: 12.5%;
+top: 53.12%;
+bottom: 40.62%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 81.25%;
+right: 12.5%;
+top: 40.62%;
+bottom: 53.12%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 87.5%;
+right: 6.25%;
+top: 46.88%;
+bottom: 46.88%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Button Text */
+
+width: 89px;
+height: 24px;
+min-height: 24px;
+
+/* EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Pressing */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Pressing
+
+Black 12%
+*/
+background: rgba(0, 0, 0, 0.12);
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+z-index: 2;
+
+
+/* Unavailble */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Unavailable
+
+White 80%
+*/
+background: rgba(255, 255, 255, 0.8);
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+z-index: 3;
+
+
+/* Section Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 375px;
+
+
+
+/* Color */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 23.72%;
+bottom: 64.26%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 23.72%;
+bottom: 64.26%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 3.31%;
+right: 91.47%;
+top: calc(50% - 22px/2 - 249.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 23.72%;
+bottom: 67.43%;
+
+background: #FFFFFF;
+border: 1px solid #BDBDBD;
+
+
+/* Description Content */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 92px;
+left: 348px;
+top: 473px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 41px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Feature Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 928px;
+top: 375px;
+
+background: #EEEEEE;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 13px 16px;
+gap: 16px;
+isolation: isolate;
+
+position: absolute;
+width: 369px;
+height: 48px;
+left: calc(50% - 369px/2 - 0.5px);
+top: calc(50% - 48px/2);
+
+background: #FFFFFF;
+border-radius: 6px;
+
+
+/* Icon */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+border: 0.0375px solid rgba(255, 69, 58, 0.5);
+
+
+/* Go */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+
+
+/* Go */
+
+position: absolute;
+width: 21px;
+height: 19.5px;
+left: 1.5px;
+top: 2.25px;
+
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 18px;
+height: 1.5px;
+left: 1.5px;
+top: 11.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 18px;
+top: 8.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 16.5px;
+top: 6.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 15px;
+top: 5.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 13.5px;
+top: 3.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 2.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 18px;
+top: 14.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 16.5px;
+top: 15.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 15px;
+top: 17.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 13.5px;
+top: 18.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 20.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+border-radius: 0px;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 81.25%;
+right: 12.5%;
+top: 53.12%;
+bottom: 40.62%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 81.25%;
+right: 12.5%;
+top: 40.62%;
+bottom: 53.12%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 87.5%;
+right: 6.25%;
+top: 46.88%;
+bottom: 46.88%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Button Text */
+
+width: 89px;
+height: 24px;
+min-height: 24px;
+
+/* EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Pressing */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Pressing
+
+Black 12%
+*/
+background: rgba(0, 0, 0, 0.12);
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+z-index: 2;
+
+
+/* Unavailble */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Unavailable
+
+White 80%
+*/
+background: rgba(255, 255, 255, 0.8);
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+z-index: 3;
+
+
+/* Section Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 629px;
+
+
+
+/* Color */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 39.78%;
+bottom: 48.2%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 39.78%;
+bottom: 48.2%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 3.38%;
+right: 91.62%;
+top: calc(50% - 22px/2 + 4.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 39.78%;
+bottom: 51.36%;
+
+background: #F6F6F6;
+
+
+/* Description Content */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 92px;
+left: 348px;
+top: 727px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 41px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Feature Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 928px;
+top: 629px;
+
+background: #EEEEEE;
+
+
+/* Chat-bubbles */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 16px;
+gap: 12px;
+
+position: absolute;
+width: 215px;
+height: 51px;
+left: calc(50% - 215px/2 - 0.5px);
+top: calc(50% - 51px/2 + 0.5px);
+
+background: #F6F6F6;
+border-radius: 6px;
+
+
+/* Question */
+
+width: 183px;
+height: 19px;
+
+/* EN/Title 2 - 15
+
+15 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 19px;
+letter-spacing: -0.01em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Section Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 883px;
+
+
+
+/* Color */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 55.85%;
+bottom: 32.13%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 55.85%;
+bottom: 32.13%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 3.31%;
+right: 91.47%;
+top: calc(50% - 22px/2 + 258.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 55.85%;
+bottom: 35.29%;
+
+background: #EEEEEE;
+
+
+/* Description Content */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 72px;
+left: 348px;
+top: 1001px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 21px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Feature Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 928px;
+top: 883px;
+
+background: #FFFFFF;
+
+
+/* Status Bar Container */
+
+position: absolute;
+width: 393px;
+height: 106px;
+left: calc(50% - 393px/2 - 0.5px);
+top: calc(50% - 106px/2);
+
+
+
+/* Nav Header */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 14px 12px;
+gap: 113px;
+
+position: absolute;
+width: 393px;
+height: 52px;
+left: 0px;
+top: 54px;
+
+background: #EEEEEE;
+
+
+/* Left */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+margin: 0 auto;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Logo */
+
+display: none;
+width: 140px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* App Icon 2.0 */
+
+width: 24px;
+height: 24px;
+
+border-radius: 1.5px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+border: 0.0375px solid rgba(255, 69, 58, 0.5);
+
+
+/* Minimize */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+
+
+/* Minimize */
+
+position: absolute;
+width: 21px;
+height: 21px;
+left: 1.5px;
+top: 1.5px;
+
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 4.5px;
+top: 18px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 3px;
+top: 19.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 6px;
+top: 16.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 7.5px;
+top: 15px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+width: 9px;
+height: 1.5px;
+left: 1.5px;
+top: 12px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 9px;
+left: 10.5px;
+top: 13.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 17.75px;
+top: 4.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(-180deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 19.5px;
+top: 3px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(-180deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 16.25px;
+top: 6px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(-180deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 14.75px;
+top: 7.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(-180deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 9px;
+height: 1.5px;
+left: 13.5px;
+top: 10.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 9px;
+left: 12px;
+top: 1.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Opeartion Text */
+
+display: none;
+width: 44px;
+height: 22px;
+
+/* EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+letter-spacing: -0.01em;
+
+/* APP Gray/Black */
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Middle */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+margin: 0 auto;
+width: 87px;
+height: 24px;
+min-height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Standard Title */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+width: 87px;
+height: 22px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Title Icon */
+
+display: none;
+width: 24px;
+height: 24px;
+
+/* APP Red/Red */
+background: #FF453A;
+opacity: 0.2;
+border-radius: 2px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Title */
+
+width: 87px;
+height: 22px;
+
+/* App - EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+text-align: center;
+letter-spacing: -0.01em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Title Icon */
+
+display: none;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Title with Options */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 4px;
+
+display: none;
+width: 62px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Text Edit Operation */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+gap: 60px;
+
+display: none;
+width: 108px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Right */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+margin: 0 auto;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Label */
+
+display: none;
+width: 44px;
+height: 22px;
+
+/* EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+text-align: right;
+letter-spacing: -0.01em;
+
+/* APP Gray/Black */
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* anime_alert */
+
+display: none;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Operation Icon */
+
+display: none;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Status bar */
+
+position: absolute;
+width: 393px;
+height: 54px;
+left: 0px;
+top: 0px;
+
+background: #EEEEEE;
+
+
+/* Time */
+
+position: absolute;
+height: 54px;
+left: 0%;
+right: 64.89%;
+top: calc(50% - 54px/2);
+
+
+
+/* Time */
+
+position: absolute;
+left: 36.96%;
+right: 36.23%;
+top: 33.96%;
+bottom: 25.3%;
+
+font-family: 'SF Pro';
+font-style: normal;
+font-weight: 590;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+
+color: #232323;
+
+
+
+/* Levels */
+
+position: absolute;
+height: 54px;
+left: 63.61%;
+right: 0%;
+top: calc(50% - 54px/2);
+
+
+
+/* Battery */
+
+position: absolute;
+left: 58.04%;
+right: 22.85%;
+top: 42.59%;
+bottom: 33.33%;
+
+
+
+/* Border */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 25px;
+left: calc(50% - 25px/2 + 24px);
+top: 42.59%;
+bottom: 33.33%;
+
+mix-blend-mode: normal;
+opacity: 0.35;
+border: 1px solid #232323;
+border-radius: 4.3px;
+
+
+/* Cap */
+
+position: absolute;
+width: 1.33px;
+left: calc(50% - 1.33px/2 + 38.16px);
+top: 51.45%;
+bottom: 41.01%;
+
+background: #232323;
+mix-blend-mode: normal;
+opacity: 0.4;
+
+
+/* Capacity */
+
+position: absolute;
+width: 21px;
+left: calc(50% - 21px/2 + 24px);
+top: 46.3%;
+bottom: 37.04%;
+
+background: #232323;
+border-radius: 2.5px;
+
+
+/* Wifi */
+
+position: absolute;
+width: 17.14px;
+left: calc(50% - 17.14px/2 - 4.23px);
+top: 43.77%;
+bottom: 33.4%;
+
+background: #232323;
+
+
+/* Cellular Connection */
+
+position: absolute;
+width: 19.2px;
+left: calc(50% - 19.2px/2 - 29.9px);
+top: 43.58%;
+bottom: 33.77%;
+
+background: #232323;
+
+
+/* Section Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 1137px;
+
+
+
+/* Color */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 71.92%;
+bottom: 16.07%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 71.92%;
+bottom: 16.07%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 3.31%;
+right: 91.47%;
+top: calc(50% - 22px/2 + 512.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 71.92%;
+bottom: 19.23%;
+
+background: #EEEEEE;
+
+
+/* Description Content */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 92px;
+left: 348px;
+top: 1235px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 41px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Feature Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 928px;
+top: 1137px;
+
+background: #EEEEEE;
+
+
+/* Buttons - Even OS 2.0 */
+
+position: absolute;
+width: 189px;
+height: 62px;
+left: calc(50% - 189px/2 - 0.5px);
+top: calc(50% - 62px/2);
+
+background: #E4E4E4;
+border-radius: 6px;
+
+
+/* Slider */
+
+position: absolute;
+width: 130px;
+height: 62px;
+left: 0px;
+top: 0px;
+
+background: #FFFFFF;
+border-radius: 6px;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 26px;
+top: calc(50% - 24px/2);
+
+border-radius: 1.5px;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+border: 0.0375px solid rgba(255, 69, 58, 0.5);
+
+
+/* Brightness_Auto */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+
+
+/* Brightness_Auto */
+
+position: absolute;
+width: 21px;
+height: 21px;
+left: 1.5px;
+top: 1.5px;
+
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 7.5px;
+height: 1.5px;
+left: calc(50% - 7.5px/2);
+top: calc(50% - 1.5px/2 - 4.5px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 3px;
+height: 1.5px;
+left: calc(50% - 3px/2 - 2.25px);
+top: calc(50% - 1.5px/2 + 4.5px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 7.5px;
+height: 1.5px;
+left: calc(50% - 7.5px/2 - 1.5px);
+top: calc(50% - 1.5px/2 - 3px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 3px;
+height: 1.5px;
+left: calc(50% - 3px/2 + 5.25px);
+top: calc(50% - 1.5px/2 - 3px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: calc(50% - 1.5px/2);
+top: calc(50% - 1.5px/2 - 9.75px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 5.25px;
+left: calc(50% - 1.5px/2 + 2.25px);
+top: calc(50% - 5.25px/2 + 7.88px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 2.25px;
+left: calc(50% - 1.5px/2 + 3.75px);
+top: calc(50% - 2.25px/2 + 4.12px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 2.25px;
+left: calc(50% - 1.5px/2 + 7.5px);
+top: calc(50% - 2.25px/2 + 4.12px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 2.25px;
+height: 1.5px;
+left: calc(50% - 2.25px/2 + 5.62px);
+top: calc(50% - 1.5px/2 + 2.25px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 5.25px;
+height: 1.5px;
+left: calc(50% - 5.25px/2 + 5.62px);
+top: calc(50% - 1.5px/2 + 8.25px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: calc(50% - 1.5px/2 + 9.75px);
+top: calc(50% - 1.5px/2);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: calc(50% - 1.5px/2 - 9.75px);
+top: calc(50% - 1.5px/2);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: calc(50% - 1.5px/2 - 8.25px);
+top: calc(50% - 1.5px/2 - 8.25px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: calc(50% - 1.5px/2 - 8.25px);
+top: calc(50% - 1.5px/2 + 8.25px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(0, -1, -1, 0, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: calc(50% - 1.5px/2 + 8.25px);
+top: calc(50% - 1.5px/2 - 8.25px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(90deg);
+
+
+/* Vector */
+
+position: absolute;
+width: 5.25px;
+height: 1.5px;
+left: calc(50% - 5.25px/2 + 10.88px);
+top: calc(50% - 1.5px/2 + 6px);
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(0, -1, -1, 0, 0, 0);
+
+
+/* Section Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 1391px;
+
+
+
+/* Section Container */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 0px;
+top: 1391px;
+
+
+
+/* Colors */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 87.98%;
+bottom: 0%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 87.98%;
+bottom: 0%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 3.53%;
+right: 91.76%;
+top: calc(50% - 22px/2 + 766.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 0%;
+right: 88.24%;
+top: 87.98%;
+bottom: 3.16%;
+
+background: #FEF991;
+
+
+/* Description Container */
+
+position: absolute;
+width: 416px;
+height: 92px;
+left: 348px;
+top: 1489px;
+
+
+
+/* Description Content */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 92px;
+left: 348px;
+top: 1489px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 41px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Feature Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 928px;
+top: 1391px;
+
+background: #EEEEEE;
+
+
+/* Translate */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: flex-start;
+padding: 24px 24px 20px;
+gap: 62px;
+
+position: absolute;
+width: 189px;
+height: 150px;
+left: calc(50% - 189px/2 - 0.5px);
+top: calc(50% - 150px/2);
+
+background: #FEF991;
+border-radius: 6px;
+
+
+/* App Icon 2.0 */
+
+margin: 0 auto;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+border: 0.0375px solid rgba(255, 69, 58, 0.5);
+
+
+/* Translate */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+
+
+/* Translate */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+left: 75%;
+right: 6.25%;
+top: 81.25%;
+bottom: 12.5%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 6.25%;
+right: 75%;
+top: 12.5%;
+bottom: 81.25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 68.75%;
+right: 25%;
+top: 75%;
+bottom: 18.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 25.01%;
+right: 68.74%;
+top: 18.74%;
+bottom: 75.01%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 75%;
+right: 18.75%;
+top: 68.75%;
+bottom: 25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 18.75%;
+right: 75%;
+top: 24.99%;
+bottom: 68.76%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 75%;
+right: 18.75%;
+top: 93.75%;
+bottom: 0%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 18.76%;
+right: 74.99%;
+top: 0%;
+bottom: 93.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 68.75%;
+right: 25%;
+top: 87.5%;
+bottom: 6.25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 25.01%;
+right: 68.74%;
+top: 6.24%;
+bottom: 87.51%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 62.5%;
+right: 31.25%;
+top: 81.25%;
+bottom: 12.5%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 31.26%;
+right: 62.49%;
+top: 12.49%;
+bottom: 81.26%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 93.75%;
+right: -25%;
+top: 50%;
+bottom: 43.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(0, 1, 1, 0, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 0%;
+right: 68.75%;
+top: 18.75%;
+bottom: 75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: matrix(0, -1, -1, 0, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 46.88%;
+right: 40.62%;
+top: 25%;
+bottom: 68.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 40.62%;
+right: 46.88%;
+top: 37.5%;
+bottom: 56.25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 34.38%;
+right: 46.88%;
+top: 50%;
+bottom: 43.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 53.12%;
+right: 34.38%;
+top: 37.5%;
+bottom: 56.25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 59.38%;
+right: 21.88%;
+top: 50%;
+bottom: 43.75%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(-90deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 40.62%;
+right: 53.12%;
+top: 56.25%;
+bottom: 25%;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+transform: rotate(-90deg);
+
+
+/* Feature Name */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+margin: 0 auto;
+width: 61px;
+max-width: 141px;
+height: 19px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Feature Name */
+
+width: 61px;
+height: 19px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 19px;
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Main Container */
+
+width: 1360px;
+height: 565px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+flex-grow: 0;
+
+
+/* Bottom Section */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 120px;
+top: 5347px;
+
+
+
+/* Color */
+
+position: absolute;
+left: 7.5%;
+right: 82.5%;
+top: 94.52%;
+bottom: 2.12%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 7.5%;
+right: 82.5%;
+top: 94.52%;
+bottom: 2.12%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 9.62%;
+right: 84.56%;
+top: calc(50% - 22px/2 + 2684.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 7.5%;
+right: 82.5%;
+top: 94.52%;
+bottom: 3.01%;
+
+background: rgba(35, 35, 35, 0.08);
+
+
+/* Text Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 92px;
+left: 459px;
+top: 5445px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 41px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Search Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 1048px;
+top: 5347px;
+
+background: #EEEEEE;
+
+
+/* Search Bar */
+
+position: absolute;
+width: 393px;
+height: 52px;
+left: calc(50% - 393px/2 - 0.5px);
+top: calc(50% - 52px/2);
+
+background: #EEEEEE;
+
+
+/* Blank */
+
+position: absolute;
+width: 369px;
+height: 36px;
+left: 12px;
+top: 8px;
+
+background: rgba(35, 35, 35, 0.08);
+border-radius: 6px;
+
+
+/* Search Input */
+
+position: absolute;
+width: 289px;
+height: 22px;
+left: 52px;
+top: calc(50% - 22px/2);
+
+/* App - EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #7B7B7B;
+
+
+
+/* Right Icon */
+
+position: absolute;
+visibility: hidden;
+width: 24px;
+height: 24px;
+left: 349px;
+top: 14px;
+
+
+
+/* Left Icon */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 20px;
+top: 14px;
+
+border-radius: 2px;
+
+
+/* App Icon 2.0 */
+
+position: absolute;
+visibility: hidden;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+border: 0.0375px solid rgba(255, 69, 58, 0.5);
+
+
+/* Search */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 0px;
+top: 0px;
+
+
+
+/* Search */
+
+position: absolute;
+width: 16.5px;
+height: 16.5px;
+left: 3.75px;
+top: 3.75px;
+
+background: #7B7B7B;
+
+
+/* Vector */
+
+position: absolute;
+width: 5.25px;
+height: 1.5px;
+left: 6.75px;
+top: 3.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 5.25px;
+height: 1.5px;
+left: 6.75px;
+top: 13.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 12px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 2.25px;
+height: 2.25px;
+left: 13.5px;
+top: 13.5px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 2.25px;
+height: 2.25px;
+left: 15.75px;
+top: 15.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 2.25px;
+height: 2.25px;
+left: 18px;
+top: 18px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 12px;
+top: 5.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 5.25px;
+top: 5.25px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 1.5px;
+left: 5.25px;
+top: 12px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 5.25px;
+left: 3.75px;
+top: 6.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Vector */
+
+position: absolute;
+width: 1.5px;
+height: 5.25px;
+left: 13.5px;
+top: 6.75px;
+
+/* Bright-TC/B-TC-1st
+
+EvenBlack
+*/
+background: #232323;
+
+
+/* Top Section */
+
+position: absolute;
+width: 1360px;
+height: 190px;
+left: 120px;
+top: 5093px;
+
+
+
+/* Color */
+
+position: absolute;
+left: 7.5%;
+right: 82.5%;
+top: 90.03%;
+bottom: 6.61%;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 7.5%;
+right: 82.5%;
+top: 90.03%;
+bottom: 6.61%;
+
+background: #FFFFFF;
+border: 0.64px solid #BDBDBD;
+
+
+/* #BE52F2 */
+
+position: absolute;
+height: 22px;
+left: 9.06%;
+right: 84.06%;
+top: calc(50% - 22px/2 + 2430.5px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+
+/* Rectangle */
+
+position: absolute;
+left: 7.5%;
+right: 82.5%;
+top: 90.03%;
+bottom: 7.5%;
+
+background: rgba(0, 0, 0, 0.5);
+border: 1px solid #BDBDBD;
+
+
+/* Text Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+position: absolute;
+width: 416px;
+height: 92px;
+left: 459px;
+top: 5191px;
+
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 31px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 31px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Primary Color Palette */
+
+width: 416px;
+height: 41px;
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 20px;
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Popup Container */
+
+position: absolute;
+width: 432px;
+height: 190px;
+left: 1048px;
+top: 5093px;
+
+background: #FFFFFF;
+
+
+/* Popup */
+
+position: absolute;
+width: 393px;
+height: 167px;
+left: calc(50% - 393px/2 - 0.5px);
+top: calc(50% - 167px/2 + 0.5px);
+
+background: #EEEEEE;
+
+
+/* Overlay */
+
+position: absolute;
+width: 393px;
+height: 852px;
+left: 0px;
+top: -437px;
+
+
+
+/* Overlay */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: rgba(0, 0, 0, 0.5);
+
+
+/* Status Bar */
+
+position: absolute;
+width: 393px;
+height: 54px;
+left: 0px;
+top: -437px;
+
+
+
+/* Time */
+
+position: absolute;
+height: 54px;
+left: 0%;
+right: 64.89%;
+top: calc(50% - 54px/2);
+
+
+
+/* Time */
+
+position: absolute;
+left: 36.96%;
+right: 36.23%;
+top: 33.96%;
+bottom: 25.3%;
+
+font-family: 'SF Pro';
+font-style: normal;
+font-weight: 590;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height, or 129% */
+text-align: center;
+
+color: #232323;
+
+
+
+/* Levels */
+
+position: absolute;
+height: 54px;
+left: 63.61%;
+right: 0%;
+top: calc(50% - 54px/2);
+
+
+
+/* Battery */
+
+position: absolute;
+left: 58.04%;
+right: 22.85%;
+top: 42.59%;
+bottom: 33.33%;
+
+
+
+/* Border */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 25px;
+left: calc(50% - 25px/2 + 24px);
+top: 42.59%;
+bottom: 33.33%;
+
+mix-blend-mode: normal;
+opacity: 0.35;
+border: 1px solid #232323;
+border-radius: 4.3px;
+
+
+/* Cap */
+
+position: absolute;
+width: 1.33px;
+left: calc(50% - 1.33px/2 + 38.16px);
+top: 51.45%;
+bottom: 41.01%;
+
+background: #232323;
+mix-blend-mode: normal;
+opacity: 0.4;
+
+
+/* Capacity */
+
+position: absolute;
+width: 21px;
+left: calc(50% - 21px/2 + 24px);
+top: 46.3%;
+bottom: 37.04%;
+
+background: #232323;
+border-radius: 2.5px;
+
+
+/* Wifi */
+
+position: absolute;
+width: 17.14px;
+left: calc(50% - 17.14px/2 - 4.23px);
+top: 43.77%;
+bottom: 33.4%;
+
+background: #232323;
+
+
+/* Cellular Connection */
+
+position: absolute;
+width: 19.2px;
+left: calc(50% - 19.2px/2 - 29.9px);
+top: 43.58%;
+bottom: 33.77%;
+
+background: #232323;
+
+
+/* Pop-up/CTA */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 12px 0px 0px;
+
+position: absolute;
+width: 393px;
+height: 338px;
+left: 0px;
+bottom: -248px;
+
+background: #EEEEEE;
+/* Pop-up Shadow */
+box-shadow: 0px -4px 12px rgba(0, 0, 0, 0.12);
+border-radius: 6px 6px 0px 0px;
+
+
+/* Title */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-end;
+padding: 12px 16px;
+
+width: 393px;
+height: 46px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Pop-up Title */
+
+margin: 0 auto;
+width: 361px;
+height: 22px;
+
+/* EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: -0.01em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 1;
+
+
+/* Text */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 10px;
+
+width: 393px;
+height: 58px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. */
+
+width: 369px;
+height: 34px;
+
+/* EN/Subtitle - 13 Regular
+
+13 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 17px;
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: -0.01em;
+
+color: #7B7B7B;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* CTA */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 12px 12px 0px;
+gap: 12px;
+
+width: 393px;
+height: 180px;
+
+background: #EEEEEE;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 13px 16px;
+gap: 16px;
+isolation: isolate;
+
+width: 369px;
+height: 48px;
+
+background: #FFFFFF;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Icon */
+
+display: none;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* Button Text */
+
+width: 89px;
+height: 24px;
+min-height: 24px;
+
+/* EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Pressing */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Pressing
+
+Black 12%
+*/
+background: rgba(0, 0, 0, 0.12);
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+z-index: 2;
+
+
+/* Unavailble */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Unavailable
+
+White 80%
+*/
+background: rgba(255, 255, 255, 0.8);
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+z-index: 3;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 13px 16px;
+gap: 16px;
+isolation: isolate;
+
+width: 369px;
+height: 48px;
+
+background: #FFFFFF;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Icon */
+
+display: none;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* Button Text */
+
+width: 89px;
+height: 24px;
+min-height: 24px;
+
+/* EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Pressing */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Pressing
+
+Black 12%
+*/
+background: rgba(0, 0, 0, 0.12);
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+z-index: 2;
+
+
+/* Unavailble */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Unavailable
+
+White 80%
+*/
+background: rgba(255, 255, 255, 0.8);
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+z-index: 3;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 13px 16px;
+gap: 16px;
+isolation: isolate;
+
+width: 369px;
+height: 48px;
+
+background: #FFFFFF;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Icon */
+
+display: none;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* Button Text */
+
+width: 89px;
+height: 24px;
+min-height: 24px;
+
+/* EN/Title 1 - 17
+
+17 FK Regular
+*/
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 22px;
+display: flex;
+align-items: center;
+letter-spacing: -0.01em;
+
+color: #232323;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Pressing */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Pressing
+
+Black 12%
+*/
+background: rgba(0, 0, 0, 0.12);
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+z-index: 2;
+
+
+/* Unavailble */
+
+position: absolute;
+display: none;
+width: 369px;
+height: 50px;
+left: 0px;
+top: calc(50% - 50px/2);
+
+/* Bright-SC/B-SC-Unavailable
+
+White 80%
+*/
+background: rgba(255, 255, 255, 0.8);
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+z-index: 3;
+
+
+/* Gesture-Indicator */
+
+width: 393px;
+height: 42px;
+
+background: #EEEEEE;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Home Indicator */
+
+position: absolute;
+width: 139px;
+height: 5px;
+left: calc(50% - 139px/2);
+bottom: 8px;
+
+background: #232323;
+border-radius: 100px;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* SC (Shaded Color) */
+
+position: absolute;
+height: 41px;
+left: 7.5%;
+right: 77%;
+top: calc(50% - 41px/2 + 2164px);
+
+font-family: 'FK Grotesk Neue';
+font-style: normal;
+font-weight: 300;
+font-size: 32px;
+line-height: 41px;
+/* identical to box height */
+display: flex;
+align-items: center;
+letter-spacing: -0.05em;
+text-transform: capitalize;
+
+color: #232323;
+

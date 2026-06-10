@@ -1,0 +1,17 @@
+{
+  "package_id": "com.gael.intermittentfasting",
+  "name": "Intermittent Fasting",
+  "version": "1.0.5",
+  "description": "Intermittent fasting tracker with text and timeline display modes, 7 presets, EN/FR i18n",
+  "author": "Gael",
+  "edition": "202601",
+  "min_app_version": "2.0.0",
+  "min_sdk_version": "0.0.10",
+  "entrypoint": "index.html",
+  "permissions": [
+    { "name": "network", "desc": "Load config from localStorage, no external network needed" }
+  ],
+  "supported_languages": ["en", "fr"],
+  "icon": "icon.png",
+  "type": "plugin"
+}

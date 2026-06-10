@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<title>Intermittent Fasting</title>
+<!-- even-toolkit design tokens — inline both themes, toggle via disabled -->
+<style id="tokens-dark">
+/* Even Realities — Dark Theme Preset */
+:root {
+  --color-text: #f0ebe3;
+  --color-text-dim: #8a7f72;
+  --color-text-muted: #5c5347;
+  --color-text-highlight: #FFFFFF;
+  --color-bg: #0c0a07;
+  --color-surface: #161310;
+  --color-surface-light: #201c17;
+  --color-surface-lighter: #2c2620;
+  --color-border: #28221a;
+  --color-border-light: #3a3228;
+  --color-accent: #FFFFFF;
+  --color-accent-alpha: rgba(255,255,255,0.12);
+  --color-accent-warning: #FEF991;
+  --color-positive: #26a69a;
+  --color-positive-alpha: rgba(38,166,154,0.50);
+  --color-negative: #ef5350;
+  --color-negative-alpha: rgba(239,83,80,0.15);
+  --color-overlay: rgba(0,0,0,0.60);
+  --color-input-bg: rgba(255,255,255,0.08);
+  --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6'%3E%3Cpath d='M0 0l4 6 4-6z' fill='%238a7f72'/%3E%3C/svg%3E");
+  --radius-default: 6px;
+  --spacing-margin: 12px;
+  --spacing-card-margin: 16px;
+  --spacing-same: 6px;
+  --spacing-cross: 12px;
+  --spacing-section: 24px;
+  --font-display: "FK Grotesk Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "FK Grotesk Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "SF Mono", "Cascadia Code", "Fira Code", monospace;
+}
+</style>
+<style id="tokens-light" disabled>
+/* Even Realities — Light Theme */
+:root {
+  --color-text: #232323;
+  --color-text-dim: #7B7B7B;
+  --color-text-muted: #7B7B7B;
+  --color-text-highlight: #FFFFFF;
+  --color-bg: #EEEEEE;
+  --color-surface: #FFFFFF;
+  --color-surface-light: #F6F6F6;
+  --color-surface-lighter: #E4E4E4;
+  --color-border: #E4E4E4;
+  --color-border-light: #EEEEEE;
+  --color-accent: #232323;
+  --color-accent-alpha: rgba(35,35,35,0.08);
+  --color-accent-warning: #FEF991;
+  --color-positive: #4BB956;
+  --color-positive-alpha: rgba(75,185,86,0.15);
+  --color-negative: #FF453A;
+  --color-negative-alpha: rgba(255,69,58,0.15);
+  --color-overlay: rgba(0,0,0,0.50);
+  --color-input-bg: rgba(35,35,35,0.08);
+  --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6'%3E%3Cpath d='M0 0l4 6 4-6z' fill='%237B7B7B'/%3E%3C/svg%3E");
+  --radius-default: 6px;
+  --spacing-margin: 12px;
+  --spacing-card-margin: 16px;
+  --spacing-same: 6px;
+  --spacing-cross: 12px;
+  --spacing-section: 24px;
+  --font-display: "FK Grotesk Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "FK Grotesk Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "SF Mono", "Cascadia Code", "Fira Code", monospace;
+}
+</style>
+<link rel="stylesheet" href="/node_modules/even-toolkit/web/theme/typography.css">
+<style>
+/* ── Reset ──────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  font-weight:300;
+  background:var(--color-bg);
+  color:var(--color-text);
+  -webkit-font-smoothing:antialiased
+}
+
+/* ── App shell ──────────────────────────────────────── */
+#phone-ui{
+  display:none;
+  min-height:100dvh;
+  padding:0 12px 24px
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.app-header{
+  padding:12px 0 8px;
+  font-size:13px;
+  font-weight:400;
+  letter-spacing:-0.13px;
+  color:var(--color-text-dim)
+}
+
+/* ── Section heading ────────────────────────────────── */
+.section-heading{
+  font-size:11px;
+  font-weight:400;
+  letter-spacing:-0.11px;
+  color:var(--color-text-dim);
+  text-transform:uppercase;
+  margin:24px 0 8px;
+  padding:0 4px
+}
+
+/* ── SegmentedControl ───────────────────────────────── */
+.segmented{
+  display:inline-flex;
+  width:100%;
+  border-radius:6px;
+  background:var(--color-surface-lighter);
+  padding:2px;
+  height:48px;
+  margin-bottom:24px
+}
+.segmented button{
+  flex:1;
+  border:none;
+  border-radius:4px;
+  font-family:var(--font-body);
+  font-size:15px;
+  font-weight:400;
+  letter-spacing:-0.15px;
+  cursor:pointer;
+  transition:background .15s,color .15s,box-shadow .15s;
+  background:transparent;
+  color:var(--color-text-dim)
+}
+.segmented button.active{
+  background:var(--color-surface);
+  color:var(--color-text);
+  box-shadow:0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.06)
+}
+
+/* ── Preset list ────────────────────────────────────── */
+.preset-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  background:var(--color-surface);
+  padding:14px 16px;
+  border:none;
+  border-radius:6px;
+  font-family:var(--font-body);
+  text-align:left;
+  cursor:pointer;
+  transition:background .15s
+}
+.preset-item+.preset-item{margin-top:2px}
+.preset-item:active{background:var(--color-surface-light)}
+.preset-item.active{
+  background:var(--color-surface-lighter);
+  outline:1px solid var(--color-accent)
+}
+.preset-dot{
+  width:10px;height:10px;
+  border-radius:2px;
+  flex-shrink:0;
+  background:var(--color-text-dim)
+}
+.preset-item.active .preset-dot{background:var(--color-accent)}
+.preset-name{
+  font-size:15px;
+  font-weight:400;
+  letter-spacing:-0.15px;
+  color:var(--color-text)
+}
+.preset-desc{
+  font-size:13px;
+  font-weight:300;
+  letter-spacing:-0.13px;
+  color:var(--color-text-dim);
+  margin-top:1px
+}
+
+/* ── SettingsGroup ──────────────────────────────────── */
+.settings-group{
+  border-radius:6px;
+  overflow:hidden
+}
+.settings-group>*+*{border-top:1px solid var(--color-border)}
+
+.list-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  background:var(--color-surface);
+  padding:16px;
+  cursor:pointer;
+  transition:background .15s
+}
+.list-item:active{background:var(--color-surface-light)}
+.list-item .item-body{min-width:0;flex:1}
+.list-item .item-title{
+  font-size:15px;
+  font-weight:400;
+  letter-spacing:-0.15px;
+  color:var(--color-text)
+}
+.list-item .item-sub{
+  font-size:13px;
+  font-weight:300;
+  letter-spacing:-0.13px;
+  color:var(--color-text-dim);
+  margin-top:2px
+}
+.list-item .item-value{
+  font-size:15px;
+  font-weight:400;
+  letter-spacing:-0.15px;
+  color:var(--color-text-dim);
+  flex-shrink:0
+}
+.list-item .item-chevron{
+  color:var(--color-text-muted);
+  font-size:13px;
+  flex-shrink:0
+}
+
+/* ── Time input ─────────────────────────────────────── */
+.time-field{
+  background:var(--color-surface);
+  padding:12px 16px;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  gap:8px
+}
+.time-field label{
+  font-size:15px;
+  font-weight:400;
+  letter-spacing:-0.15px;
+  color:var(--color-text);
+  flex-shrink:0
+}
+.time-field input{
+  flex:1;
+  padding:8px 10px;
+  font-size:15px;
+  font-weight:300;
+  letter-spacing:-0.15px;
+  border:1px solid var(--color-border);
+  border-radius:6px;
+  background:var(--color-input-bg);
+  color:var(--color-text);
+  font-family:var(--font-body);
+  min-width:0;
+  max-width:160px;
+}
+
+/* ── CTA buttons ────────────────────────────────────── */
+.cta-row{
+  display:flex;
+  gap:12px;
+  margin-top:32px
+}
+.btn{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:6px;
+  font-family:var(--font-body);
+  font-size:15px;
+  font-weight:400;
+  letter-spacing:-0.15px;
+  cursor:pointer;
+  transition:background .15s,color .15s
+}
+.btn-primary{
+  background:var(--color-accent);
+  color:var(--color-bg)
+}
+.btn-primary:active{opacity:.85}
+.btn-ghost{
+  background:transparent;
+  color:var(--color-text-dim);
+  border:1px solid var(--color-border)
+}
+.btn-ghost:active{background:var(--color-surface)}
+
+/* ── Save status ─────────────────────────────────────── */
+.save-status{
+  text-align:center;
+  font-size:13px;
+  font-weight:300;
+  letter-spacing:-0.13px;
+  color:var(--color-text-dim);
+  margin-top:12px;
+  opacity:0;
+  transition:opacity .3s
+}
+.save-status.show{opacity:1}
+
+/* ── Theme select ───────────────────────────────────── */
+.theme-select{
+  flex-shrink:0;
+  appearance:none;
+  -webkit-appearance:none;
+  background:var(--color-input-bg);
+  color:var(--color-text);
+  border:1px solid var(--color-border);
+  border-radius:6px;
+  padding:6px 28px 6px 10px;
+  font-family:var(--font-body);
+  font-size:13px;
+  font-weight:400;
+  letter-spacing:-0.13px;
+  cursor:pointer;
+  background-image:var(--select-chevron);
+  background-repeat:no-repeat;
+  background-position:right 10px center
+}
+.theme-select:focus-visible{outline:1px solid var(--color-accent);outline-offset:-1px}
+.list-item-select{cursor:default}
+.list-item-select:active{background:var(--color-surface)}
+
+/* ── Footer version ─────────────────────────────────── */
+.app-footer{
+  text-align:center;
+  font-size:11px;
+  font-weight:300;
+  letter-spacing:-0.11px;
+  color:var(--color-text-muted);
+  margin-top:24px;
+  padding-bottom:8px
+}
+</style>
+</head>
+<body>
+
+<div id="phone-ui">
+  <div class="app-header">Intermittent Fasting</div>
+
+  <!-- SegmentedControl: display mode -->
+  <div class="segmented" id="modeSelector">
+    <button class="active" data-mode="text" id="segText">Text</button>
+    <button data-mode="timeline" id="segTimeline">Timeline</button>
+  </div>
+
+  <!-- Fasting Type -->
+  <div class="section-heading" id="typeLabel">Fasting Type</div>
+  <div id="presetGrid"></div>
+
+  <!-- Schedule (start time only — end is derived from preset) -->
+  <div class="section-heading" id="schedLabel">Schedule</div>
+  <div class="time-field">
+    <label id="startLabel">From</label>
+    <input type="time" id="fastStart">
+  </div>
+
+  <!-- Settings -->
+  <div class="section-heading" id="settingsLabel">Settings</div>
+  <div class="settings-group">
+    <div class="list-item" id="langRow">
+      <div class="item-body">
+        <div class="item-title" id="langTitle">Language</div>
+      </div>
+      <span class="item-value" id="langValue">English</span>
+      <span class="item-chevron">&rsaquo;</span>
+    </div>
+    <div class="list-item" id="timeFmtRow">
+      <div class="item-body">
+        <div class="item-title" id="timeFmtTitle">Time format</div>
+      </div>
+      <span class="item-value" id="timeFmtValue">24h</span>
+      <span class="item-chevron">&rsaquo;</span>
+    </div>
+    <div class="list-item list-item-select">
+      <div class="item-body">
+        <div class="item-title" id="themeTitle">Theme</div>
+      </div>
+      <select id="themeSelect" class="theme-select">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+        <option value="system">System</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="cta-row">
+    <button class="btn btn-ghost" id="btnCancel">Cancel</button>
+    <button class="btn btn-primary" id="btnSave">Save</button>
+  </div>
+
+  <div class="save-status" id="saveStatus">Saved ✓</div>
+
+  <footer class="app-footer">v<span id="appVersion">1.0.4</span></footer>
+</div>
+
+<script>
+var APP_VERSION = '1.0.5';
+(function(){
+'use strict';
+
+// ── Theme switching ───────────────────────────────────
+var darkLink = document.getElementById('tokens-dark');
+var lightLink = document.getElementById('tokens-light');
+var systemQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+function resolveTheme(theme) {
+  if (theme === 'system') return systemQuery.matches ? 'dark' : 'light';
+  return theme;
+}
+
+function applyTheme(theme) {
+  var resolved = resolveTheme(theme);
+  document.documentElement.setAttribute('data-theme', theme);
+  if (resolved === 'light') {
+    darkLink.disabled = true;
+    lightLink.disabled = false;
+  } else {
+    lightLink.disabled = true;
+    darkLink.disabled = false;
+  }
+}
+
+// Listen for system theme changes when in 'system' mode
+systemQuery.addEventListener('change', function() {
+  if (cfg.theme === 'system') applyTheme('system');
+});
+
+// ── Presets ───────────────────────────────────────────
+var PRESETS = [
+  { id:'14:10', start:'20:00', end:'10:00' },
+  { id:'16:8',  start:'20:00', end:'12:00' },
+  { id:'18:6',  start:'20:00', end:'14:00' },
+  { id:'20:4',  start:'20:00', end:'16:00' },
+  { id:'23:1',  start:'19:00', end:'18:00' },
+  { id:'5:2-week', start:'00:00', end:'00:00' },
+  { id:'adf',   start:'00:00', end:'00:00' }
+];
+
+// ── i18n ──────────────────────────────────────────────
+var T = {
+  en: {
+    title:'Intermittent Fasting', type:'Fasting Type', sched:'Schedule',
+    start:'From', settings:'Settings', lang:'Language', timeFmt:'Time format',
+    theme:'Theme', dark:'Dark', light:'Light', system:'System',
+    text:'Text', timeline:'Timeline', cancel:'Cancel', save:'Save', saved:'Saved',
+    p14n:'14:10 — Beginner', p14d:'14h fast · 10h eating',
+    p16n:'16:8 — Leangains', p16d:'16h fast · 8h eating',
+    p18n:'18:6 — Extended', p18d:'18h fast · 6h eating',
+    p20n:'20:4 — Warrior', p20d:'20h fast · 4h eating',
+    p23n:'OMAD — One Meal', p23d:'23h fast · 1 meal',
+    p52n:'5:2 — Weekday', p52d:'5d eat · 2d fast',
+    padfn:'ADF — Alt. Day', padfd:'Fast every other day'
+  },
+  fr: {
+    title:'Intermittent Fasting', type:'Protocole', sched:'Horaire',
+    start:'Début', settings:'Réglages', lang:'Langue', timeFmt:'Format',
+    theme:'Thème', dark:'Sombre', light:'Clair', system:'Système',
+    text:'Texte', timeline:'Barre', cancel:'Annuler', save:'Enregistrer', saved:'Sauvegardé',
+    p14n:'14:10 — Doux', p14d:'14h à jeun · 10h repas',
+    p16n:'16:8 — Leangains', p16d:'16h à jeun · 8h repas',
+    p18n:'18:6 — Confirmé', p18d:'18h à jeun · 6h repas',
+    p20n:'20:4 — Warrior', p20d:'20h à jeun · 4h repas',
+    p23n:'OMAD — Repas unique', p23d:'23h à jeun · 1 repas',
+    p52n:'5:2 — Hebdo', p52d:'5j normal · 2j à jeun',
+    padfn:'ADF — Alterné', padfd:'À jeun un jour sur deux'
+  }
+};
+
+// ── Config ────────────────────────────────────────────
+var cfg = {
+  presetId:'16:8',
+  schedule:{ fastStart:'20:00', fastEnd:'12:00' },
+  displayMode:'text',
+  lang:'en',
+  timeFormat:'24h',
+  theme:'dark'
+};
+try{
+  var raw = localStorage.getItem('even-fasting-config');
+  if (raw) Object.assign(cfg, JSON.parse(raw));
+}catch(e){}
+
+// Apply saved theme on load
+applyTheme(cfg.theme);
+
+function saveCfg(){ localStorage.setItem('even-fasting-config', JSON.stringify(cfg)); }
+
+// ── i18n ────────────────────────────────────────────
+window.getFastingConfig = function(){ return cfg; };
+
+// ── Helpers ───────────────────────────────────────────
+function t(k){ var d = T[cfg.lang] || T.en; return d[k] || T.en[k] || k; }
+function pn(id){
+  var m = {'14:10':'p14n','16:8':'p16n','18:6':'p18n','20:4':'p20n','23:1':'p23n','5:2-week':'p52n','adf':'padfn'};
+  return t(m[id] || id);
+}
+function pd(id){
+  var m = {'14:10':'p14d','16:8':'p16d','18:6':'p18d','20:4':'p20d','23:1':'p23d','5:2-week':'p52d','adf':'padfd'};
+  return t(m[id] || '');
+}
+
+// ── Render ────────────────────────────────────────────
+function render(){
+  // Section headings
+  var ids = {
+    typeLabel:'type', schedLabel:'sched', settingsLabel:'settings',
+    startLabel:'start', langTitle:'lang', timeFmtTitle:'timeFmt', themeTitle:'theme',
+    segText:'text', segTimeline:'timeline',
+    btnCancel:'cancel', btnSave:'save'
+  };
+  for (var k in ids) {
+    var el = document.getElementById(k);
+    if (el) el.textContent = t(ids[k]);
+  }
+
+  // Segmented control
+  var segBtns = document.querySelectorAll('.segmented button');
+  segBtns.forEach(function(b){ b.classList.toggle('active', b.dataset.mode === cfg.displayMode); });
+
+  // Presets
+  var grid = document.getElementById('presetGrid');
+  grid.innerHTML = '';
+  PRESETS.forEach(function(p){
+    var el = document.createElement('button');
+    el.className = 'preset-item';
+    if (cfg.presetId === p.id) el.classList.add('active');
+    el.innerHTML =
+      '<span class="preset-dot"></span>' +
+      '<span>' +
+        '<span class="preset-name">' + pn(p.id) + '</span>' +
+        '<br><span class="preset-desc">' + pd(p.id) + '</span>' +
+      '</span>';
+    el.onclick = function(){ selectPreset(p.id); };
+    grid.appendChild(el);
+  });
+
+  // Time input (start only)
+  document.getElementById('fastStart').value = cfg.schedule.fastStart;
+
+  // Settings values
+  document.getElementById('langValue').textContent = cfg.lang === 'fr' ? 'Français' : 'English';
+  document.getElementById('timeFmtValue').textContent = cfg.timeFormat === '24h' ? '24h' : 'AM/PM';
+  var ts = document.getElementById('themeSelect');
+  ts.innerHTML =
+    '<option value=\"dark\">' + t('dark') + '</option>' +
+    '<option value=\"light\">' + t('light') + '</option>' +
+    '<option value=\"system\">' + t('system') + '</option>';
+  ts.value = cfg.theme;
+
+  // Version footer
+  document.getElementById('appVersion').textContent = APP_VERSION;
+}
+
+// ── Actions ───────────────────────────────────────────
+function selectPreset(id){
+  cfg.presetId = id;
+  var p = PRESETS.find(function(x){ return x.id === id; });
+  if (p) {
+    cfg.schedule.fastStart = p.start;
+    cfg.schedule.fastEnd = p.end;
+  }
+  render();
+}
+
+// Shift start time → auto-adjust end to keep same duration
+document.getElementById('fastStart').addEventListener('input', function(){
+  var newStart = this.value;
+  var oldStart = cfg.schedule.fastStart;
+
+  var oh = parseInt(oldStart.split(':')[0]), om = parseInt(oldStart.split(':')[1]);
+  var oldStartMin = oh * 60 + om;
+  var eh = parseInt(cfg.schedule.fastEnd.split(':')[0]), em = parseInt(cfg.schedule.fastEnd.split(':')[1]);
+  var oldEndMin = eh * 60 + em;
+  var duration = oldEndMin <= oldStartMin ? oldEndMin + 1440 - oldStartMin : oldEndMin - oldStartMin;
+
+  var nh = parseInt(newStart.split(':')[0]), nm = parseInt(newStart.split(':')[1]);
+  var newStartMin = nh * 60 + nm;
+  var newEndMin = (newStartMin + duration) % 1440;
+  var neh = Math.floor(newEndMin / 60), nem = newEndMin % 60;
+
+  cfg.schedule.fastStart = newStart;
+  cfg.schedule.fastEnd = String(neh).padStart(2,'0') + ':' + String(nem).padStart(2,'0');
+});
+
+// SegmentedControl tap
+document.getElementById('modeSelector').addEventListener('click', function(e){
+  var b = e.target.closest('button');
+  if (!b) return;
+  cfg.displayMode = b.dataset.mode;
+  render();
+});
+
+// Language toggle
+document.getElementById('langRow').addEventListener('click', function(){
+  cfg.lang = cfg.lang === 'en' ? 'fr' : 'en';
+  document.documentElement.lang = cfg.lang;
+  render();
+});
+
+// Time format toggle
+document.getElementById('timeFmtRow').addEventListener('click', function(){
+  cfg.timeFormat = cfg.timeFormat === '24h' ? '12h' : '24h';
+  render();
+});
+
+// Theme select
+var themeSelect = document.getElementById('themeSelect');
+themeSelect.value = cfg.theme;
+themeSelect.addEventListener('change', function(){
+  cfg.theme = this.value;
+  applyTheme(cfg.theme);
+  localStorage.setItem('even-fasting-config', JSON.stringify(cfg));
+});
+
+// Save
+document.getElementById('btnSave').addEventListener('click', function(){
+  cfg.schedule.fastStart = document.getElementById('fastStart').value;
+  saveCfg();
+  var status = document.getElementById('saveStatus');
+  status.classList.add('show');
+  setTimeout(function(){ status.classList.remove('show'); }, 1500);
+});
+
+// Cancel (revert from storage)
+document.getElementById('btnCancel').addEventListener('click', function(){
+  try{
+    var raw = localStorage.getItem('even-fasting-config');
+    if (raw) Object.assign(cfg, JSON.parse(raw));
+  }catch(e){}
+  applyTheme(cfg.theme);
+  render();
+});
+
+// Init
+document.getElementById('phone-ui').style.display = 'block';
+render();
+})();
+</script>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>
