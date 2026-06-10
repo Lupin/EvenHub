@@ -5,3 +5,6 @@ dist/
 *.ehpk
 QRcode/
 *.zip
+
+# SPM build artifacts
+.build/
