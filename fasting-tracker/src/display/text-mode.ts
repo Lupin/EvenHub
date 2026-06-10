@@ -1,6 +1,19 @@
-import { TextContainerProperty } from '@evenrealities/even_hub_sdk'
+import { TextContainerProperty, ImageContainerProperty } from '@evenrealities/even_hub_sdk'
 import type { FastingConfig } from '../types'
 import { getCurrentFastingState, getPreset, isFastingDay } from '../config'
+import { getPresetName } from '../i18n'
+
+// ── i18n labels ──────────────────────────────────────────────────
+
+const STATUS: Record<string, Record<string, string>> = {
+  en: { fasting: 'FASTING', eating: 'EATING', rest: 'REST DAY' },
+  fr: { fasting: 'JEÛNE', eating: 'REPAS', rest: 'REPOS' },
+}
+
+const TIME_LABEL: Record<string, Record<string, string>> = {
+  en: { left: 'left', in: 'in' },
+  fr: { left: 'restant', in: 'dans' },
+}
 
 function fmt(sec: number): string {
   const h = Math.floor(sec / 3600)
@@ -9,7 +22,9 @@ function fmt(sec: number): string {
 }
 
 export function buildTextPage(config: FastingConfig) {
+  const lang = config.lang || 'en'
   const preset = getPreset(config.presetId)
+  const name = preset ? getPresetName(preset.id, lang as 'en'|'fr') : config.presetId
   let isFasting = false, remaining = 0
 
   if (preset?.fullDay) {
@@ -27,11 +42,12 @@ export function buildTextPage(config: FastingConfig) {
     }
   }
 
-  const name = preset?.name ?? config.presetId
+  const s = STATUS[lang] || STATUS.en
+  const tl = TIME_LABEL[lang] || TIME_LABEL.en
   const rest = preset?.fullDay && !isFastingDay(preset!)
-  const status = rest ? 'REST DAY' : (isFasting ? 'FASTING' : 'EATING')
-  const time = rest ? '' : (isFasting ? `${fmt(remaining)} left` : `${fmt(remaining)} in`)
-  const blink = (Math.floor(Date.now()/800)%2===0) ? '\u25CF' : '\u25CB'
+  const status = rest ? s.rest : (isFasting ? s.fasting : s.eating)
+  const time = rest ? '' : (isFasting ? `${fmt(remaining)} ${tl.left}` : `${fmt(remaining)} ${tl.in}`)
+  const blink = (Math.floor(Date.now()/800)%2===0) ? '\u25D0' : '\u25D1'
 
   const rightPart = time ? `${blink} ${time}` : ''
   const lineW = 66 // chars per line on 576px canvas
@@ -53,5 +69,12 @@ export function buildTextPage(config: FastingConfig) {
     borderWidth: 0, borderColor: 0, borderRadius: 0, paddingLength: 4,
   })
 
-  return { topBar, bottomBar, isFasting }
+  // Image aligned bottom-right (288×144 at x=288, y=144)
+  const image = new ImageContainerProperty({
+    xPosition: 288, yPosition: 144,
+    width: 288, height: 144,
+    containerID: 3, containerName: 'centerImage',
+  })
+
+  return { topBar, bottomBar, image, isFasting }
 }

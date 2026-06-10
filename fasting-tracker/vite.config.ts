@@ -15,7 +15,7 @@ export default defineConfig({
       // Copy static assets needed for Even Hub packaging
       cpSync('icon.png', 'dist/icon.png')
       cpSync('app.json', 'dist/app.json')
-      cpSync('src/phone-config/settings.html', 'dist/settings.html')
+      cpSync('chatgpt-image-g2.png', 'dist/chatgpt-image-g2.png')
     }
   }]
 })

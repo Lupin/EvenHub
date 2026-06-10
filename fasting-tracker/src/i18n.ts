@@ -6,6 +6,7 @@ export interface Translations {
   textMode: string; textModeDesc: string; timelineMode: string; timelineModeDesc: string;
   custom: string; customDesc: string; cancel: string; save: string; language: string;
   fasting: string; eating: string; restDay: string;
+  timeFormat: string; h24: string; h12: string;
   preset_14_10_name: string; preset_14_10_desc: string;
   preset_16_8_name: string; preset_16_8_desc: string;
   preset_18_6_name: string; preset_18_6_desc: string;
@@ -18,13 +19,14 @@ export interface Translations {
 
 export const translations: Record<Language, Translations> = {
   en: {
-    appTitle: 'Fasting Tracker', fastingType: 'Fasting Type',
+    appTitle: 'Intermittent Fasting', fastingType: 'Fasting Type',
     schedule: 'Schedule', fastStart: 'Fasting starts at', fastEnd: 'Fasting ends at',
     displayMode: 'Display Mode', textMode: 'Text (corners)',
     textModeDesc: 'Discreet, upper corners', timelineMode: 'Timeline (bar)',
     timelineModeDesc: 'Day progress bar', custom: 'Custom',
     customDesc: 'Set your own hours', cancel: 'Cancel', save: 'Save',
     language: 'Language', fasting: 'FASTING', eating: 'EATING', restDay: 'REST DAY',
+    timeFormat: 'Time Format', h24: '24h', h12: '12h (AM/PM)',
     preset_14_10_name: '14:10 — Beginner', preset_14_10_desc: '14h fast · 10h eating',
     preset_16_8_name: '16:8 — Leangains', preset_16_8_desc: '16h fast · 8h eating',
     preset_18_6_name: '18:6 — Extended', preset_18_6_desc: '18h fast · 6h eating',
@@ -35,13 +37,14 @@ export const translations: Record<Language, Translations> = {
     preset_adf_name: 'ADF — Alt. Day', preset_adf_desc: 'Fast every other day',
   },
   fr: {
-    appTitle: 'Tracker Jeûne', fastingType: 'Protocole',
+    appTitle: 'Intermittent Fasting', fastingType: 'Protocole',
     schedule: 'Horaires', fastStart: 'Début', fastEnd: 'Fin',
     displayMode: 'Affichage', textMode: 'Texte (coins)',
     textModeDesc: 'Discret, coins supérieurs', timelineMode: 'Barre',
     timelineModeDesc: 'Ligne de progression', custom: 'Perso',
     customDesc: 'Vos horaires', cancel: 'Annuler', save: 'Enregistrer',
     language: 'Langue', fasting: 'À JEUN', eating: 'REPAS', restDay: 'JOUR OFF',
+    timeFormat: 'Format horaire', h24: '24h', h12: '12h (AM/PM)',
     preset_14_10_name: '14:10 — Doux', preset_14_10_desc: '14h à jeun · 10h repas',
     preset_16_8_name: '16:8 — Leangains', preset_16_8_desc: '16h à jeun · 8h repas',
     preset_18_6_name: '18:6 — Confirmé', preset_18_6_desc: '18h à jeun · 6h repas',
