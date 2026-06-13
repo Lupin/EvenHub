@@ -191,8 +191,8 @@ export function renderBigKanji(
   const p = cat.phrases[phraseIndex]
   const total = cat.phrases.length
 
-  const header = `${cat.name}  ${kanjiIndex !== undefined ? `(${kanjiIndex + 1}/${totalAll})` : `${phraseIndex + 1}/${total}`}`
-  const nav = `↑↓ all phrases  ⧉ back`
+  const header = `${cat.name}  ${phraseIndex + 1}/${total}${kanjiIndex !== undefined ? '  ·  all' : ''}`
+  const nav = `↑↓ all phrases`
   const content = `${header}\n\n${p.ph}\n${p.en}\n\n${nav}`
 
   const image = new ImageContainerProperty({
