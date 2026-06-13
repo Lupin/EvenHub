@@ -83,7 +83,7 @@ export function renderDetail(
   const total = cat.phrases.length
 
   const footer = `${cat.name}  ${phraseIndex + 1}/${total}`
-  const content = `${p.ph}\n${p.en}\n${p.jp}\n${footer}`
+  const content = `${p.jp}\n${p.ph}\n${p.en}\n${footer}`
 
   // Image container — big kanji (288×144, centered top)
   const image = new ImageContainerProperty({
