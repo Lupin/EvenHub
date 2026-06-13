@@ -6,15 +6,15 @@ export const FASTING_PRESETS: FastingPreset[] = [
     fastStart: '20:00', fastEnd: '10:00', color: '#4CAF50',
   },
   {
-    id: '16:8', name: '16:8 — Leangains', desc: '16h fast · 8h eating',
+    id: '16:8', name: '16:8 — Classic', desc: '16h fast · 8h eating',
     fastStart: '20:00', fastEnd: '12:00', color: '#2196F3',
   },
   {
-    id: '18:6', name: '18:6 — Extended', desc: '18h fast · 6h eating',
+    id: '18:6', name: '18:6 — Intermediate', desc: '18h fast · 6h eating',
     fastStart: '20:00', fastEnd: '14:00', color: '#9C27B0',
   },
   {
-    id: '20:4', name: '20:4 — Warrior', desc: '20h fast · 4h eating',
+    id: '20:4', name: '20:4 — Advanced', desc: '20h fast · 4h eating',
     fastStart: '20:00', fastEnd: '16:00', color: '#FF9800',
   },
   {
@@ -22,11 +22,11 @@ export const FASTING_PRESETS: FastingPreset[] = [
     fastStart: '19:00', fastEnd: '18:00', color: '#F44336',
   },
   {
-    id: '5:2-week', name: '5:2 — Weekday', desc: '5d eat · 2d fast',
+    id: '5:2-week', name: '5:2 — 2-Day', desc: '5d eat · 2d fast',
     fastStart: '00:00', fastEnd: '00:00', activeDays: [2, 4], fullDay: true, color: '#607D8B',
   },
   {
-    id: 'adf', name: 'ADF — Alt. Day', desc: 'Fast every other day',
+    id: 'adf', name: 'ADF — Alternate', desc: 'Fast every other day',
     fastStart: '00:00', fastEnd: '00:00', activeDays: undefined, fullDay: true, color: '#795548',
   },
 ]

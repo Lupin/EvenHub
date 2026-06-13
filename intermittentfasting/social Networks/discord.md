@@ -15,11 +15,11 @@ Tone: helpful, direct, no marketing language. Talk like you're sharing with peer
 >
 > **Presets:** 14:10 (beginner), 16:8 (Leangains), 18:6, 20:4 (Warrior), OMAD, 5:2, alternate day fasting. Custom schedules too.
 >
-> **Display modes:** Text (countdown in corners) or Timeline (full-width progress bar with status label). Double-tap to switch.
+> **Display modes:** Text (countdown in corners) or Timeline (full-width progress bar with status label). Switch from the companion app. Double-tap on the glasses to exit.
 >
 > **Other:** Phase transition notifications (glasses + phone + sound), English and French, dark and light theme, everything in localStorage — no accounts, no servers, no analytics.
 >
-> I'd really appreciate feedback from people who actually use G2 daily. What presets am I missing? Any SDK quirks I should know about for the display modes? Does the double-tap-to-switch pattern feel right?
+> I'd really appreciate feedback from people who actually use G2 daily. What presets am I missing? Any SDK quirks I should know about for the display modes? Does the companion-app-only mode switching feel right?
 >
 > Store listing isn't up yet — will post the link here once it is. Thanks for any thoughts.
 
@@ -45,7 +45,7 @@ Tone: helpful, direct, no marketing language. Talk like you're sharing with peer
 >
 > **Install:** Even Realities App → Hub → "Intermittent Fasting"
 >
-> **Known limitations:** Only double-click reliably reaches custom handlers on G2 (SDK thing, not on our end). Image containers get killed on rebuildPageContainer — working on a fix. Phase notification sound works when the companion page is open in the phone browser.
+> **Known limitations:** Mode switching is companion-app only (no gesture switching on the glasses). Image containers get killed on rebuildPageContainer — working on a fix. Phase notification sound works when the companion page is open in the phone browser.
 >
 > Feedback and bug reports welcome here or on GitHub.
 

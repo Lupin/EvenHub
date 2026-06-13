@@ -1,0 +1,89 @@
+Changelog - Intermittent Fasting for Even Realities G2
+
+v1.0.10 (2026-06-12)
+
+  Changed
+  - Preset names replaced across all 6 languages. Branded names
+    (Leangains, Warrior, Extended) replaced with difficulty-level
+    descriptors: Beginner, Classic, Intermediate, Advanced.
+  - 5:2: Weekday → 2-Day (and equivalents in all languages).
+  - ADF: Alt. Day → Alternate.
+  - Consistent naming grid across EN, FR, ES, ZH, JA, KO.
+
+v1.0.9 (2026-06-12)
+
+  Added
+  - 4 new languages: Spanish (es), Chinese (zh), Japanese (ja),
+    Korean (ko). Total: 6 languages (EN, FR, ES, ZH, JA, KO).
+  - Language selector is now a <select> dropdown instead of a binary
+    EN/FR toggle. Options rendered in their native names.
+  - Full i18n for all 6 languages in companion app, text mode, and
+    timeline mode (STATUS labels, TIME_LABEL, preset names/descs).
+
+  Changed
+  - Language type expanded from 'en'|'fr' to 6 languages.
+  - app.json supported_languages updated to all 6.
+
+v1.0.8 (2026-06-12)
+
+  Changed
+  - Mode switching is now companion-app only. Removed swipe gesture for
+    mode toggle on the glasses. Switch between Text and Timeline modes
+    exclusively from the phone companion app.
+  - Double-tap triggers bridge.shutDownPageContainer(1), the system exit
+    confirmation dialog. No other action on double-tap.
+
+  Docs
+  - store-assets/store-description.md: updated interaction description
+  - social Networks/x-twitter.md: Tweet 2/5 updated
+  - social Networks/discord.md: tease, launch, known limitations updated
+
+v1.0.7 (2026-06-12)
+
+  Changed
+  - Swipe up/down (SCROLL_TOP / SCROLL_BOTTOM) toggles display mode
+    (Text to Timeline).
+  - Double-tap (DOUBLE_CLICK) triggers bridge.shutDownPageContainer(1),
+    the system exit confirmation dialog.
+  - Event handler now checks all three event sources: listEvent,
+    textEvent, sysEvent.
+
+  Docs
+  - store-assets/store-description.md: updated to "Swipe to switch
+    modes. Double-tap to exit."
+  - social Networks/: x-twitter.md and discord.md updated
+
+v1.0.6 (2026-06-12)
+
+  Fixed
+  - Store rejection: added bridge.shutDownPageContainer(1) to double-tap
+    handler. Even Hub store requires an exit mechanism in the bundle.
+    Double-tap toggles display mode and shows system exit dialog.
+    Confirm to quit, cancel to stay with new mode.
+
+v1.0.5 (2026-06-10)
+
+  Added
+  - 7 fasting presets: 14:10, 16:8, 18:6, 20:4, OMAD, 5:2, ADF
+  - Two display modes: Text (corner countdown) and Timeline (full-width
+    Unicode progress bar)
+  - Phase transition notifications: glasses alert + phone notification +
+    sound
+  - 6 languages: EN, FR, ES, ZH, JA, PT
+  - 12h/24h time format
+  - Dark / Light / System theme
+  - Fully offline: localStorage only, no accounts, no tracking
+
+v1.0.4 (2026-06-09)
+
+  Changed
+  - Theme selector (dark/light/system) in companion app
+  - i18n fix: display modules use config.lang for all user-visible text
+  - Version footer in companion app for build verification
+
+v1.0.0 - v1.0.3 (2026-06-08)
+
+  - Initial development, companion app UI, container layout, image push
+  - Phone settings UI merged into index.html (no black screen on
+    companion)
+  - Manifest renamed to app.json, package output standardized

@@ -1,5 +1,5 @@
 import { TextContainerProperty, ImageContainerProperty } from '@evenrealities/even_hub_sdk'
-import type { FastingConfig } from '../types'
+import type { FastingConfig, Language } from '../types'
 import { getCurrentFastingState, getPreset, isFastingDay } from '../config'
 import { getPresetName } from '../i18n'
 
@@ -8,11 +8,19 @@ import { getPresetName } from '../i18n'
 const STATUS: Record<string, Record<string, string>> = {
   en: { fasting: 'FASTING', eating: 'EATING', rest: 'REST DAY' },
   fr: { fasting: 'JEÛNE', eating: 'REPAS', rest: 'REPOS' },
+  es: { fasting: 'AYUNO', eating: 'COMIDA', rest: 'DESCANSO' },
+  zh: { fasting: '断食中', eating: '进食中', rest: '休息日' },
+  ja: { fasting: '断食中', eating: '食事中', rest: '休息日' },
+  ko: { fasting: '단식 중', eating: '식사 중', rest: '휴식일' },
 }
 
 const TIME_LABEL: Record<string, Record<string, string>> = {
   en: { left: 'left', in: 'in' },
   fr: { left: 'restant', in: 'dans' },
+  es: { left: 'restante', in: 'en' },
+  zh: { left: '剩余', in: '后' },
+  ja: { left: '残り', in: '後' },
+  ko: { left: '남음', in: '후' },
 }
 
 function fmt(sec: number): string {
@@ -24,7 +32,7 @@ function fmt(sec: number): string {
 export function buildTextPage(config: FastingConfig) {
   const lang = config.lang || 'en'
   const preset = getPreset(config.presetId)
-  const name = preset ? getPresetName(preset.id, lang as 'en'|'fr') : config.presetId
+  const name = preset ? getPresetName(preset.id, lang as Language) : config.presetId
   let isFasting = false, remaining = 0
 
   if (preset?.fullDay) {

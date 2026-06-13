@@ -4,6 +4,13 @@ cd "$(dirname "$0")"
 
 # ── Version metadata ──────────────────────────────────────────────
 VERSION=$(cat VERSION 2>/dev/null || echo "1.0.0")
+
+# Auto-increment patch version on every build
+IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+PATCH=$((PATCH + 1))
+VERSION="$MAJOR.$MINOR.$PATCH"
+echo "$VERSION" > VERSION
+
 BUILD_FILE=".build-number"
 
 if [ -f "$BUILD_FILE" ]; then
@@ -46,8 +53,8 @@ PLIST="G2Convert.app/Contents/Info.plist"
 if [ -f "$PLIST" ]; then
     /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$PLIST" 2>/dev/null || true
     /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD"           "$PLIST" 2>/dev/null || true
-    /usr/libexec/PlistBuddy -c "Add :NSHumanReadableCopyright string 'G2 Convert $VERSION ($BUILD) — $BUILD_DATE'" "$PLIST" 2>/dev/null || \
-    /usr/libexec/PlistBuddy -c "Set :NSHumanReadableCopyright 'G2 Convert $VERSION ($BUILD) — $BUILD_DATE'" "$PLIST" 2>/dev/null || true
+    /usr/libexec/PlistBuddy -c "Add :NSHumanReadableCopyright string 'G2 Convert $VERSION ($BUILD) — © Gael Abegg Gauthey — $BUILD_DATE'" "$PLIST" 2>/dev/null || \
+    /usr/libexec/PlistBuddy -c "Set :NSHumanReadableCopyright 'G2 Convert $VERSION ($BUILD) — © Gael Abegg Gauthey — $BUILD_DATE'" "$PLIST" 2>/dev/null || true
 fi
 
 # ── Build ──────────────────────────────────────────────────────────

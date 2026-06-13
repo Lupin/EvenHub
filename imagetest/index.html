@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Test</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0c0a07; color: #f0ebe3;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; min-height: 100vh; gap: 16px;
+    }
+    .card {
+      background: #161310; border-radius: 6px; padding: 16px;
+      max-width: 320px; width: 100%;
+    }
+    .title { font-size: 17px; font-weight: 500; letter-spacing: -0.17px; }
+    .sub { font-size: 13px; color: #8a7f72; letter-spacing: -0.13px; margin-top: 4px; }
+    .status {
+      font-size: 13px; font-family: monospace; letter-spacing: -0.13px;
+      margin-top: 12px; background: #0c0a07; border-radius: 4px;
+      padding: 8px 12px; white-space: pre-wrap; word-break: break-all;
+    }
+    .status.ok { color: #26a69a; }
+    .status.err { color: #ef5350; }
+    .status.info { color: #f0ebe3; }
+    .img-preview {
+      margin-top: 12px; border-radius: 4px;
+      image-rendering: pixelated; display: block;
+    }
+    footer {
+      font-size: 11px; color: #4a4238; font-weight: 300;
+      letter-spacing: -0.11px; margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="phone-ui" class="card">
+    <div class="title">Image Test</div>
+    <div class="sub">G2 4-bit display test</div>
+    <div id="status" class="status info">Connecting...</div>
+    <canvas id="preview" class="img-preview" style="display:none" width="288" height="144"></canvas>
+  </div>
+  <footer>v<span id="appVersion">0.6.0</span></footer>
+  <script>
+    var APP_VERSION = '0.6.0';
+  </script>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

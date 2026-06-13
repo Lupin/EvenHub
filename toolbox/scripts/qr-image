@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# qr-image — Generate QR code PNG for Even Hub sideloading
+# Uses qrencode (primary) with Python qrcode fallback.
+# Usage: qr-image <URL> <output.png> [--scale 8] [--margin 2]
+
+set -euo pipefail
+
+SCALE=8
+MARGIN=2
+OUTPUT=""
+URL=""
+
+usage() {
+  echo "Usage: qr-image <URL> <output.png> [--scale 8] [--margin 2]" >&2
+  echo "  qr-image http://192.168.1.152:5173 QRcode/v1.0.0.png --scale 8 --margin 2" >&2
+  exit 1
+}
+
+# Parse args
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --scale) SCALE="$2"; shift 2 ;;
+    --margin) MARGIN="$2"; shift 2 ;;
+    --help|-h) usage ;;
+    -*)
+      # Assume it's the URL or output if starts with -
+      if [[ -z "$URL" ]]; then URL="$1"; shift
+      elif [[ -z "$OUTPUT" ]]; then OUTPUT="$1"; shift
+      else usage; fi
+      ;;
+    *)
+      if [[ -z "$URL" ]]; then URL="$1"
+      elif [[ -z "$OUTPUT" ]]; then OUTPUT="$1"
+      else usage; fi
+      shift
+      ;;
+  esac
+done
+
+if [[ -z "$URL" || -z "$OUTPUT" ]]; then
+  usage
+fi
+
+# Create output directory
+mkdir -p "$(dirname "$OUTPUT")"
+
+# Try qrencode first (brew)
+if command -v qrencode &>/dev/null; then
+  exec qrencode -s "$SCALE" -m "$MARGIN" -o "$OUTPUT" "$URL"
+  # exec doesn't return, but just in case:
+  exit 0
+fi
+
+# Fallback to Python qrcode
+echo "qrencode not found, falling back to Python qrcode..." >&2
+python3 -c "
+import qrcode, sys
+qr = qrcode.QRCode(version=None, error_correction=qrcode.constants.ERROR_CORRECT_M, box_size=$SCALE, border=$MARGIN)
+qr.add_data('''$URL''')
+qr.make(fit=True)
+qr.make_image(fill_color='black', back_color='white').save('$OUTPUT')
+print(f'Saved {sys.argv[1]}', file=sys.stderr)
+" 2>/dev/null || {
+  echo "FATAL: Neither qrencode nor Python qrcode available. Install one:" >&2
+  echo "  brew install qrencode" >&2
+  echo "  pip install qrcode[pil]" >&2
+  exit 1
+}
+
+echo "QR saved: $OUTPUT"

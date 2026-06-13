@@ -82,23 +82,16 @@ func invertImage(_ image: CGImage) -> CGImage? {
 
 // MARK: - Image processing pipeline
 
-/// Process with optional crop rect in source-image coordinates (Cocoa, bottom-left origin)
-func processImage(_ nsImage: NSImage, width: Int, height: Int, cropRect: CGRect? = nil) -> NSImage? {
+func processImage(_ nsImage: NSImage, width: Int, height: Int) -> NSImage? {
     guard let tiff = nsImage.tiffRepresentation,
           NSBitmapImageRep(data: tiff) != nil else { return nil }
 
-    // Resize
+    // Resize (full image, no crop)
     let resized = NSImage(size: NSSize(width: width, height: height))
     resized.lockFocus()
     NSGraphicsContext.current?.imageInterpolation = .high
-
-    if let crop = cropRect, crop.width > 0.001, crop.height > 0.001 {
-        let dstRect = NSRect(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height))
-        nsImage.draw(in: dstRect, from: crop, operation: .copy, fraction: 1.0)
-    } else {
-        nsImage.draw(in: NSRect(x: 0, y: 0, width: width, height: height),
-                     from: .zero, operation: .copy, fraction: 1.0)
-    }
+    nsImage.draw(in: NSRect(x: 0, y: 0, width: width, height: height),
+                 from: .zero, operation: .copy, fraction: 1.0)
     resized.unlockFocus()
 
     guard let resizedTIFF = resized.tiffRepresentation,
@@ -178,40 +171,6 @@ struct ContentView: View {
     @State private var zoom1to1 = false
     @State private var inverted = false
 
-    // Crop
-    @State private var cropEnabled = false
-    @State private var cropCenter = CGPoint(x: 0.5, y: 0.5)  // normalized 0-1
-    @State private var cropScale: CGFloat = 0.75              // fraction of image
-    @State private var cropDragBase: CGPoint? = nil           // snapshot at gesture start
-
-    /// Crop rectangle in normalized coords (0-1), aspect-ratio-locked to output.
-    /// Mirrors the logic in sourceCropRect so the visual overlay matches the real crop.
-    private var cropNormRect: CGRect {
-        guard let img = inputImage else { return .zero }
-        let imgW = img.size.width
-        let imgH = img.size.height
-        let imgRatio = imgW / imgH
-        let outRatio = CGFloat(effectiveWidth) / CGFloat(effectiveHeight)
-
-        // Max crop in normalized coords (0-1) — same logic as sourceCropRect
-        let maxW: CGFloat, maxH: CGFloat
-        if imgRatio > outRatio {
-            // Source wider than output → height limits
-            maxH = 1.0
-            maxW = (outRatio / imgRatio)
-        } else {
-            // Source taller than or equal to output → width limits
-            maxW = 1.0
-            maxH = (imgRatio / outRatio)
-        }
-
-        let w = maxW * cropScale
-        let h = maxH * cropScale
-        let cx = max(w/2, min(1 - w/2, cropCenter.x))
-        let cy = max(h/2, min(1 - h/2, cropCenter.y))
-        return CGRect(x: cx - w/2, y: cy - h/2, width: w, height: h)
-    }
-
     /// Derived display image: raw or inverted
     private var displayImage: NSImage? {
         guard let raw = rawOutputImage else { return nil }
@@ -249,31 +208,6 @@ struct ContentView: View {
                 dropZone
                     .padding(.horizontal, 12)
                     .padding(.bottom, 8)
-
-                // Crop controls
-                if inputImage != nil {
-                    VStack(spacing: 4) {
-                        HStack {
-                            Toggle("Crop", isOn: $cropEnabled)
-                                .font(.caption)
-                                .disabled(isProcessing)
-                                .onChange(of: cropEnabled) { reprocessIfNeeded() }
-                            Spacer()
-                            if cropEnabled {
-                                Text("\(Int(cropScale * 100))%")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                    .monospacedDigit()
-                            }
-                        }
-                        if cropEnabled {
-                            Slider(value: $cropScale, in: 0.1...1.0, step: 0.05)
-                                .onChange(of: cropScale) { reprocessIfNeeded() }
-                        }
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.bottom, 6)
-                }
 
                 Divider().padding(.horizontal, 12)
 
@@ -358,6 +292,9 @@ struct ContentView: View {
                         .foregroundColor(.secondary)
                         .lineLimit(1)
                     Spacer()
+                    Text("Gael Abegg Gauthey  ·  MIT License")
+                        .font(.caption2)
+                        .foregroundColor(.secondary.opacity(0.6))
                 }
                 .padding(.horizontal, 12)
                 .padding(.bottom, 10)
@@ -384,29 +321,21 @@ struct ContentView: View {
                                 style: SwiftUI.StrokeStyle(lineWidth: 2, dash: [6]))
                 )
 
-            GeometryReader { geo in
-                if let img = inputImage {
-                    // Source image
-                    Image(nsImage: img)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding(8)
-
-                    // Crop overlay
-                    if cropEnabled {
-                        cropOverlay(in: geo)
-                    }
-                } else {
-                    VStack(spacing: 8) {
-                        Image(systemName: "photo.badge.plus")
-                            .font(.system(size: 28))
-                            .foregroundColor(.secondary.opacity(0.5))
-                        Text("Drop image")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            if let img = inputImage {
+                Image(nsImage: img)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(8)
+            } else {
+                VStack(spacing: 8) {
+                    Image(systemName: "photo.badge.plus")
+                        .font(.system(size: 28))
+                        .foregroundColor(.secondary.opacity(0.5))
+                    Text("Drop image")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         .frame(minHeight: 140, idealHeight: 180)
@@ -414,91 +343,6 @@ struct ContentView: View {
             handleDrop(providers: providers)
             return true
         }
-    }
-
-    /// Crop overlay on source image — locked to output aspect ratio
-    private func cropOverlay(in geo: GeometryProxy) -> some View {
-        let imgSize = inputImage?.size ?? .zero
-        guard imgSize.width > 0, imgSize.height > 0 else {
-            return AnyView(EmptyView())
-        }
-        let padding: CGFloat = 8
-        let viewW = geo.size.width - padding * 2
-        let viewH = geo.size.height - padding * 2
-        let scale = min(viewW / imgSize.width, viewH / imgSize.height)
-        let drawW = imgSize.width * scale
-        let drawH = imgSize.height * scale
-        let drawX = padding + (viewW - drawW) / 2
-        let drawY = padding + (viewH - drawH) / 2
-
-        let r = cropNormRect
-        let cropX = drawX + r.origin.x * drawW
-        let cropY = drawY + r.origin.y * drawH
-        let cropW = r.width * drawW
-        let cropH = r.height * drawH
-
-        return ZStack {
-            // Invisible full-area drag target (must be first for gesture priority)
-            Color.clear
-                .contentShape(Rectangle())
-                .gesture(
-                    DragGesture(minimumDistance: 1)
-                        .onChanged { value in
-                            if cropDragBase == nil {
-                                cropDragBase = cropCenter
-                            }
-                            guard let base = cropDragBase else { return }
-                            let dx = value.translation.width / drawW
-                            let dy = value.translation.height / drawH
-                            cropCenter.x = (base.x + dx).clamped(to: 0...1)
-                            cropCenter.y = (base.y + dy).clamped(to: 0...1)
-                        }
-                        .onEnded { _ in
-                            cropDragBase = nil
-                        }
-                )
-
-            // Dim outside crop area
-            Path { path in
-                path.addRect(CGRect(x: 0, y: 0, width: geo.size.width, height: geo.size.height))
-                path.addRect(CGRect(x: cropX, y: cropY, width: cropW, height: cropH))
-            }
-            .fill(Color.black.opacity(0.35), style: FillStyle(eoFill: true))
-            .allowsHitTesting(false)
-
-            // Crop rectangle border
-            RoundedRectangle(cornerRadius: 2)
-                .stroke(Color.accentColor, lineWidth: 1.5)
-                .frame(width: cropW, height: cropH)
-                .position(x: cropX + cropW/2, y: cropY + cropH/2)
-                .allowsHitTesting(false)
-
-            // Corner handles
-            ForEach(0..<4) { i in
-                let cx: CGFloat = i == 0 || i == 2 ? cropX : cropX + cropW
-                let cy: CGFloat = i < 2 ? cropY : cropY + cropH
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(Color.accentColor)
-                    .frame(width: 8, height: 8)
-                    .position(x: cx, y: cy)
-                    .allowsHitTesting(false)
-            }
-
-            // Rule of thirds guides
-            Path { p in
-                for i in 1...2 {
-                    let lx = cropX + cropW * CGFloat(i) / 3.0
-                    p.move(to: CGPoint(x: lx, y: cropY))
-                    p.addLine(to: CGPoint(x: lx, y: cropY + cropH))
-                    let ly = cropY + cropH * CGFloat(i) / 3.0
-                    p.move(to: CGPoint(x: cropX, y: ly))
-                    p.addLine(to: CGPoint(x: cropX + cropW, y: ly))
-                }
-            }
-            .stroke(Color.white.opacity(0.2), lineWidth: 0.5)
-            .allowsHitTesting(false)
-        }
-        .eraseToAnyView()
     }
 
     // MARK: - Preview Area
@@ -556,9 +400,6 @@ struct ContentView: View {
             DispatchQueue.main.async {
                 self.inputImage = img
                 self.inverted = false
-                self.cropEnabled = false
-                self.cropCenter = CGPoint(x: 0.5, y: 0.5)
-                self.cropScale = 0.75
                 self.process()
             }
         }
@@ -574,9 +415,6 @@ struct ContentView: View {
               let img = NSImage(contentsOf: url) else { return }
         inputImage = img
         inverted = false
-        cropEnabled = false
-        cropCenter = CGPoint(x: 0.5, y: 0.5)
-        cropScale = 0.75
         process()
     }
 
@@ -586,10 +424,8 @@ struct ContentView: View {
         status = "Converting…"
         let w = effectiveWidth, h = effectiveHeight
         let presetLabel = selectedPreset.rawValue
-        let srcSize = input.size
-        let srcCrop: CGRect? = cropEnabled ? sourceCropRect(for: srcSize, outW: w, outH: h) : nil
         DispatchQueue.global(qos: .userInitiated).async {
-            let result = processImage(input, width: w, height: h, cropRect: srcCrop)
+            let result = processImage(input, width: w, height: h)
             let pngSize: Int
             if let result = result,
                let tiff = result.tiffRepresentation,
@@ -616,38 +452,6 @@ struct ContentView: View {
     private func reprocessIfNeeded() {
         guard inputImage != nil else { return }
         process()
-    }
-
-    /// Compute the source-image crop rect (Cocoa coords, bottom-left origin)
-    /// from the overlay's normalized center + scale, preserving output aspect ratio.
-    private func sourceCropRect(for srcSize: CGSize, outW: Int, outH: Int) -> CGRect {
-        let srcW = srcSize.width
-        let srcH = srcSize.height
-        let outRatio = CGFloat(outW) / CGFloat(outH)
-        let srcRatio = srcW / srcH
-
-        // Determine crop dimensions in source pixels (aspect-ratio-locked to output)
-        let cropW: CGFloat, cropH: CGFloat
-        if srcRatio > outRatio {
-            // Source is wider than output → height is the constraining dimension
-            cropH = srcH * cropScale
-            cropW = cropH * outRatio
-        } else {
-            // Source is taller than (or equal to) output → width constrains
-            cropW = srcW * cropScale
-            cropH = cropW / outRatio
-        }
-
-        // Position from normalized center (overlay: 0=top, 1=bottom)
-        // Convert to source coords (Cocoa: 0=bottom)
-        let srcCenterX = cropCenter.x * srcW
-        let srcCenterY = srcH * (1 - cropCenter.y)   // flip Y: overlay top → source bottom
-
-        // Clamp center so crop rect stays within source bounds
-        let cx = Swift.max(cropW / 2, Swift.min(srcW - cropW / 2, srcCenterX))
-        let cy = Swift.max(cropH / 2, Swift.min(srcH - cropH / 2, srcCenterY))
-
-        return CGRect(x: cx - cropW / 2, y: cy - cropH / 2, width: cropW, height: cropH)
     }
 
     private func saveImage() {
@@ -702,14 +506,14 @@ struct PresetPicker: View {
                     TextField("", value: $customWidth, format: .number)
                         .textFieldStyle(.roundedBorder)
                         .frame(width: 60)
-                        .onChange(of: customWidth) { onChange() }
+                        .onSubmit { onChange() }
                     Text("H:")
                         .font(.caption)
                         .foregroundColor(.secondary)
                     TextField("", value: $customHeight, format: .number)
                         .textFieldStyle(.roundedBorder)
                         .frame(width: 60)
-                        .onChange(of: customHeight) { onChange() }
+                        .onSubmit { onChange() }
                 }
             }
 

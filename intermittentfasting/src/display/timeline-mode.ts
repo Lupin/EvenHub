@@ -7,6 +7,10 @@ import { getCurrentFastingState, getPreset, isFastingDay } from '../config'
 const STATUS: Record<string, Record<string, string>> = {
   en: { fasting: 'FAST', eating: 'EAT', rest: 'REST' },
   fr: { fasting: 'JEÛNE', eating: 'REPAS', rest: 'REPOS' },
+  es: { fasting: 'AYUNO', eating: 'COMER', rest: 'DESC' },
+  zh: { fasting: '断食', eating: '进食', rest: '休息' },
+  ja: { fasting: '断食', eating: '食事', rest: '休息' },
+  ko: { fasting: '단식', eating: '식사', rest: '휴식' },
 }
 
 function label(isFasting: boolean, isRest: boolean, lang: string): string {

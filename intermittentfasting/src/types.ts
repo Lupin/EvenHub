@@ -10,7 +10,7 @@ export type FastingPresetId =
   | 'adf'
   | 'custom'
 
-export type Language = 'en' | 'fr'
+export type Language = 'en' | 'fr' | 'es' | 'zh' | 'ja' | 'ko'
 
 export interface FastingPreset {
   id: FastingPresetId

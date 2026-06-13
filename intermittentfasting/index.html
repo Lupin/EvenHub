@@ -364,12 +364,18 @@ body{
   <!-- Settings -->
   <div class="section-heading" id="settingsLabel">Settings</div>
   <div class="settings-group">
-    <div class="list-item" id="langRow">
+    <div class="list-item list-item-select">
       <div class="item-body">
         <div class="item-title" id="langTitle">Language</div>
       </div>
-      <span class="item-value" id="langValue">English</span>
-      <span class="item-chevron">&rsaquo;</span>
+      <select id="langSelect" class="theme-select">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="zh">中文</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+      </select>
     </div>
     <div class="list-item" id="timeFmtRow">
       <div class="item-body">
@@ -402,7 +408,7 @@ body{
 </div>
 
 <script>
-var APP_VERSION = '1.0.5';
+var APP_VERSION = '1.0.10';
 (function(){
 'use strict';
 
@@ -450,27 +456,85 @@ var T = {
     title:'Intermittent Fasting', type:'Fasting Type', sched:'Schedule',
     start:'From', settings:'Settings', lang:'Language', timeFmt:'Time format',
     theme:'Theme', dark:'Dark', light:'Light', system:'System',
+    en:'English', fr:'Français', es:'Español', zh:'中文', ja:'日本語', ko:'한국어',
     text:'Text', timeline:'Timeline', cancel:'Cancel', save:'Save', saved:'Saved',
     p14n:'14:10 — Beginner', p14d:'14h fast · 10h eating',
-    p16n:'16:8 — Leangains', p16d:'16h fast · 8h eating',
-    p18n:'18:6 — Extended', p18d:'18h fast · 6h eating',
-    p20n:'20:4 — Warrior', p20d:'20h fast · 4h eating',
+    p16n:'16:8 — Classic', p16d:'16h fast · 8h eating',
+    p18n:'18:6 — Intermediate', p18d:'18h fast · 6h eating',
+    p20n:'20:4 — Advanced', p20d:'20h fast · 4h eating',
     p23n:'OMAD — One Meal', p23d:'23h fast · 1 meal',
-    p52n:'5:2 — Weekday', p52d:'5d eat · 2d fast',
-    padfn:'ADF — Alt. Day', padfd:'Fast every other day'
+    p52n:'5:2 — 2-Day', p52d:'5d eat · 2d fast',
+    padfn:'ADF — Alternate', padfd:'Fast every other day'
   },
   fr: {
     title:'Intermittent Fasting', type:'Protocole', sched:'Horaire',
     start:'Début', settings:'Réglages', lang:'Langue', timeFmt:'Format',
     theme:'Thème', dark:'Sombre', light:'Clair', system:'Système',
+    en:'English', fr:'Français', es:'Español', zh:'中文', ja:'日本語', ko:'한국어',
     text:'Texte', timeline:'Barre', cancel:'Annuler', save:'Enregistrer', saved:'Sauvegardé',
-    p14n:'14:10 — Doux', p14d:'14h à jeun · 10h repas',
-    p16n:'16:8 — Leangains', p16d:'16h à jeun · 8h repas',
-    p18n:'18:6 — Confirmé', p18d:'18h à jeun · 6h repas',
-    p20n:'20:4 — Warrior', p20d:'20h à jeun · 4h repas',
-    p23n:'OMAD — Repas unique', p23d:'23h à jeun · 1 repas',
-    p52n:'5:2 — Hebdo', p52d:'5j normal · 2j à jeun',
+    p14n:'14:10 — Débutant', p14d:'14h à jeun · 10h repas',
+    p16n:'16:8 — Classique', p16d:'16h à jeun · 8h repas',
+    p18n:'18:6 — Intermédiaire', p18d:'18h à jeun · 6h repas',
+    p20n:'20:4 — Avancé', p20d:'20h à jeun · 4h repas',
+    p23n:'OMAD — Un repas', p23d:'23h à jeun · 1 repas',
+    p52n:'5:2 — 2 jours', p52d:'5j normal · 2j à jeun',
     padfn:'ADF — Alterné', padfd:'À jeun un jour sur deux'
+  },
+  es: {
+    title:'Intermittent Fasting', type:'Protocolo', sched:'Horario',
+    start:'Inicio', settings:'Ajustes', lang:'Idioma', timeFmt:'Formato',
+    theme:'Tema', dark:'Oscuro', light:'Claro', system:'Sistema',
+    en:'English', fr:'Français', es:'Español', zh:'中文', ja:'日本語', ko:'한국어',
+    text:'Texto', timeline:'Barra', cancel:'Cancelar', save:'Guardar', saved:'Guardado',
+    p14n:'14:10 — Principiante', p14d:'14h ayuno · 10h comida',
+    p16n:'16:8 — Clásico', p16d:'16h ayuno · 8h comida',
+    p18n:'18:6 — Intermedio', p18d:'18h ayuno · 6h comida',
+    p20n:'20:4 — Avanzado', p20d:'20h ayuno · 4h comida',
+    p23n:'OMAD — Una comida', p23d:'23h ayuno · 1 comida',
+    p52n:'5:2 — 2 días', p52d:'5d comer · 2d ayuno',
+    padfn:'ADF — Alterno', padfd:'Ayuno cada dos días'
+  },
+  zh: {
+    title:'间歇性断食', type:'断食类型', sched:'时间',
+    start:'开始', settings:'设置', lang:'语言', timeFmt:'时间格式',
+    theme:'主题', dark:'深色', light:'浅色', system:'系统',
+    en:'English', fr:'Français', es:'Español', zh:'中文', ja:'日本語', ko:'한국어',
+    text:'文字', timeline:'时间线', cancel:'取消', save:'保存', saved:'已保存',
+    p14n:'14:10 — 入门', p14d:'14h断食 · 10h进食',
+    p16n:'16:8 — 经典', p16d:'16h断食 · 8h进食',
+    p18n:'18:6 — 中级', p18d:'18h断食 · 6h进食',
+    p20n:'20:4 — 高级', p20d:'20h断食 · 4h进食',
+    p23n:'OMAD — 一餐', p23d:'23h断食 · 1餐',
+    p52n:'5:2 — 两天', p52d:'5天进食 · 2天断食',
+    padfn:'ADF — 隔日', padfd:'隔日断食'
+  },
+  ja: {
+    title:'Intermittent Fasting', type:'断食タイプ', sched:'スケジュール',
+    start:'開始', settings:'設定', lang:'言語', timeFmt:'時間形式',
+    theme:'テーマ', dark:'ダーク', light:'ライト', system:'システム',
+    en:'English', fr:'Français', es:'Español', zh:'中文', ja:'日本語', ko:'한국어',
+    text:'テキスト', timeline:'タイムライン', cancel:'キャンセル', save:'保存', saved:'保存済',
+    p14n:'14:10 — 初心者', p14d:'14h断食 · 10h食事',
+    p16n:'16:8 — 標準', p16d:'16h断食 · 8h食事',
+    p18n:'18:6 — 中級', p18d:'18h断食 · 6h食事',
+    p20n:'20:4 — 上級', p20d:'20h断食 · 4h食事',
+    p23n:'OMAD — 一食', p23d:'23h断食 · 1食',
+    p52n:'5:2 — 二日', p52d:'5日食事 · 2日断食',
+    padfn:'ADF — 隔日', padfd:'隔日断食'
+  },
+  ko: {
+    title:'Intermittent Fasting', type:'단식 유형', sched:'시간',
+    start:'시작', settings:'설정', lang:'언어', timeFmt:'시간 형식',
+    theme:'테마', dark:'다크', light:'라이트', system:'시스템',
+    en:'English', fr:'Français', es:'Español', zh:'中文', ja:'日本語', ko:'한국어',
+    text:'텍스트', timeline:'타임라인', cancel:'취소', save:'저장', saved:'저장됨',
+    p14n:'14:10 — 입문', p14d:'14h 단식 · 10h 식사',
+    p16n:'16:8 — 기본', p16d:'16h 단식 · 8h 식사',
+    p18n:'18:6 — 중급', p18d:'18h 단식 · 6h 식사',
+    p20n:'20:4 — 고급', p20d:'20h 단식 · 4h 식사',
+    p23n:'OMAD — 한 끼', p23d:'23h 단식 · 1끼',
+    p52n:'5:2 — 이틀', p52d:'5일 식사 · 2일 단식',
+    padfn:'ADF — 격일', padfd:'하루 걸러 단식'
   }
 };
 
@@ -546,7 +610,15 @@ function render(){
   document.getElementById('fastStart').value = cfg.schedule.fastStart;
 
   // Settings values
-  document.getElementById('langValue').textContent = cfg.lang === 'fr' ? 'Français' : 'English';
+  var ls = document.getElementById('langSelect');
+  ls.innerHTML =
+    '<option value=\"en\">' + t('en') + '</option>' +
+    '<option value=\"fr\">' + t('fr') + '</option>' +
+    '<option value=\"es\">' + t('es') + '</option>' +
+    '<option value=\"zh\">' + t('zh') + '</option>' +
+    '<option value=\"ja\">' + t('ja') + '</option>' +
+    '<option value=\"ko\">' + t('ko') + '</option>';
+  ls.value = cfg.lang;
   document.getElementById('timeFmtValue').textContent = cfg.timeFormat === '24h' ? '24h' : 'AM/PM';
   var ts = document.getElementById('themeSelect');
   ts.innerHTML =
@@ -598,9 +670,9 @@ document.getElementById('modeSelector').addEventListener('click', function(e){
   render();
 });
 
-// Language toggle
-document.getElementById('langRow').addEventListener('click', function(){
-  cfg.lang = cfg.lang === 'en' ? 'fr' : 'en';
+// Language select
+document.getElementById('langSelect').addEventListener('change', function(){
+  cfg.lang = this.value;
   document.documentElement.lang = cfg.lang;
   render();
 });

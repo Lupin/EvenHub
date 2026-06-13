@@ -1,0 +1,12 @@
+{
+  "package_id": "com.nous.imagetest",
+  "edition": "202601",
+  "name": "Image Test",
+  "version": "0.6.0",
+  "min_app_version": "2.0.0",
+  "min_sdk_version": "0.0.10",
+  "entrypoint": "index.html",
+  "permissions": [],
+  "supported_languages": ["en"],
+  "type": "plugin"
+}

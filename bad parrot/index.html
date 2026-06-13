@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bad Parrot</title>
+
+  <!-- even-toolkit CSS tokens dark theme (inline — Vite strips id from <link>) -->
+  <style id="tokens-dark">
+    :root {
+      --color-bg: #0c0a07;
+      --color-surface: #161310;
+      --color-border: #2a2520;
+      --color-text: #f0ebe3;
+      --color-text-dim: #8a7f72;
+      --color-accent: #4a9eff;
+      --radius: 6px;
+      --spacing-sm: 8px;
+      --spacing-md: 12px;
+      --spacing-lg: 16px;
+      --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+  </style>
+
+  <!-- even-toolkit CSS tokens light theme (disabled by default) -->
+  <style id="tokens-light" disabled>
+    :root {
+      --color-bg: #EEEEEE;
+      --color-surface: #FFFFFF;
+      --color-border: #D1D1D1;
+      --color-text: #232323;
+      --color-text-dim: #7B7B7B;
+      --color-accent: #2563EB;
+      --radius: 6px;
+      --spacing-sm: 8px;
+      --spacing-md: 12px;
+      --spacing-lg: 16px;
+      --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+  </style>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-stack);
+      font-size: 15px;
+      background: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      text-align: center;
+      padding: 20px;
+    }
+    #phone-ui {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    #g2-status {
+      display: none;
+      color: var(--color-text-dim);
+      font-size: 13px;
+    }
+    .app-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .app-subtitle {
+      font-size: 13px;
+      color: var(--color-text-dim);
+      max-width: 280px;
+    }
+    .app-footer {
+      margin-top: 32px;
+      font-size: 11px;
+      color: var(--color-text-dim);
+    }
+    .pronunciation-key {
+      margin-top: 24px;
+      padding: 16px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .key-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-dim);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    code {
+      background: var(--color-bg);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Glasses status (shown when bridge is available) -->
+  <div id="g2-status">Connected — Bad Parrot is running on your glasses</div>
+
+  <!-- Phone UI (shown when bridge is NOT available, i.e. browser dev) -->
+  <div id="phone-ui">
+    <div class="app-title">🦜 Bad Parrot</div>
+    <div class="app-subtitle">
+      Japanese phrasebook — 3 slang levels.<br>
+      Open on your G2 glasses to start.
+    </div>
+    <div class="pronunciation-key">
+      <div class="key-title">Pronunciation</div>
+      <code>a = ah</code>  <code>i = ee</code>  <code>u = oo</code><br>
+      <code>e = eh</code>  <code>o = oh</code>  <code>·u = silent</code><br>
+      <code>r = tapped</code>
+    </div>
+    <div class="app-footer">v<span id="appVersion">0.1.0</span></div>
+  </div>
+
+  <script>
+    var APP_VERSION = '0.2.0';
+    document.getElementById('appVersion').textContent = APP_VERSION;
+  </script>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

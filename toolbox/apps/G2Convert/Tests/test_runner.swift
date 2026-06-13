@@ -420,6 +420,277 @@ test("double invert = identity") {
     }
 }
 
+// processImage with crop — horizontal image diagnostic
+print("\nprocessImage with crop (horizontal):")
+test("crop left half of horizontal 800×200 → dark output") {
+    // Create 800×200 image: left 400px black, right 400px white
+    guard let rep = NSBitmapImageRep(
+        bitmapDataPlanes: nil,
+        pixelsWide: 800, pixelsHigh: 200,
+        bitsPerSample: 8, samplesPerPixel: 4,
+        hasAlpha: true, isPlanar: false,
+        colorSpaceName: .deviceRGB,
+        bytesPerRow: 800 * 4, bitsPerPixel: 32
+    ) else { throw TestError("rep nil") }
+
+    NSGraphicsContext.saveGraphicsState()
+    NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
+    NSColor.black.setFill()
+    NSRect(x: 0, y: 0, width: 400, height: 200).fill()
+    NSColor.white.setFill()
+    NSRect(x: 400, y: 0, width: 400, height: 200).fill()
+    NSGraphicsContext.restoreGraphicsState()
+
+    let srcImage = NSImage(size: NSSize(width: 800, height: 200))
+    srcImage.addRepresentation(rep)
+
+    // Crop left half: cropCenter.x=0.25 (centered at 25% of width)
+    // sourceCropRect should be x=[0,400], y=[0,200] — the black half
+    // Simulate sourceCropRect logic manually:
+    let srcW: CGFloat = 800, srcH: CGFloat = 200
+    let outW = 288, outH = 144
+    let outRatio = CGFloat(outW) / CGFloat(outH)  // 2.0
+    let cropScale: CGFloat = 1.0
+
+    // srcRatio=4.0 > outRatio=2.0 → horizontal branch
+    let cropH = srcH * cropScale  // 200
+    let cropW = cropH * outRatio  // 400
+
+    // cropCenter.x=0.25 (left quarter), cropCenter.y=0.5 (middle)
+    let cx: CGFloat = 0.25, cy: CGFloat = 0.5
+    let srcCenterX = cx * srcW  // 200
+    let srcCenterY = srcH * (1 - cy)  // 100
+
+    let ccx = Swift.max(cropW/2, Swift.min(srcW - cropW/2, srcCenterX))  // 200
+    let ccy = Swift.max(cropH/2, Swift.min(srcH - cropH/2, srcCenterY))  // 100
+
+    let cropRect = CGRect(x: ccx - cropW/2, y: ccy - cropH/2, width: cropW, height: cropH)
+    // Expected: (0, 0, 400, 200) — the black half
+    try assertEqual(Int(cropRect.origin.x), 0, "crop origin x")
+    try assertEqual(Int(cropRect.origin.y), 0, "crop origin y")
+    try assertEqual(Int(cropRect.width), 400, "crop width")
+    try assertEqual(Int(cropRect.height), 200, "crop height")
+
+    // Now actually run processImage with this crop
+    let result = processImage(srcImage, width: outW, height: outH, cropRect: cropRect)
+    try assertNotNil(result, "result nil")
+
+    // Read output pixels to verify they're dark (black half)
+    guard let tiff = result!.tiffRepresentation,
+          let outRep = NSBitmapImageRep(data: tiff),
+          let cgOut = outRep.cgImage else {
+        throw TestError("Failed to get output CGImage")
+    }
+    guard let dataProvider = cgOut.dataProvider,
+          let pixelData = dataProvider.data else {
+        throw TestError("Failed to get output pixel data")
+    }
+    let data = CFDataGetBytePtr(pixelData)!
+    let pixelCount = outW * outH
+
+    var sum: Int = 0
+    for i in 0..<pixelCount { sum += Int(data[i]) }
+    let avg = Double(sum) / Double(pixelCount)
+
+    // Should be very dark (the dither of black is all zeros)
+    try assertLessThan(avg, 20, "left-half crop should be dark (avg \(Int(avg)))")
+    print("    → avg pixel: \(Int(avg)) (expected near 0)")
+}
+
+test("crop right half of horizontal 800×200 → bright output") {
+    // Same source image: left 400 black, right 400 white
+    guard let rep = NSBitmapImageRep(
+        bitmapDataPlanes: nil,
+        pixelsWide: 800, pixelsHigh: 200,
+        bitsPerSample: 8, samplesPerPixel: 4,
+        hasAlpha: true, isPlanar: false,
+        colorSpaceName: .deviceRGB,
+        bytesPerRow: 800 * 4, bitsPerPixel: 32
+    ) else { throw TestError("rep nil") }
+
+    NSGraphicsContext.saveGraphicsState()
+    NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
+    NSColor.black.setFill()
+    NSRect(x: 0, y: 0, width: 400, height: 200).fill()
+    NSColor.white.setFill()
+    NSRect(x: 400, y: 0, width: 400, height: 200).fill()
+    NSGraphicsContext.restoreGraphicsState()
+
+    let srcImage = NSImage(size: NSSize(width: 800, height: 200))
+    srcImage.addRepresentation(rep)
+
+    let srcW: CGFloat = 800, srcH: CGFloat = 200
+    let outW = 288, outH = 144
+    let outRatio = CGFloat(outW) / CGFloat(outH)
+    let cropScale: CGFloat = 1.0
+    let cropH = srcH * cropScale
+    let cropW = cropH * outRatio
+
+    // cropCenter.x=0.75 (right quarter), cropCenter.y=0.5
+    let cx: CGFloat = 0.75, cy: CGFloat = 0.5
+    let srcCenterX = cx * srcW  // 600
+    let srcCenterY = srcH * (1 - cy)  // 100
+
+    let ccx = Swift.max(cropW/2, Swift.min(srcW - cropW/2, srcCenterX))  // 600
+    let ccy = Swift.max(cropH/2, Swift.min(srcH - cropH/2, srcCenterY))  // 100
+
+    let cropRect = CGRect(x: ccx - cropW/2, y: ccy - cropH/2, width: cropW, height: cropH)
+    // Expected: (400, 0, 400, 200) — the white half
+    try assertEqual(Int(cropRect.origin.x), 400, "crop origin x")
+    try assertEqual(Int(cropRect.origin.y), 0, "crop origin y")
+
+    let result = processImage(srcImage, width: outW, height: outH, cropRect: cropRect)
+    try assertNotNil(result, "result nil")
+
+    guard let tiff = result!.tiffRepresentation,
+          let outRep = NSBitmapImageRep(data: tiff),
+          let cgOut = outRep.cgImage,
+          let dataProvider = cgOut.dataProvider,
+          let pixelData = dataProvider.data else {
+        throw TestError("Failed to get output pixel data")
+    }
+    let data = CFDataGetBytePtr(pixelData)!
+    let pixelCount = outW * outH
+
+    var sum: Int = 0
+    for i in 0..<pixelCount { sum += Int(data[i]) }
+    let avg = Double(sum) / Double(pixelCount)
+
+    // Should be very bright (dither of white is all 255)
+    try assertGreaterThan(avg, 235, "right-half crop should be bright (avg \(Int(avg)))")
+    print("    → avg pixel: \(Int(avg)) (expected near 255)")
+}
+
+// Vertical crop Y-axis diagnostic
+print("\nprocessImage with crop (vertical Y-axis):")
+test("crop top half of vertical image → dark output") {
+    // Create 200×800 image: top 400px black, bottom 400px white
+    // Note: in Cocoa (bottom-left origin), "top" is high Y values
+    guard let rep = NSBitmapImageRep(
+        bitmapDataPlanes: nil,
+        pixelsWide: 200, pixelsHigh: 800,
+        bitsPerSample: 8, samplesPerPixel: 4,
+        hasAlpha: true, isPlanar: false,
+        colorSpaceName: .deviceRGB,
+        bytesPerRow: 200 * 4, bitsPerPixel: 32
+    ) else { throw TestError("rep nil") }
+
+    NSGraphicsContext.saveGraphicsState()
+    NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
+    // In Cocoa, y=0 is bottom. So top half = y in [400, 800]
+    NSColor.black.setFill()
+    NSRect(x: 0, y: 400, width: 200, height: 400).fill()
+    NSColor.white.setFill()
+    NSRect(x: 0, y: 0, width: 200, height: 400).fill()
+    NSGraphicsContext.restoreGraphicsState()
+
+    let srcImage = NSImage(size: NSSize(width: 200, height: 800))
+    srcImage.addRepresentation(rep)
+
+    let srcW: CGFloat = 200, srcH: CGFloat = 800
+    let outW = 288, outH = 144
+    let outRatio = CGFloat(outW) / CGFloat(outH)  // 2.0
+    let cropScale: CGFloat = 1.0
+
+    // srcRatio=0.25 < outRatio=2.0 → "taller" branch
+    let cropW = srcW * cropScale  // 200
+    let cropH = cropW / outRatio  // 100
+
+    // cropCenter.y=0.25 (near top in overlay)
+    let cx: CGFloat = 0.5, cy: CGFloat = 0.25
+    let srcCenterX = cx * srcW  // 100
+    let srcCenterY = srcH * (1 - cy)  // 800 * 0.75 = 600
+
+    let ccx = Swift.max(cropW/2, Swift.min(srcW - cropW/2, srcCenterX))  // 100
+    let ccy = Swift.max(cropH/2, Swift.min(srcH - cropH/2, srcCenterY))  // max(50, min(750, 600)) = 600
+
+    let cropRect = CGRect(x: ccx - cropW/2, y: ccy - cropH/2, width: cropW, height: cropH)
+    // y=600-50=550 to y=600+50=650 → top portion in Cocoa → black region
+    try assertEqual(Int(cropRect.origin.y), 550, "crop origin y (top → dark)")
+    try assertEqual(Int(cropRect.height), 100, "crop height")
+
+    let result = processImage(srcImage, width: outW, height: outH, cropRect: cropRect)
+    try assertNotNil(result, "result nil")
+
+    guard let tiff = result!.tiffRepresentation,
+          let outRep = NSBitmapImageRep(data: tiff),
+          let cgOut = outRep.cgImage,
+          let dataProvider = cgOut.dataProvider,
+          let pixelData = dataProvider.data else {
+        throw TestError("Failed to get output pixel data")
+    }
+    let data = CFDataGetBytePtr(pixelData)!
+    let pixelCount = outW * outH
+
+    var sum: Int = 0
+    for i in 0..<pixelCount { sum += Int(data[i]) }
+    let avg = Double(sum) / Double(pixelCount)
+
+    try assertLessThan(avg, 20, "top-half crop should be dark (avg \(Int(avg)))")
+    print("    → avg pixel: \(Int(avg)) (expected near 0)")
+}
+
+test("crop bottom half of vertical image → bright output") {
+    guard let rep = NSBitmapImageRep(
+        bitmapDataPlanes: nil,
+        pixelsWide: 200, pixelsHigh: 800,
+        bitsPerSample: 8, samplesPerPixel: 4,
+        hasAlpha: true, isPlanar: false,
+        colorSpaceName: .deviceRGB,
+        bytesPerRow: 200 * 4, bitsPerPixel: 32
+    ) else { throw TestError("rep nil") }
+
+    NSGraphicsContext.saveGraphicsState()
+    NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
+    NSColor.black.setFill()
+    NSRect(x: 0, y: 400, width: 200, height: 400).fill()
+    NSColor.white.setFill()
+    NSRect(x: 0, y: 0, width: 200, height: 400).fill()
+    NSGraphicsContext.restoreGraphicsState()
+
+    let srcImage = NSImage(size: NSSize(width: 200, height: 800))
+    srcImage.addRepresentation(rep)
+
+    let srcW: CGFloat = 200, srcH: CGFloat = 800
+    let outW = 288, outH = 144
+    let outRatio = CGFloat(outW) / CGFloat(outH)
+    let cropScale: CGFloat = 1.0
+    let cropW = srcW * cropScale
+    let cropH = cropW / outRatio
+
+    // cropCenter.y=0.75 (near bottom in overlay, low Y in Cocoa)
+    let cx: CGFloat = 0.5, cy: CGFloat = 0.75
+    let srcCenterX = cx * srcW  // 100
+    let srcCenterY = srcH * (1 - cy)  // 800 * 0.25 = 200
+
+    let ccx = Swift.max(cropW/2, Swift.min(srcW - cropW/2, srcCenterX))
+    let ccy = Swift.max(cropH/2, Swift.min(srcH - cropH/2, srcCenterY))  // max(50, min(750, 200)) = 200
+
+    let cropRect = CGRect(x: ccx - cropW/2, y: ccy - cropH/2, width: cropW, height: cropH)
+    // y=200-50=150 to y=200+50=250 → bottom portion in Cocoa → white region
+    try assertEqual(Int(cropRect.origin.y), 150, "crop origin y (bottom → bright)")
+
+    let result = processImage(srcImage, width: outW, height: outH, cropRect: cropRect)
+    try assertNotNil(result, "result nil")
+
+    guard let tiff = result!.tiffRepresentation,
+          let outRep = NSBitmapImageRep(data: tiff),
+          let cgOut = outRep.cgImage,
+          let dataProvider = cgOut.dataProvider,
+          let pixelData = dataProvider.data else {
+        throw TestError("Failed to get output pixel data")
+    }
+    let data = CFDataGetBytePtr(pixelData)!
+    let pixelCount = outW * outH
+
+    var sum: Int = 0
+    for i in 0..<pixelCount { sum += Int(data[i]) }
+    let avg = Double(sum) / Double(pixelCount)
+
+    try assertGreaterThan(avg, 235, "bottom-half crop should be bright (avg \(Int(avg)))")
+    print("    → avg pixel: \(Int(avg)) (expected near 255)")
+}
+
 // ===========================================================================
 // Results
 // ===========================================================================

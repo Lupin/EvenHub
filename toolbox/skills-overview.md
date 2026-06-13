@@ -45,6 +45,21 @@ Tous les skills Hermes liés au développement Even Realities G2. Chaque skill e
 
 ---
 
+## `evenhub-qr-image` (v1.0.0)
+
+**Générateur de QR code PNG pour sideloading.** Utilise `qrencode` (brew) avec fallback automatique Python `qrcode`.
+
+- **Deux backends** : `qrencode -s 8 -m 2 -o QR.png "URL"` → Python `qrcode` en fallback
+- **Intégration pipeline** : étape 5 du build-and-ship atomique (bump → build → pack → QR ASCII → QR image)
+- **Naming** : `QRcode/vX.Y.Z.png` (version tag = `app.json` version)
+- **IP detection** : `ipconfig getifaddr en0`
+
+**Trigger** : packaging Even Hub, génération de QR sideload, après `evenhub pack`.
+
+**Script lié** : `toolbox/scripts/qr-image`
+
+---
+
 ## `even-hub-app-development` (v1.0.0)
 
 **Soumission d'apps sur le store Even Hub.** Couvre le processus de publication :
@@ -63,7 +78,9 @@ Tous les skills Hermes liés au développement Even Realities G2. Chaque skill e
 | Skill | Version | Scripts | Fichiers de réf |
 |-------|---------|---------|-----------------|
 | `even-hub-dev` | 1.14.0 | — | 9 références |
+| `evenhub-project-bootstrap` | 1.0.0 | — | Plan mode, scaffold complet |
 | `g2-image-converter` | 1.1.0 | `g2-convert.py` | — |
+| `evenhub-qr-image` | 1.0.0 | `qr-image` | — |
 | `even-hub-app-development` | 1.0.0 | — | — |
 
 ---

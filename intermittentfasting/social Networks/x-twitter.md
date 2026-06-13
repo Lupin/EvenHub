@@ -32,7 +32,7 @@ All posts under 280 chars (or threaded). Tone: honest, conversational. No launch
 > Some details on the Intermittent Fasting app I built for G2 — a short thread 🧵
 
 **Tweet 2/5:**
-> It has two display modes. Text mode puts the countdown in the upper corners — minimal, doesn't get in the way. Timeline mode gives you a full-width Unicode progress bar that fills as you progress. Double-tap to switch.
+> It has two display modes. Text mode puts the countdown in the upper corners — minimal, doesn't get in the way. Timeline mode gives you a full-width Unicode progress bar that fills as you progress. Switch modes from the companion app. Double-tap on the glasses to exit.
 
 **Tweet 3/5:**
 > 7 presets: 14:10 (beginner), 16:8 (Leangains), 18:6, 20:4 (Warrior), OMAD, 5:2, and alternate day fasting. Or set your own custom start and end times from the companion app.
