@@ -30,9 +30,11 @@ async function main(): Promise<void> {
     const onSelectCategory = (idx: number) => {
       if (idx === BIG_KANJI_CAT) {
         // BIG WORDS mode — show all 68 phrases in image+text view
+        currentCategory = BIG_KANJI_CAT
         kanjiIndex = 0
         level = 2
-        renderDetail(bridge, ALL_PHRASES[0].catIdx, ALL_PHRASES[0].phrIdx)
+        const {catIdx, phrIdx} = ALL_PHRASES[0]
+        renderDetail(bridge, catIdx, phrIdx)
         return
       }
       currentCategory = idx
