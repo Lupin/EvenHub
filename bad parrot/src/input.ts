@@ -11,7 +11,8 @@ export function setupInputHandlers(
   onPrev: () => void,
   onBack: () => void,
   onBigKanjiNext: () => void,
-  onBigKanjiPrev: () => void
+  onBigKanjiPrev: () => void,
+  onEnterBigKanji: () => void
 ): () => void {
   return bridge.onEvenHubEvent((event) => {
     const lev = getLevel()
@@ -38,9 +39,7 @@ export function setupInputHandlers(
       return
     }
 
-    // List click (levels 0 and 1) — handled BEFORE tap/scroll at these levels
-    // currentSelectItemIndex may be undefined for the first item (index 0)
-    // because the SDK only sends it on change. Default to 0.
+    // List click (levels 0 and 1)
     if (event.listEvent && lev <= 1) {
       let idx = event.listEvent.currentSelectItemIndex
       if (idx === undefined || idx === null) idx = 0
@@ -49,10 +48,15 @@ export function setupInputHandlers(
       return
     }
 
-    // Level 2: swipe up/down for prev/next phrase
+    // Level 2: tap = enter big kanji, swipe = prev/next
     if (lev === 2) {
-      if (type === OsEventTypeList.SCROLL_TOP_EVENT) onPrev()
-      else if (type === OsEventTypeList.SCROLL_BOTTOM_EVENT) onNext()
+      if (type === OsEventTypeList.CLICK_EVENT) {
+        onEnterBigKanji()
+      } else if (type === OsEventTypeList.SCROLL_TOP_EVENT) {
+        onPrev()
+      } else if (type === OsEventTypeList.SCROLL_BOTTOM_EVENT) {
+        onNext()
+      }
       return
     }
 

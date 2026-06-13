@@ -86,11 +86,19 @@ async function main(): Promise<void> {
       renderBigKanji(bridge, catIdx, phrIdx)
     }
 
+    const onEnterBigKanji = () => {
+      // Find current phrase in flat ALL_PHRASES index
+      kanjiIndex = ALL_PHRASES.findIndex(p => p.catIdx === currentCategory && p.phrIdx === currentPhrase)
+      if (kanjiIndex < 0) kanjiIndex = 0
+      level = 3
+      renderBigKanji(bridge, currentCategory, currentPhrase)
+    }
+
     setupInputHandlers(
       bridge, getLevel,
       onSelectCategory, onSelectPhrase,
       onNext, onPrev, onBack,
-      onBigKanjiNext, onBigKanjiPrev
+      onBigKanjiNext, onBigKanjiPrev, onEnterBigKanji
     )
   } catch {
     console.log('Bad Parrot: Bridge not available')

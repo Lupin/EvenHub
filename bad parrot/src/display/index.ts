@@ -16,7 +16,7 @@ let pageCreated = false
 
 /** Level 0: category list (3 slang levels). */
 export function renderCategoryList(bridge: EvenAppBridge): void {
-  const names = [...categories.map(c => c.name), '🉐 Kanji']
+  const names = [...categories.map(c => c.name), 'BIG WORDS']
 
   const list = new ListContainerProperty({
     containerID: 1,
@@ -87,7 +87,7 @@ export function renderDetail(
   const line3 = condense(p.en, 47)
 
   const header = `${cat.name}  ${phraseIndex + 1}/${total}`
-  const content = `${header}\n\n${line1}\n${line2}\n${line3}\n\n↑↓ phrase  ⊳ big kanji`
+  const content = `${header}\n\n${line1}\n${line2}\n${line3}\n\n  ◁  BIG  ▷`
 
   bridge.rebuildPageContainer(
     new RebuildPageContainer({
