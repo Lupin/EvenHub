@@ -1,5 +1,5 @@
 import { waitForEvenAppBridge } from '@evenrealities/even_hub_sdk'
-import { renderCategoryList, renderPhraseList, renderDetail, renderBigKanji } from './display'
+import { renderCategoryList, renderPhraseList, renderDetail } from './display'
 import { setupInputHandlers } from './input'
 import { categories } from './data'
 import type { NavigationLevel } from './types'
@@ -11,13 +11,13 @@ for (let ci = 0; ci < categories.length; ci++) {
     ALL_PHRASES.push({catIdx: ci, phrIdx: pi})
   }
 }
-const BIG_KANJI_CAT = categories.length  // index 7 = virtual "🉐 Kanji" category
+const BIG_KANJI_CAT = categories.length  // index 7 = virtual "BIG WORDS" category
 
 async function main(): Promise<void> {
   let level: NavigationLevel = 0
   let currentCategory = 0
   let currentPhrase = 0
-  let kanjiIndex = 0  // flat index into ALL_PHRASES for big kanji mode
+  let kanjiIndex = 0  // flat index into ALL_PHRASES for big words mode
 
   try {
     const bridge = await waitForEvenAppBridge()
@@ -29,10 +29,10 @@ async function main(): Promise<void> {
 
     const onSelectCategory = (idx: number) => {
       if (idx === BIG_KANJI_CAT) {
-        // Big kanji mode — go straight to Level 3
+        // BIG WORDS mode — show all 68 phrases in image+text view
         kanjiIndex = 0
-        level = 3
-        renderBigKanji(bridge, ALL_PHRASES[0].catIdx, ALL_PHRASES[0].phrIdx, 0, ALL_PHRASES.length)
+        level = 2
+        renderDetail(bridge, ALL_PHRASES[0].catIdx, ALL_PHRASES[0].phrIdx)
         return
       }
       currentCategory = idx
@@ -48,20 +48,35 @@ async function main(): Promise<void> {
     }
 
     const onNext = () => {
+      if (level === 2 && currentCategory === BIG_KANJI_CAT) {
+        // BIG WORDS mode — iterate through all 68 phrases
+        kanjiIndex = (kanjiIndex + 1) % ALL_PHRASES.length
+        const {catIdx, phrIdx} = ALL_PHRASES[kanjiIndex]
+        renderDetail(bridge, catIdx, phrIdx)
+        return
+      }
+      // Normal category — iterate within the category
       currentPhrase = (currentPhrase + 1) % categories[currentCategory].phrases.length
       renderDetail(bridge, currentCategory, currentPhrase)
     }
 
     const onPrev = () => {
+      if (level === 2 && currentCategory === BIG_KANJI_CAT) {
+        kanjiIndex = (kanjiIndex - 1 + ALL_PHRASES.length) % ALL_PHRASES.length
+        const {catIdx, phrIdx} = ALL_PHRASES[kanjiIndex]
+        renderDetail(bridge, catIdx, phrIdx)
+        return
+      }
       const total = categories[currentCategory].phrases.length
       currentPhrase = (currentPhrase - 1 + total) % total
       renderDetail(bridge, currentCategory, currentPhrase)
     }
 
     const onBack = () => {
-      if (level === 3) {
-        // Back from big kanji → Level 0
+      if (level === 2 && currentCategory === BIG_KANJI_CAT) {
+        // Back from BIG WORDS → Level 0
         level = 0
+        currentCategory = 0
         renderCategoryList(bridge)
         return
       }
@@ -74,31 +89,10 @@ async function main(): Promise<void> {
       }
     }
 
-    const onBigKanjiNext = () => {
-      kanjiIndex = (kanjiIndex + 1) % ALL_PHRASES.length
-      const {catIdx, phrIdx} = ALL_PHRASES[kanjiIndex]
-      renderBigKanji(bridge, catIdx, phrIdx, kanjiIndex, ALL_PHRASES.length)
-    }
-
-    const onBigKanjiPrev = () => {
-      kanjiIndex = (kanjiIndex - 1 + ALL_PHRASES.length) % ALL_PHRASES.length
-      const {catIdx, phrIdx} = ALL_PHRASES[kanjiIndex]
-      renderBigKanji(bridge, catIdx, phrIdx, kanjiIndex, ALL_PHRASES.length)
-    }
-
-    const onEnterBigKanji = () => {
-      // Find current phrase in flat ALL_PHRASES index
-      kanjiIndex = ALL_PHRASES.findIndex(p => p.catIdx === currentCategory && p.phrIdx === currentPhrase)
-      if (kanjiIndex < 0) kanjiIndex = 0
-      level = 3
-      renderBigKanji(bridge, currentCategory, currentPhrase, kanjiIndex, ALL_PHRASES.length)
-    }
-
     setupInputHandlers(
       bridge, getLevel,
       onSelectCategory, onSelectPhrase,
-      onNext, onPrev, onBack,
-      onBigKanjiNext, onBigKanjiPrev, onEnterBigKanji
+      onNext, onPrev, onBack
     )
   } catch {
     console.log('Bad Parrot: Bridge not available')

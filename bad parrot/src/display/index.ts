@@ -72,7 +72,7 @@ export function renderPhraseList(bridge: EvenAppBridge, catIndex: number): void 
   )
 }
 
-/** Level 2: detail view — phrase text + list nav (◀ BIG ▶). */
+/** Level 2: detail view — big kanji image + pronunciation, translation, category. */
 export function renderDetail(
   bridge: EvenAppBridge,
   catIndex: number,
@@ -82,47 +82,42 @@ export function renderDetail(
   const p = cat.phrases[phraseIndex]
   const total = cat.phrases.length
 
-  const line1 = condense(p.jp, 22)
-  const line2 = condense(p.ph, 45)
-  const line3 = condense(p.en, 47)
-  const header = `${cat.name}  ${phraseIndex + 1}/${total}`
-  const content = `${header}\n\n${line1}\n${line2}\n${line3}`
+  const footer = `${cat.name}  ${phraseIndex + 1}/${total}`
+  const content = `${p.ph}\n${p.en}\n${footer}`
 
-  // Text container — phrase content, no event capture (display only)
-  const text = new TextContainerProperty({
-    containerID: 1,
-    containerName: 'detail',
-    content,
-    xPosition: 4,
-    yPosition: ANCHOR_Y,
-    width: 568,
-    height: 190,
-    isEventCapture: 0,
+  // Image container — big kanji (288×144, centered top)
+  const image = new ImageContainerProperty({
+    containerID: 2,
+    containerName: 'kanjiImg',
+    xPosition: KANJI_IMG_X,
+    yPosition: KANJI_IMG_Y,
+    width: KANJI_IMG_W,
+    height: KANJI_IMG_H,
   })
 
-  // List container — nav items (◀ / BIG / ▶), handles all tap/scroll
-  const nav = new ListContainerProperty({
-    containerID: 2,
-    containerName: 'detailNav',
-    xPosition: 100,
-    yPosition: 220,
-    width: 376,
-    height: 64,
+  // Text container — pronunciation + translation + category (below image)
+  const text = new TextContainerProperty({
+    containerID: 1,
+    containerName: 'kanjiText',
+    content,
+    xPosition: 4,
+    yPosition: 150,
+    width: 568,
+    height: 134,
     isEventCapture: 1,
-    itemContainer: new ListItemContainerProperty({
-      itemCount: 3,
-      itemWidth: 360,
-      isItemSelectBorderEn: 1,
-      itemName: ['◀  Previous', 'BIG', '▶  Next'],
-    }),
   })
 
   bridge.rebuildPageContainer(
     new RebuildPageContainer({
       containerTotalNum: 2,
       textObject: [text],
-      listObject: [nav],
+      imageObject: [image],
     })
+  )
+
+  // Push image bytes (async)
+  loadAndPushKanjiImage(bridge, catIndex, phraseIndex).catch(err =>
+    console.error('loadAndPushKanjiImage failed:', err)
   )
 }
 
@@ -178,53 +173,4 @@ async function loadAndPushKanjiImage(
   if (result !== 'success') {
     console.error('updateImageRawData:', result)
   }
-}
-
-export function renderBigKanji(
-  bridge: EvenAppBridge,
-  catIndex: number,
-  phraseIndex: number,
-  kanjiIndex?: number,
-  totalAll?: number
-): void {
-  const cat = categories[catIndex]
-  const p = cat.phrases[phraseIndex]
-  const total = cat.phrases.length
-
-  const header = `${cat.name}  ${phraseIndex + 1}/${total}${kanjiIndex !== undefined ? '  ·  all' : ''}`
-  const nav = `↑↓ all phrases`
-  const content = `${header}\n\n${p.ph}\n${p.en}\n\n${nav}`
-
-  const image = new ImageContainerProperty({
-    containerID: 2,
-    containerName: 'kanjiImg',
-    xPosition: KANJI_IMG_X,
-    yPosition: KANJI_IMG_Y,
-    width: KANJI_IMG_W,
-    height: KANJI_IMG_H,
-  })
-
-  const text = new TextContainerProperty({
-    containerID: 1,
-    containerName: 'kanjiText',
-    content,
-    xPosition: 4,
-    yPosition: KANJI_TEXT_Y,
-    width: 568,
-    height: KANJI_TEXT_H,
-    isEventCapture: 1,
-  })
-
-  bridge.rebuildPageContainer(
-    new RebuildPageContainer({
-      containerTotalNum: 2,
-      textObject: [text],
-      imageObject: [image],
-    })
-  )
-
-  // Push image bytes (async — don't block the render)
-  loadAndPushKanjiImage(bridge, catIndex, phraseIndex).catch(err =>
-    console.error('loadAndPushKanjiImage failed:', err)
-  )
 }
