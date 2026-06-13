@@ -48,15 +48,13 @@ export function setupInputHandlers(
       return
     }
 
-    // Level 2: tap = enter big kanji, swipe = prev/next
-    if (lev === 2) {
-      if (type === OsEventTypeList.CLICK_EVENT) {
-        onEnterBigKanji()
-      } else if (type === OsEventTypeList.SCROLL_TOP_EVENT) {
-        onPrev()
-      } else if (type === OsEventTypeList.SCROLL_BOTTOM_EVENT) {
-        onNext()
-      }
+    // Level 2: list nav — ◀=prev, BIG=enter big, ▶=next
+    if (event.listEvent && lev === 2) {
+      let idx = event.listEvent.currentSelectItemIndex
+      if (idx === undefined || idx === null) idx = 0
+      if (idx === 0) onPrev()
+      else if (idx === 1) onEnterBigKanji()
+      else if (idx === 2) onNext()
       return
     }
 

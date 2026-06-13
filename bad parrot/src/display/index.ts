@@ -72,7 +72,7 @@ export function renderPhraseList(bridge: EvenAppBridge, catIndex: number): void 
   )
 }
 
-/** Level 2: detail view (3 lines). */
+/** Level 2: detail view — phrase text + list nav (◀ BIG ▶). */
 export function renderDetail(
   bridge: EvenAppBridge,
   catIndex: number,
@@ -85,25 +85,43 @@ export function renderDetail(
   const line1 = condense(p.jp, 22)
   const line2 = condense(p.ph, 45)
   const line3 = condense(p.en, 47)
-
   const header = `${cat.name}  ${phraseIndex + 1}/${total}`
-  const content = `${header}\n\n${line1}\n${line2}\n${line3}\n\n  ◁  BIG  ▷`
+  const content = `${header}\n\n${line1}\n${line2}\n${line3}`
+
+  // Text container — phrase content, no event capture (display only)
+  const text = new TextContainerProperty({
+    containerID: 1,
+    containerName: 'detail',
+    content,
+    xPosition: 4,
+    yPosition: ANCHOR_Y,
+    width: 568,
+    height: 190,
+    isEventCapture: 0,
+  })
+
+  // List container — nav items (◀ / BIG / ▶), handles all tap/scroll
+  const nav = new ListContainerProperty({
+    containerID: 2,
+    containerName: 'detailNav',
+    xPosition: 100,
+    yPosition: 220,
+    width: 376,
+    height: 64,
+    isEventCapture: 1,
+    itemContainer: new ListItemContainerProperty({
+      itemCount: 3,
+      itemWidth: 360,
+      isItemSelectBorderEn: 1,
+      itemName: ['◀  Previous', 'BIG', '▶  Next'],
+    }),
+  })
 
   bridge.rebuildPageContainer(
     new RebuildPageContainer({
-      containerTotalNum: 1,
-      textObject: [
-        new TextContainerProperty({
-          containerID: 1,
-          containerName: 'detail',
-          content,
-          xPosition: 4,
-          yPosition: ANCHOR_Y,
-          width: 568,
-          height: 280,
-          isEventCapture: 1,
-        }),
-      ],
+      containerTotalNum: 2,
+      textObject: [text],
+      listObject: [nav],
     })
   )
 }
