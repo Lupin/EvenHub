@@ -165,14 +165,17 @@ async function loadAndPushKanjiImage(
 export function renderBigKanji(
   bridge: EvenAppBridge,
   catIndex: number,
-  phraseIndex: number
+  phraseIndex: number,
+  kanjiIndex?: number,
+  totalAll?: number
 ): void {
   const cat = categories[catIndex]
   const p = cat.phrases[phraseIndex]
   const total = cat.phrases.length
 
-  const nav = `${phraseIndex + 1}/${total}  ↑↓ phrase  ⧉ back`
-  const content = `${p.ph}\n${p.en}\n\n${nav}`
+  const header = `${cat.name}  ${kanjiIndex !== undefined ? `(${kanjiIndex + 1}/${totalAll})` : `${phraseIndex + 1}/${total}`}`
+  const nav = `↑↓ all phrases  ⧉ back`
+  const content = `${header}\n\n${p.ph}\n${p.en}\n\n${nav}`
 
   const image = new ImageContainerProperty({
     containerID: 2,

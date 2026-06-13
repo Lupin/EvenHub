@@ -32,7 +32,7 @@ async function main(): Promise<void> {
         // Big kanji mode — go straight to Level 3
         kanjiIndex = 0
         level = 3
-        renderBigKanji(bridge, ALL_PHRASES[0].catIdx, ALL_PHRASES[0].phrIdx)
+        renderBigKanji(bridge, ALL_PHRASES[0].catIdx, ALL_PHRASES[0].phrIdx, 0, ALL_PHRASES.length)
         return
       }
       currentCategory = idx
@@ -77,13 +77,13 @@ async function main(): Promise<void> {
     const onBigKanjiNext = () => {
       kanjiIndex = (kanjiIndex + 1) % ALL_PHRASES.length
       const {catIdx, phrIdx} = ALL_PHRASES[kanjiIndex]
-      renderBigKanji(bridge, catIdx, phrIdx)
+      renderBigKanji(bridge, catIdx, phrIdx, kanjiIndex, ALL_PHRASES.length)
     }
 
     const onBigKanjiPrev = () => {
       kanjiIndex = (kanjiIndex - 1 + ALL_PHRASES.length) % ALL_PHRASES.length
       const {catIdx, phrIdx} = ALL_PHRASES[kanjiIndex]
-      renderBigKanji(bridge, catIdx, phrIdx)
+      renderBigKanji(bridge, catIdx, phrIdx, kanjiIndex, ALL_PHRASES.length)
     }
 
     const onEnterBigKanji = () => {
@@ -91,7 +91,7 @@ async function main(): Promise<void> {
       kanjiIndex = ALL_PHRASES.findIndex(p => p.catIdx === currentCategory && p.phrIdx === currentPhrase)
       if (kanjiIndex < 0) kanjiIndex = 0
       level = 3
-      renderBigKanji(bridge, currentCategory, currentPhrase)
+      renderBigKanji(bridge, currentCategory, currentPhrase, kanjiIndex, ALL_PHRASES.length)
     }
 
     setupInputHandlers(
