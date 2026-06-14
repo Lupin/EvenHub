@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G2 Sandbox</title>
+  <style>
+    :root {
+      --bg: #0c0a07; --text: #f0ebe3; --dim: #8a7f72;
+      --surface: #161310; --border: #28221a; --accent: #FFFFFF;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: "FK Grotesk Neue", -apple-system, sans-serif; min-height: 100dvh; }
+    #phone-ui { display: none; padding: 24px 16px; max-width: 400px; margin: 0 auto; }
+    #g2-status { padding: 16px; color: var(--dim); font-size: 13px; text-align: center; }
+    .card { background: var(--surface); border-radius: 6px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); }
+    .card h2 { font-size: 15px; font-weight: 400; letter-spacing: -0.15px; margin-bottom: 8px; }
+    .card p { font-size: 13px; color: var(--dim); letter-spacing: -0.13px; line-height: 1.4; }
+    .app-footer { text-align: center; font-size: 11px; color: var(--dim); margin-top: 24px; padding-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <div id="g2-status">Initialisation du bridge G2...</div>
+
+  <div id="phone-ui">
+    <div class="card">
+      <h2>G2 Sandbox — Apprentissage SDK</h2>
+      <p>Projet bac à sable pour tester les APIs Even Hub SDK manuellement.</p>
+      <p style="margin-top:8px"><b>Contrôles :</b> Swipe ↑↓ = navigation, Tap = sélection, Double-tap = quitter</p>
+    </div>
+    <footer class="app-footer">v<span id="appVersion">0.1.0</span></footer>
+  </div>
+
+  <script>
+    var APP_VERSION = '0.1.0';
+  </script>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

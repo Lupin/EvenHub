@@ -1,0 +1,8 @@
+{
+  "name": "hermes-g2",
+  "label": "Hermes G2",
+  "description": "API endpoint for Hermes G2 companion app — serves cron outputs and session data",
+  "icon": "Glasses",
+  "version": "0.1.0",
+  "api": "plugin_api.py"
+}

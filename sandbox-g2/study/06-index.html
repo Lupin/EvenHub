@@ -1,0 +1,317 @@
+<!-------------------------------------------------------------------------
+ ╔══════════════════════════════════════════════════════════════╗
+ ║  BAD PARROT — ÉTUDE DE CODE                                ║
+ ║  Fichier 6/6 : index.html — La page web (double usage)     ║
+ ╚══════════════════════════════════════════════════════════════╝
+
+ CE FICHIER SERT À QUOI ?
+ ─────────────────────────
+ C'est LE SEUL fichier HTML du projet. Il sert à DEUX choses très
+ différentes selon où il est ouvert :
+
+   SCÉNARIO A : Ouvert par l'app Even Realities sur le téléphone
+   ────────────────────────────────────────────────────────────
+   → waitForEvenAppBridge() réussit
+   → Le code TypeScript (src/main.ts) s'exécute
+   → L'UI des lunettes s'affiche
+   → Le <div id="phone-ui"> est CACHÉ
+   → Le <div id="g2-status"> est AFFICHÉ
+
+   SCÉNARIO B : Ouvert dans un navigateur normal (Chrome, Safari)
+   ────────────────────────────────────────────────────────────
+   → waitForEvenAppBridge() échoue (pas de bridge)
+   → Le catch dans main.ts s'exécute
+   → Le <div id="g2-status"> est CACHÉ (display:none en CSS)
+   → Le <div id="phone-ui"> est AFFICHÉ (mode companion)
+
+ LE DOUBLE THÈME CLAIR/SOMBRE
+ ────────────────────────────
+ Les balises <style> avec id="tokens-dark" et id="tokens-light"
+ définissent les couleurs en fonction du thème.
+
+   - tokens-dark  : activé par défaut (fond sombre, texte clair)
+   - tokens-light : désactivé avec l'attribut "disabled"
+
+ Pour changer de thème, on active/désactive ces balises via JS.
+ C'est fait ainsi parce que Vite (l'outil de build) supprime les
+ attributs "id" des balises <link>, donc on met le CSS directement
+ dans des <style>.
+
+ LES VARIABLES CSS (custom properties)
+ ─────────────────────────────────────
+ Les trucs qui commencent par "--" (ex: --color-bg) sont des
+ "variables CSS". On les définit une fois et on les utilise partout.
+
+   :root { --color-bg: #0c0a07; }    ← définition
+   body { background: var(--color-bg); }  ← utilisation
+
+ Avantage : si on change --color-bg, tout ce qui l'utilise change
+ automatiquement. Pas besoin de chercher-remplacer dans tout le CSS.
+--------------------------------------------------------------------------->
+
+<!DOCTYPE html>
+<!--
+  lang="en"     = la langue de la page (pour les lecteurs d'écran, SEO)
+  data-theme="dark" = attribut personnalisé pour le thème actuel
+-->
+<html lang="en" data-theme="dark">
+<head>
+  <!--
+    <meta charset="UTF-8"> = le fichier utilise l'encodage UTF-8
+    (nécessaire pour les caractères japonais ありがとう)
+  -->
+  <meta charset="UTF-8">
+
+  <!--
+    viewport : indique au navigateur mobile comment afficher la page.
+    width=device-width = la largeur de la page = la largeur de l'écran
+    initial-scale=1.0  = pas de zoom par défaut
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bad Parrot</title>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- THÈME SOMBRE (actif par défaut) -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--
+    Tout ce qui est dans :root { ... } est une variable CSS.
+    Ça veut dire "à la racine du document, définis ces variables".
+
+    Exemple d'utilisation plus bas :
+      body { background: var(--color-bg); }
+      → le fond sera #0c0a07 (noir très foncé)
+  -->
+  <style id="tokens-dark">
+    :root {
+      --color-bg: #0c0a07;          /* fond de page     = quasi noir    */
+      --color-surface: #161310;     /* fond des cartes  = gris très foncé */
+      --color-border: #2a2520;      /* bordures         = gris foncé    */
+      --color-text: #f0ebe3;        /* texte principal  = blanc cassé   */
+      --color-text-dim: #8a7f72;    /* texte secondaire = gris moyen    */
+      --color-accent: #4a9eff;      /* couleur d'accent = bleu          */
+      --radius: 6px;                /* coins arrondis                   */
+      --spacing-sm: 8px;            /* petit espacement                 */
+      --spacing-md: 12px;           /* espacement moyen                 */
+      --spacing-lg: 16px;           /* grand espacement                 */
+      --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- THÈME CLAIR (désactivé par défaut → l'attribut "disabled") -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <style id="tokens-light" disabled>
+    :root {
+      --color-bg: #EEEEEE;
+      --color-surface: #FFFFFF;
+      --color-border: #D1D1D1;
+      --color-text: #232323;
+      --color-text-dim: #7B7B7B;
+      --color-accent: #2563EB;
+      --radius: 6px;
+      --spacing-sm: 8px;
+      --spacing-md: 12px;
+      --spacing-lg: 16px;
+      --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- STYLES DE LA PAGE -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <style>
+    /* Reset de base : supprime les marges/padding par défaut du navigateur */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-stack);    /* utilise la variable définie plus haut */
+      font-size: 15px;
+      background: var(--color-bg);       /* fond = variable --color-bg */
+      color: var(--color-text);          /* texte = variable --color-text */
+      min-height: 100dvh;                /* au moins la hauteur de l'écran */
+                                         /* dvh = "dynamic viewport height" (mobile) */
+
+      /* Centrer le contenu avec flexbox */
+      display: flex;
+      flex-direction: column;            /* empiler verticalement */
+      align-items: center;               /* centrer horizontalement */
+      justify-content: center;           /* centrer verticalement */
+
+      -webkit-font-smoothing: antialiased;  /* rendre le texte plus net sur macOS */
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* L'UI companion (téléphone) est affichée par défaut.
+       Elle sera cachée par JS si le bridge G2 est disponible. */
+    #phone-ui {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;                         /* espace de 16px entre les enfants */
+    }
+
+    /* Le statut G2 (affiche "Connecté" sur le téléphone quand l'app
+       tourne sur les lunettes) est caché par défaut. */
+    #g2-status {
+      display: none;
+      color: var(--color-text-dim);
+      font-size: 13px;
+    }
+
+    .app-title {
+      font-size: 28px;
+      font-weight: 700;                  /* gras */
+      margin-bottom: 4px;
+    }
+
+    .app-subtitle {
+      font-size: 13px;
+      color: var(--color-text-dim);
+      max-width: 280px;                  /* pour éviter les lignes trop longues */
+    }
+
+    /* Pied de page avec le numéro de version */
+    .app-footer {
+      margin-top: 32px;
+      font-size: 11px;
+      color: var(--color-text-dim);
+    }
+
+    /* La carte qui explique la prononciation */
+    .pronunciation-key {
+      margin-top: 24px;
+      padding: 16px;
+      background: var(--color-surface);  /* fond de carte */
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);      /* coins arrondis à 6px */
+      text-align: left;                  /* texte aligné à gauche dans la carte */
+      font-size: 14px;
+      line-height: 1.8;                  /* interlignage aéré */
+    }
+
+    .key-title {
+      font-size: 12px;
+      font-weight: 600;                  /* semi-gras */
+      color: var(--color-text-dim);
+      margin-bottom: 8px;
+      text-transform: uppercase;         /* MAJUSCULES */
+      letter-spacing: 0.5px;             /* espacement des lettres */
+    }
+
+    /* Les <code> servent à afficher les exemples de prononciation */
+    code {
+      background: var(--color-bg);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- STATUT LUNETTES (affiché quand le bridge est actif) -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--
+    Ce <div> est montré sur le téléphone quand l'app tourne
+    sur les lunettes. Il rassure l'utilisateur que tout va bien.
+    Par défaut il est caché (display: none), le JS l'affiche
+    si besoin (dans Bad Parrot, il est juste caché par défaut
+    parce que l'UI companion prend le relais).
+  -->
+  <div id="g2-status">Connected — Bad Parrot is running on your glasses</div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- UI COMPANION (affichée dans le navigateur / sur le tel) -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div id="phone-ui">
+    <!-- Emoji perroquet + nom de l'app -->
+    <div class="app-title">🦜 Bad Parrot</div>
+
+    <div class="app-subtitle">
+      Japanese phrasebook — 3 slang levels.<br>
+      Open on your G2 glasses to start.
+    </div>
+
+    <!-- Guide de prononciation -->
+    <!--
+      Les <code> sont des éléments inline pour afficher du code.
+      Ici on les utilise pour les paires "lettre = son".
+    -->
+    <div class="pronunciation-key">
+      <div class="key-title">Pronunciation</div>
+      <code>a = ah</code>  <code>i = ee</code>  <code>u = oo</code><br>
+      <code>e = eh</code>  <code>o = oh</code>  <code>·u = silent</code><br>
+      <code>r = tapped</code>
+    </div>
+
+    <!-- Pied de page avec version -->
+    <!--
+      Le <span id="appVersion"> est mis à jour par le JS plus bas.
+      Ça permet de vérifier QUELLE version est chargée sur le téléphone
+      (important pour le debug : le cache du téléphone est agressif).
+    -->
+    <div class="app-footer">v<span id="appVersion">0.1.0</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- SCRIPTS -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <script>
+    // APP_VERSION : LA source de vérité pour la version.
+    // À bumper en même temps que app.json avant chaque build.
+    var APP_VERSION = '0.2.3';
+
+    // Injecter la version dans le HTML au chargement.
+    // Ça écrase le "0.1.0" statique dans le <span> plus haut.
+    document.getElementById('appVersion').textContent = APP_VERSION;
+  </script>
+
+  <!--
+    LE CHARGEMENT DU CODE PRINCIPAL
+    ───────────────────────────────
+    type="module" → ce script est un module ES6.
+    Ça veut dire qu'il peut utiliser "import" et "export".
+
+    src="/src/main.ts" → pointe vers le fichier TypeScript principal.
+    Vite (le serveur de dev) le transpile à la volée en JavaScript
+    que le navigateur comprend.
+
+    Quand ce script s'exécute :
+      1. Il importe tous les autres modules (data.ts, types.ts, etc.)
+      2. Il appelle waitForEvenAppBridge()
+      3. Si le bridge est trouvé → UI lunettes
+      4. Si pas de bridge → le catch affiche l'UI companion
+  -->
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
+
+<!--
+ ═══════════════════════════════════════════════════════════════
+ RÉSUMÉ DE CE FICHIER
+ ═══════════════════════════════════════════════════════════════
+
+ index.html est l'entrée unique de l'app. Il :
+   1. Définit les thèmes (sombre/clair) avec des variables CSS
+   2. Contient l'UI companion (ce qu'on voit sur le téléphone)
+   3. Affiche la version pour le debug
+   4. Charge le code principal (src/main.ts)
+
+ C'EST TOUT. Pas de React, pas de framework. Juste un fichier HTML
+ qui charge un fichier TypeScript. La simplicité même.
+
+ SCHÉMA DE FONCTIONNEMENT :
+ ──────────────────────────
+   index.html
+     ├── <style> : thèmes CSS + styles
+     ├── <div id="phone-ui"> : UI companion
+     ├── <div id="g2-status"> : statut (caché)
+     └── <script type="module" src="src/main.ts">
+           ├── import data.ts      (données)
+           ├── import types.ts     (définitions)
+           ├── import display/     (affichage lunettes)
+           ├── import input.ts     (gestes)
+           └── initialise tout
+-->

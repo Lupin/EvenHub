@@ -4,33 +4,33 @@ import { setupInputHandlers } from './input'
 import { categories } from './data'
 import type { NavigationLevel } from './types'
 
-// Flat index for big kanji mode — all phrases from all categories
+// Flat index for All categories mode — all phrases from all categories
 const ALL_PHRASES: Array<{catIdx: number; phrIdx: number}> = []
 for (let ci = 0; ci < categories.length; ci++) {
   for (let pi = 0; pi < categories[ci].phrases.length; pi++) {
     ALL_PHRASES.push({catIdx: ci, phrIdx: pi})
   }
 }
-const BIG_KANJI_CAT = categories.length  // index 7 = virtual "BIG WORDS" category
+const ALL_CAT_INDEX = categories.length  // index 7 = virtual "All categories"
 
 async function main(): Promise<void> {
   let level: NavigationLevel = 0
   let currentCategory = 0
   let currentPhrase = 0
-  let kanjiIndex = 0  // flat index into ALL_PHRASES for big words mode
+  let kanjiIndex = 0  // flat index into ALL_PHRASES for All categories mode
 
   try {
     const bridge = await waitForEvenAppBridge()
 
-    // Level 0: category list
+    // Level 0: category list + logo
     renderCategoryList(bridge)
 
     const getLevel = () => level
 
     const onSelectCategory = (idx: number) => {
-      if (idx === BIG_KANJI_CAT) {
-        // BIG WORDS mode — show all 68 phrases in image+text view
-        currentCategory = BIG_KANJI_CAT
+      if (idx === ALL_CAT_INDEX) {
+        // All categories mode — show all phrases in image+text view
+        currentCategory = ALL_CAT_INDEX
         kanjiIndex = 0
         level = 2
         const {catIdx, phrIdx} = ALL_PHRASES[0]
@@ -50,8 +50,8 @@ async function main(): Promise<void> {
     }
 
     const onNext = () => {
-      if (level === 2 && currentCategory === BIG_KANJI_CAT) {
-        // BIG WORDS mode — iterate through all 68 phrases
+      if (level === 2 && currentCategory === ALL_CAT_INDEX) {
+        // All categories mode — iterate through all phrases
         kanjiIndex = (kanjiIndex + 1) % ALL_PHRASES.length
         const {catIdx, phrIdx} = ALL_PHRASES[kanjiIndex]
         renderDetail(bridge, catIdx, phrIdx)
@@ -63,7 +63,7 @@ async function main(): Promise<void> {
     }
 
     const onPrev = () => {
-      if (level === 2 && currentCategory === BIG_KANJI_CAT) {
+      if (level === 2 && currentCategory === ALL_CAT_INDEX) {
         kanjiIndex = (kanjiIndex - 1 + ALL_PHRASES.length) % ALL_PHRASES.length
         const {catIdx, phrIdx} = ALL_PHRASES[kanjiIndex]
         renderDetail(bridge, catIdx, phrIdx)
@@ -75,8 +75,8 @@ async function main(): Promise<void> {
     }
 
     const onBack = () => {
-      if (level === 2 && currentCategory === BIG_KANJI_CAT) {
-        // Back from BIG WORDS → Level 0
+      if (level === 2 && currentCategory === ALL_CAT_INDEX) {
+        // Back from All categories → Level 0
         level = 0
         currentCategory = 0
         renderCategoryList(bridge)

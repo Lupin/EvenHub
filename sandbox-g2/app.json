@@ -1,8 +1,8 @@
 {
-  "package_id": "com.badparrot.app",
+  "package_id": "com.sandbox.g2learn",
   "edition": "202601",
-  "name": "Bad Parrot",
-  "version": "0.2.3",
+  "name": "G2 Sandbox",
+  "version": "0.1.0",
   "min_app_version": "2.0.0",
   "min_sdk_version": "0.0.10",
   "entrypoint": "index.html",

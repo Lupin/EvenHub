@@ -14,39 +14,70 @@ import type { NavigationLevel } from '../types'
 
 let pageCreated = false
 
-/** Level 0: category list (3 slang levels). */
+// ── Layout constants ────────────────────────────────────────
+
+const LIST_W = 220
+const LIST_H = 280
+const RIGHT_X = 232   // 4 + 220 + 8 gap
+const RIGHT_W = 288   // max SDK
+const IMG_H = 144     // SDK PB max
+const THUMB_Y = ANCHOR_Y + (LIST_H - IMG_H) / 2  // centered beside list
+
+/** Level 0: category list (left half) + app logo (right). */
 export function renderCategoryList(bridge: EvenAppBridge): void {
-  const names = [...categories.map(c => c.name), 'BIG WORDS']
+  const names = [...categories.map(c => c.name), 'All categories']
 
   const list = new ListContainerProperty({
     containerID: 1,
     containerName: 'cats',
     xPosition: 4,
     yPosition: ANCHOR_Y,
-    width: 568,
-    height: 280,
+    width: LIST_W,
+    height: LIST_H,
     isEventCapture: 1,
     itemContainer: new ListItemContainerProperty({
       itemCount: names.length,
-      itemWidth: 560,
+      itemWidth: LIST_W - 8,
       isItemSelectBorderEn: 1,
       itemName: names,
     }),
   })
 
+  const logo = new ImageContainerProperty({
+    containerID: 2,
+    containerName: 'appLogo',
+    xPosition: RIGHT_X,
+    yPosition: THUMB_Y,
+    width: RIGHT_W,
+    height: IMG_H,
+  })
+
   if (!pageCreated) {
     bridge.createStartUpPageContainer(
-      new CreateStartUpPageContainer({ containerTotalNum: 1, listObject: [list] })
+      new CreateStartUpPageContainer({
+        containerTotalNum: 2,
+        listObject: [list],
+        imageObject: [logo],
+      })
     )
     pageCreated = true
   } else {
     bridge.rebuildPageContainer(
-      new RebuildPageContainer({ containerTotalNum: 1, listObject: [list] })
+      new RebuildPageContainer({
+        containerTotalNum: 2,
+        listObject: [list],
+        imageObject: [logo],
+      })
     )
   }
+
+  // Push static logo image
+  loadAndPushLogo(bridge).catch(err =>
+    console.error('loadAndPushLogo failed:', err)
+  )
 }
 
-/** Level 1: phrase list within a category (English only). */
+/** Level 1: phrase list within a category (English only, full width). */
 export function renderPhraseList(bridge: EvenAppBridge, catIndex: number): void {
   const cat = categories[catIndex]
   const names = cat.phrases.map(p => p.en)
@@ -72,7 +103,7 @@ export function renderPhraseList(bridge: EvenAppBridge, catIndex: number): void 
   )
 }
 
-/** Level 2: detail view — big kanji image + pronunciation, translation, category. */
+/** Level 2: detail view — big kanji image on top, text below. */
 export function renderDetail(
   bridge: EvenAppBridge,
   catIndex: number,
@@ -89,10 +120,10 @@ export function renderDetail(
   const image = new ImageContainerProperty({
     containerID: 2,
     containerName: 'kanjiImg',
-    xPosition: KANJI_IMG_X,
-    yPosition: KANJI_IMG_Y,
-    width: KANJI_IMG_W,
-    height: KANJI_IMG_H,
+    xPosition: (576 - 288) / 2,
+    yPosition: 0,
+    width: 288,
+    height: 144,
   })
 
   // Text container — pronunciation + translation + category (below image)
@@ -121,14 +152,53 @@ export function renderDetail(
   )
 }
 
-// ── Big Kanji View (Level 3) ──────────────────────────────
+// ── Static Logo ─────────────────────────────────────────────
+
+async function loadAndPushLogo(bridge: EvenAppBridge): Promise<void> {
+  const url = '/images/category/logo.png'
+
+  const resp = await fetch(url)
+  if (!resp.ok) {
+    console.error(`Logo not found: ${url}`)
+    return
+  }
+  const blob = await resp.blob()
+  const objectUrl = URL.createObjectURL(blob)
+
+  const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+    const el = document.createElement('img')
+    el.onload = () => resolve(el)
+    el.onerror = () => reject(new Error('Image load failed'))
+    el.src = objectUrl
+  })
+
+  const canvas = document.createElement('canvas')
+  canvas.width = RIGHT_W
+  canvas.height = IMG_H
+  canvas.getContext('2d')!.drawImage(img, 0, 0, RIGHT_W, IMG_H)
+  URL.revokeObjectURL(objectUrl)
+
+  const outBlob = await new Promise<Blob>((resolve, reject) =>
+    canvas.toBlob(b => b ? resolve(b) : reject(new Error('toBlob failed')), 'image/png')
+  )
+  const bytes = new Uint8Array(await outBlob.arrayBuffer())
+
+  const result = await bridge.updateImageRawData(
+    new ImageRawDataUpdate({
+      containerID: 2,
+      containerName: 'appLogo',
+      imageData: bytes,
+    })
+  )
+  if (result !== 'success') {
+    console.error(`updateImageRawData (${containerName}):`, result)
+  }
+}
+
+// ── Big Kanji Image ─────────────────────────────────────────
 
 const KANJI_IMG_W = 288
 const KANJI_IMG_H = 144
-const KANJI_IMG_X = (576 - KANJI_IMG_W) / 2  // 144, centered
-const KANJI_IMG_Y = 0
-const KANJI_TEXT_Y = 150
-const KANJI_TEXT_H = 134
 
 async function loadAndPushKanjiImage(
   bridge: EvenAppBridge,

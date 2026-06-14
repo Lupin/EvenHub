@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Hermes G2</title>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- Dark Theme Tokens (default, active on load)                 -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <style id="tokens-dark">
+    /* Even Realities — Dark Theme Preset */
+    :root {
+      /* Text Colors */
+      --color-text: #f0ebe3;
+      --color-text-dim: #8a7f72;
+      --color-text-muted: #5c5347;
+      --color-text-highlight: #FFFFFF;
+
+      /* Background Colors */
+      --color-bg: #0c0a07;
+      --color-surface: #161310;
+      --color-surface-light: #201c17;
+      --color-surface-lighter: #2c2620;
+
+      /* Border Colors */
+      --color-border: #28221a;
+      --color-border-light: #3a3228;
+
+      /* Accent & Semantic */
+      --color-accent: #FFFFFF;
+      --color-accent-alpha: rgba(255,255,255,0.12);
+      --color-accent-warning: #FEF991;
+
+      /* Status */
+      --color-positive: #26a69a;
+      --color-positive-alpha: rgba(38,166,154,0.50);
+      --color-negative: #ef5350;
+      --color-negative-alpha: rgba(239,83,80,0.15);
+
+      /* Overlay & Input */
+      --color-overlay: rgba(0,0,0,0.60);
+      --color-input-bg: rgba(255,255,255,0.08);
+
+      /* Layout */
+      --radius-default: 6px;
+      --spacing-margin: 12px;
+      --spacing-card-margin: 16px;
+      --spacing-same: 6px;
+      --spacing-cross: 12px;
+      --spacing-section: 24px;
+
+      /* Fonts */
+      --font-display: "FK Grotesk Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: "FK Grotesk Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: "SF Mono", "Cascadia Code", "Fira Code", monospace;
+
+      /* Select chevron (dark) */
+      --select-chevron: '%23f0ebe3';
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- Light Theme Tokens (disabled by default — dark is default)  -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <style id="tokens-light" disabled>
+    /* Even Realities — Light Theme (Design Guidelines compliant) */
+    :root {
+      /* Text Colors */
+      --color-text: #232323;
+      --color-text-dim: #7B7B7B;
+      --color-text-muted: #7B7B7B;
+      --color-text-highlight: #FFFFFF;
+
+      /* Background Colors */
+      --color-bg: #EEEEEE;
+      --color-surface: #FFFFFF;
+      --color-surface-light: #F6F6F6;
+      --color-surface-lighter: #E4E4E4;
+
+      /* Border Colors */
+      --color-border: #E4E4E4;
+      --color-border-light: #EEEEEE;
+
+      /* Accent & Semantic */
+      --color-accent: #232323;
+      --color-accent-alpha: rgba(35,35,35,0.08);
+      --color-accent-warning: #FEF991;
+
+      /* Status */
+      --color-positive: #4BB956;
+      --color-positive-alpha: rgba(75,185,86,0.15);
+      --color-negative: #FF453A;
+      --color-negative-alpha: rgba(255,69,58,0.15);
+
+      /* Overlay & Input */
+      --color-overlay: rgba(0,0,0,0.50);
+      --color-input-bg: rgba(35,35,35,0.08);
+
+      /* Layout */
+      --radius-default: 6px;
+      --spacing-margin: 12px;
+      --spacing-card-margin: 16px;
+      --spacing-same: 6px;
+      --spacing-cross: 12px;
+      --spacing-section: 24px;
+
+      /* Fonts */
+      --font-display: "FK Grotesk Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: "FK Grotesk Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: "SF Mono", "Cascadia Code", "Fira Code", monospace;
+
+      /* Select chevron (light) */
+      --select-chevron: '%23232323';
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- Global Styles                                                -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <style>
+    /* ── Reset ──────────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* ── App Shell ──────────────────────────────────────── */
+    .app-container {
+      width: 100%;
+      max-width: 420px;
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-section);
+    }
+
+    /* ── Typography Scale ───────────────────────────────── */
+    .text-vlarge-title {
+      font-size: 24px;
+      font-weight: 400;
+      letter-spacing: -0.72px;
+    }
+
+    .text-large-title {
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: -0.6px;
+    }
+
+    .text-medium-title {
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: -0.17px;
+    }
+
+    .text-medium-body {
+      font-size: 17px;
+      font-weight: 300;
+      letter-spacing: -0.17px;
+    }
+
+    .text-normal-title {
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.15px;
+    }
+
+    .text-normal-body {
+      font-size: 15px;
+      font-weight: 300;
+      letter-spacing: -0.15px;
+    }
+
+    .text-subtitle {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.13px;
+    }
+
+    .text-detail {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: -0.11px;
+    }
+
+    /* ── SettingsGroup ──────────────────────────────────── */
+    .settings-group {
+      border-radius: var(--radius-default);
+      overflow: hidden;
+    }
+
+    .settings-group-label {
+      font-size: 11px;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background-color: var(--color-surface);
+      padding: 16px;
+    }
+
+    .list-item + .list-item {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .item-start {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-title {
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.15px;
+      color: var(--color-text);
+    }
+
+    .item-sub {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.13px;
+      color: var(--color-text-dim);
+      margin-top: 2px;
+    }
+
+    .item-value {
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.15px;
+      color: var(--color-text-dim);
+      flex-shrink: 0;
+    }
+
+    .item-chevron {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+    }
+
+    /* ── SegmentedControl ──────────────────────────────── */
+    .segmented-control {
+      display: inline-flex;
+      border-radius: var(--radius-default);
+      background-color: var(--color-surface-lighter);
+      padding: 2px;
+      height: 48px;
+      width: 100%;
+    }
+
+    .segmented-control button {
+      background: transparent;
+      color: var(--color-text-dim);
+      border: none;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.15px;
+      font-family: var(--font-body);
+      padding: 0 16px;
+      cursor: pointer;
+      flex: 1;
+      white-space: nowrap;
+      transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .segmented-control button.active {
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+
+    .segmented-control-wrapper {
+      padding: 16px;
+    }
+
+    /* ── Select Dropdowns ──────────────────────────────── */
+    .hermes-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-color: var(--color-input-bg);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-default);
+      padding: 8px 32px 8px 12px;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.15px;
+      font-family: var(--font-body);
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23f0ebe3' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 10px 6px;
+      flex-shrink: 0;
+      min-width: 120px;
+    }
+
+    /* ── Text Inputs (Server IP, Port) ──────────────────── */
+    .hermes-input {
+      background-color: var(--color-input-bg);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-default);
+      padding: 8px 12px;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.15px;
+      font-family: var(--font-body);
+      flex-shrink: 0;
+      width: 140px;
+      text-align: right;
+      outline: none;
+    }
+    .hermes-input:focus {
+      border-color: var(--color-accent);
+    }
+    .hermes-input::placeholder {
+      color: var(--color-text-muted);
+    }
+
+    /* ── Buttons ────────────────────────────────────────── */
+    .btn-highlight {
+      background-color: var(--color-accent);
+      color: var(--color-bg);
+      border: none;
+      border-radius: var(--radius-default);
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: -0.17px;
+      font-family: var(--font-body);
+      padding: 12px 24px;
+      cursor: pointer;
+    }
+
+    .btn-normal {
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-default);
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: -0.17px;
+      font-family: var(--font-body);
+      padding: 12px 24px;
+      cursor: pointer;
+    }
+
+    /* ── Status Dot ─────────────────────────────────────── */
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+
+    .status-dot.connected {
+      background-color: var(--color-positive);
+    }
+
+    .status-dot.disconnected {
+      background-color: var(--color-negative);
+    }
+
+    .status-dot.checking {
+      background-color: var(--color-text-muted);
+    }
+
+    /* ── Header ─────────────────────────────────────────── */
+    .app-header {
+      padding-top: 8px;
+    }
+
+    .app-header .title {
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+
+    .app-header .subtitle {
+      color: var(--color-text-dim);
+    }
+
+    /* ── G2 Status (shown as inline dot in CONNECTION > Status row) ── */
+
+    /* ── Messages Section ───────────────────────────────── */
+    .messages-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .msg-count {
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.15px;
+      color: var(--color-text-dim);
+    }
+
+    .messages-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Error Banner ───────────────────────────────────── */
+    #error-banner {
+      display: none;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.13px;
+      color: var(--color-negative);
+      padding: 8px 0;
+    }
+
+    #error-banner .error-message {
+      margin-bottom: 4px;
+    }
+
+    #retry-btn {
+      display: none;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.13px;
+      font-family: var(--font-body);
+      background-color: var(--color-negative-alpha);
+      color: var(--color-negative);
+      border: 1px solid var(--color-negative);
+      border-radius: var(--radius-default);
+      padding: 4px 12px;
+      cursor: pointer;
+    }
+
+    /* ── Message Preview ────────────────────────────────── */
+    .msg-preview-item {
+      padding: 12px 16px;
+      background-color: var(--color-surface);
+    }
+
+    .msg-preview-item + .msg-preview-item {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .msg-preview-meta {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: -0.11px;
+      color: var(--color-text-muted);
+      margin-bottom: 4px;
+    }
+
+    .msg-preview-body {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.13px;
+      color: var(--color-text-dim);
+      white-space: pre-wrap;
+    }
+
+    .preview-empty {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.13px;
+      color: var(--color-text-dim);
+      padding: 16px;
+      text-align: center;
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    .app-footer {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: -0.11px;
+      color: var(--color-text-muted);
+      text-align: center;
+      padding-bottom: 12px;
+    }
+
+    /* ── Hidden utility ─────────────────────────────────── */
+    .hidden-select {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- Phone UI                                                     -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div id="phone-ui" class="app-container">
+
+    <!-- ── App Header ───────────────────────────────────── -->
+    <div class="app-header">
+      <h1 class="text-vlarge-title title">Hermes G2</h1>
+      <p class="text-normal-body subtitle">Your Agent, on your glasses.</p>
+    </div>
+
+    <!-- ── CONNECTION SettingsGroup ──────────────────────── -->
+    <div>
+      <div class="settings-group-label">CONNECTION</div>
+      <div class="settings-group">
+        <!-- Server -->
+        <div class="list-item">
+          <div class="item-start">
+            <div class="item-title">Server</div>
+          </div>
+          <input type="text" id="server-ip" class="hermes-input" placeholder="192.168.1.x" value="">
+        </div>
+        <!-- Port -->
+        <div class="list-item">
+          <div class="item-start">
+            <div class="item-title">Port</div>
+          </div>
+          <input type="number" id="server-port" class="hermes-input" placeholder="8765" value="8765">
+        </div>
+        <!-- Status -->
+        <div class="list-item">
+          <div class="item-start">
+            <div class="item-title">Status</div>
+          </div>
+          <span class="item-value">
+            <span class="status-dot checking" id="status-dot"></span>
+            <span id="status-text">Loading...</span>
+          </span>
+        </div>
+        <!-- Theme -->
+        <div class="list-item">
+          <div class="item-start">
+            <div class="item-title">Theme</div>
+            <div class="item-sub">Appearance</div>
+          </div>
+          <select id="theme-select" class="hermes-select">
+            <option value="system">System</option>
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SOURCE SettingsGroup ──────────────────────────── -->
+    <div>
+      <div class="settings-group-label">SOURCE</div>
+      <div class="settings-group">
+        <!-- SegmentedControl for source type -->
+        <div class="segmented-control-wrapper">
+          <div class="segmented-control" id="source-segmented">
+            <button class="active" data-value="all" id="source-all">All</button>
+            <button data-value="cron" id="source-cron">Cron</button>
+            <button data-value="session" id="source-sessions">Sessions</button>
+            <button data-value="direct" id="source-direct">Direct</button>
+          </div>
+        </div>
+        <!-- Hidden select that mirrors the segmented control value (for TS compatibility) -->
+        <select id="source-select" class="hidden-select">
+          <option value="all">All Sources</option>
+          <option value="cron">Cron</option>
+          <option value="session">Session</option>
+          <option value="direct">Direct</option>
+        </select>
+        <!-- Job dropdown -->
+        <div class="list-item">
+          <div class="item-start">
+            <div class="item-title">Job</div>
+          </div>
+          <select id="job-select" class="hermes-select">
+            <option value="">All Jobs</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MESSAGES Section ──────────────────────────────── -->
+    <div>
+      <div class="settings-group-label">MESSAGES</div>
+      <div class="messages-header">
+        <span class="msg-count" id="message-count">0 messages</span>
+        <button id="refresh-btn" class="btn-normal">↻ Refresh now</button>
+      </div>
+
+      <!-- Error Banner -->
+      <div id="error-banner">
+        <div class="error-message" id="error-message"></div>
+        <button id="retry-btn">Retry connection</button>
+      </div>
+
+      <!-- Message Preview -->
+      <div class="settings-group" id="message-preview">
+        <div class="preview-empty">No messages yet. Messages will appear here when Hermes cron jobs run.</div>
+      </div>
+    </div>
+
+    <!-- ── Version Footer ───────────────────────────────── -->
+    <div class="app-footer">v<span id="appVersion">0.1.0</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- APP_VERSION Script                                          -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <script>
+    var APP_VERSION = '0.1.0';
+    document.getElementById('appVersion').textContent = APP_VERSION;
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- SegmentedControl ↔ Hidden Select Sync Script                -->
+  <!-- (Bridges the visual SegmentedControl to the hidden          -->
+  <!--  <select> that main.ts reads)                               -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <script>
+    (function() {
+      var segmented = document.getElementById('source-segmented');
+      var hiddenSelect = document.getElementById('source-select');
+      if (!segmented || !hiddenSelect) return;
+
+      var buttons = segmented.querySelectorAll('button');
+
+      // click → update active class + hidden select + dispatch change
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var value = btn.getAttribute('data-value');
+          if (!value) return;
+
+          // Update active class
+          buttons.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+
+          // Update hidden select
+          hiddenSelect.value = value;
+
+          // Dispatch change event so main.ts listeners fire
+          hiddenSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      });
+
+      // Listen for programmatic changes to hidden select → sync segmented
+      hiddenSelect.addEventListener('change', function() {
+        var value = hiddenSelect.value;
+        buttons.forEach(function(btn) {
+          if (btn.getAttribute('data-value') === value) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      });
+    })();
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- Module Script Entry Point                                   -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <script type="module" src="/src/main.ts"></script>
+
+</body>
+</html>
