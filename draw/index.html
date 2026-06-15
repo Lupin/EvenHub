@@ -332,7 +332,7 @@
           zc.addEventListener('mousedown',function(){mdZoom=true;paintZoomCell(this)});
           ze.appendChild(zc);
         }}
-        ze.addEventListener('touchmove',function(e){e.preventDefault();paintZoom(e.touches[0])});
+        
         ze.addEventListener('mousemove',function(e){if(mdZoom){var t=document.elementFromPoint(e.clientX,e.clientY);if(t&&t.classList.contains('canvas-cell')&&t.dataset.x)paintZoomCell(t)}});
         updateSplitGlyphs();
       } else {
