@@ -3,9 +3,14 @@ import {
   TextContainerProperty, TextContainerUpgrade, OsEventTypeList,
 } from '@evenrealities/even_hub_sdk'
 
+interface Drawing {
+  id: number; name: string; cols: number; rows: number; lines: string[]; date: string;
+}
+
 async function main() {
   const bridge = await waitForEvenAppBridge()
   const FW = '\u3000'
+  const STORAGE_KEY = 'g2-drawings'
 
   // Table minuscule → majuscule
   const LOWER: Record<string, string> = {}
@@ -71,6 +76,38 @@ async function main() {
     return lines.join('\n')
   }
 
+  function loadDrawings(): Drawing[] {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') }
+    catch (e) { return [] }
+  }
+
+  // ── Browse state ──
+  let browseIndex = 0
+  let drawings: Drawing[] = []
+
+  /** Render the current browse drawing to the glasses */
+  async function showBrowseDrawing(): Promise<void> {
+    const list = loadDrawings()
+    drawings = list
+    if (list.length === 0) {
+      await bridge.textContainerUpgrade(new TextContainerUpgrade({
+        containerID: 1, containerName: 'main',
+        content: '\n\n  no drawings saved\n  tap phone to create one',
+      }))
+      return
+    }
+    if (browseIndex >= list.length) browseIndex = 0
+    if (browseIndex < 0) browseIndex = list.length - 1
+    const d = list[browseIndex]
+    // Show name + drawing, with position indicator
+    const header = '  ' + d.name + '  ' + (browseIndex + 1) + '/' + list.length
+    const body = d.lines.join('\n')
+    const content = header + '\n\n' + body
+    await bridge.textContainerUpgrade(new TextContainerUpgrade({
+      containerID: 1, containerName: 'main', content,
+    }))
+  }
+
   // Onboard: random glyph pattern so the glasses show something at startup
   function onboardPattern(): string {
     const all = ['■','□','▣','▤','▥','▦','▧','▨','▩','▲','△','▶','▷','▼','▽','◀','◁','◆','◇','◈','◊','○','◌','◎','●','◐','◑','◢','◣','◤','◥','◯']
@@ -100,9 +137,19 @@ async function main() {
   bridge.onEvenHubEvent(event => {
     const e = event.listEvent || event.textEvent || event.sysEvent
     if (!e) return
-    if ((e.eventType ?? 0) === OsEventTypeList.DOUBLE_CLICK_EVENT) bridge.shutDownPageContainer(1)
+    const et = e.eventType !== undefined ? e.eventType : OsEventTypeList.CLICK_EVENT
+    if (et === OsEventTypeList.DOUBLE_CLICK_EVENT) {
+      bridge.shutDownPageContainer(1)
+      return
+    }
+    if (et === OsEventTypeList.CLICK_EVENT) {
+      // Tap: next drawing
+      browseIndex++
+      showBrowseDrawing()
+    }
   })
 
+  // Poll for pushes from the phone
   setInterval(() => {
     const raw = localStorage.getItem('g2-push')
     if (!raw) return
