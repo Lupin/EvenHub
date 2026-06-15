@@ -120,41 +120,42 @@ async function main() {
     localStorage.setItem('g2-restore', '1')
   }
 
-  // Onboard: random glyph pattern with "DRAW" in medium grey blocks at center
-  // Uses the same 5×5 glyph matrices as the Text mode, on a 28×7 grid (max canvas)
+  // Onboard: 28×7 grid — DRAW centred in ▒, everything else filled with random glyphs
   function onboardPattern(): string {
     const all = ['■','□','▣','▤','▥','▦','▧','▨','▩','▲','△','▶','▷','▼','▽','◀','◁','◆','◇','◈','◊','○','◌','◎','●','◐','◑','◢','◣','◤','◥','◯']
     const FW = '\u3000'
     const greyBlock = '▒'
     const COLS = 28, ROWS = 7
-
-    // Build a 7×28 grid of random glyphs
-    const grid: string[][] = []
-    for (let y = 0; y < ROWS; y++) {
-      const line: string[] = []
-      for (let x = 0; x < COLS; x++) line.push(all[Math.floor(Math.random() * all.length)])
-      grid.push(line)
-    }
-
-    // DRAW in 5×5 per letter, 1 FW spacer between letters
-    // Total width: 4 letters × 5 + 3 spacers = 23 cols. Start at col 2 → ends at 24, centered in 28
     const word = ['D','R','A','W']
     const LETTER_W = 5, SPACER = 1
-    const totalW = word.length * LETTER_W + (word.length - 1) * SPACER
-    const startCol = Math.floor((COLS - totalW) / 2) // = 2
+    const totalW = word.length * LETTER_W + (word.length - 1) * SPACER // 23
+    const startCol = Math.floor((COLS - totalW) / 2) // 2
+    const topRow = 1
 
+    // Precompute DRAW footprint: which cells are part of the logo
+    const logoCells = new Set<string>()
     let col = startCol
     for (const ch of word) {
       const g = glyphs[ch] || glyphs[' ']
       for (let dy = 0; dy < 5; dy++) {
         for (let dx = 0; dx < LETTER_W; dx++) {
-          if (g[dy][dx]) grid[1 + dy][col + dx] = greyBlock
+          if (g[dy][dx]) logoCells.add((topRow + dy) + ',' + (col + dx))
         }
       }
       col += LETTER_W + SPACER
     }
 
-    return grid.map(r => r.join('')).join('\n') + '\n\n  DRAW — start a new drawing on your phone'
+    // Build the grid: logo cells get ▒, everything else is random
+    const grid: string[] = []
+    for (let y = 0; y < ROWS; y++) {
+      let line = ''
+      for (let x = 0; x < COLS; x++) {
+        line += logoCells.has(y + ',' + x) ? greyBlock : all[Math.floor(Math.random() * all.length)]
+      }
+      grid.push(line)
+    }
+
+    return grid.join('\n') + '\n\n  DRAW — start a new drawing on your phone'
   }
 
   const onboard = onboardPattern()
