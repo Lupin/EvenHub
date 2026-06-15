@@ -107,7 +107,7 @@
         <span style="flex:1"></span>
         <span class="lbl">R</span><button class="size-btn" id="rowMinus">−</button><span class="val" id="rowVal">7</span><button class="size-btn" id="rowPlus">+</button>
       </div>
-      <div class="toggle-row" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><div class="toggle" id="splitToggle"></div><span id="splitLabel">Zoom</span></div><button class="btn-sm" id="zoomPush" style="display:none;border-color:var(--accent);color:var(--accent);width:auto;margin:0;padding:6px 14px">Push to glasses</button></div>
+      <div class="toggle-row" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><div class="toggle" id="splitToggle"></div><span id="splitLabel">Zoom</span></div></div>
       <div class="btn-row"><button class="btn-sm" id="eraser">⌫ Eraser</button><button class="btn-sm" id="clear">Clear</button></div>
       <div id="zoomHint" style="display:none;text-align:center;padding:4px 0 2px;font-size:12px;color:var(--text);font-style:italic;opacity:0.7">Paint pixel by pixel</div>
       <div class="canvas-grid" id="canvas"></div>
@@ -349,7 +349,7 @@
         document.getElementById('drawGroup').classList.toggle('split-mode',splitMode);
         
         if(splitMode){zoomX=Math.max(0,Math.min(cols-ZOOM_S,zoomX));zoomY=Math.max(0,Math.min(rows-ZOOM_S,zoomY))}
-        document.getElementById('zoomPush').style.display=splitMode?'block':'none';document.getElementById('zoomHint').style.display=splitMode?'block':'none';
+        document.getElementById('zoomHint').style.display=splitMode?'block':'none';
         rebuild();
       });
 document.getElementById('colMinus').addEventListener('click',function(){cols=cl(cols-1,6,28);cv.textContent=cols;rebuild()});
@@ -365,7 +365,7 @@ document.getElementById('colMinus').addEventListener('click',function(){cols=cl(
       document.getElementById('clear').addEventListener('click',function(){cd={};cellEls.forEach(function(c){c.textContent='';c.classList.remove('filled')})});
 
       document.getElementById('save').addEventListener('click',function(){var lines=[],y,x;for(y=0;y<rows;y++){var l='';for(x=0;x<cols;x++)l+=cd[x+','+y]||FW;lines.push(l)}var list=loadDrawings();list.push({id:Date.now(),name:'Drawing '+(list.length+1),cols:cols,rows:rows,lines:lines,date:new Date().toISOString()});saveDrawings(list);this.textContent='Saved!';setTimeout(function(){document.getElementById('save').textContent='Save'},1500)});
-      document.getElementById('drawPush').addEventListener('click',function(){var lines=[],y,x;for(y=0;y<rows;y++){var l='';for(x=0;x<cols;x++)l+=cd[x+','+y]||FW;lines.push(l)}var payload=JSON.stringify({mode:'draw',lines:lines});document.getElementById('zoomPush').addEventListener('click',function(){var lines=[],y,x;for(y=0;y<rows;y++){var l='';for(x=0;x<cols;x++)l+=cd[x+','+y]||FW;lines.push(l)}var payload=JSON.stringify({mode:'draw',lines:lines});localStorage.setItem('g2-push',payload);localStorage.setItem('g2-lastpush',payload)});localStorage.setItem('g2-push',payload);localStorage.setItem('g2-lastpush',payload)});
+      document.getElementById('drawPush').addEventListener('click',function(){var lines=[],y,x;for(y=0;y<rows;y++){var l='';for(x=0;x<cols;x++)l+=cd[x+','+y]||FW;lines.push(l)}var payload=JSON.stringify({mode:'draw',lines:lines});localStorage.setItem('g2-push',payload);localStorage.setItem('g2-lastpush',payload)});
 
       window.loadToCanvas=function(d){cols=d.cols;rows=d.rows;cv.textContent=cols;rv.textContent=rows;cd={};for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){var ch=d.lines[y][x];if(ch!==FW)cd[x+','+y]=ch}rebuild();modeSel.value='draw';switchMode('draw')};
     })();
