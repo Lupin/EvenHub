@@ -102,11 +102,13 @@
       <div class="row"><label>Brush set</label><select id="brushSet"></select></div>
       <div class="brush-grid" id="drawGlyphs"></div>
       <div class="row">
-        <span style="font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px">Grid</span>
-        <span style="display:flex;align-items:center;gap:4px">
-          <span style="font-size:12px;color:var(--text-dim);margin-right:-5px">Columns</span>
+        <span style="font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;flex-shrink:0">Grid</span>
+        <span style="display:flex;align-items:center;gap:4px;margin-left:-15px">
+          <span style="font-size:12px;color:var(--text-dim)">Columns</span>
           <select id="colSelect" style="background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:4px 8px;font-size:14px;font-family:inherit"></select>
-          <span style="font-size:12px;color:var(--text-dim);margin-right:-5px">Rows</span>
+        </span>
+        <span style="display:flex;align-items:center;gap:4px;margin-left:12px">
+          <span style="font-size:12px;color:var(--text-dim)">Rows</span>
           <select id="rowSelect" style="background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:4px 8px;font-size:14px;font-family:inherit"></select>
         </span>
       </div>
