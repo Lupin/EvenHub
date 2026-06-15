@@ -45,8 +45,8 @@
     #drawGroup.split-mode .brush-grid { display:none; }
     #drawGroup.split-mode .size-row { display:none; }
     /* .btn-row hidden by inline style in split toggle handler */
-    #drawGroup #canvas { display:grid; }
-    #drawGroup.split-mode #zoomCanvas { display:grid !important; }
+    #drawGroup #canvas { display:grid; } #drawGroup.split-mode #canvas { touch-action:auto; }
+    #drawGroup.split-mode #zoomCanvas { display:grid !important; touch-action:auto; }
     #drawGroup.split-mode #splitToggle { flex-shrink:0; }
     #drawGroup.split-mode #splitGlyphs { display:flex !important; }
     #drawGroup.split-mode .btn-row { display:flex !important; }
