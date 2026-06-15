@@ -265,24 +265,20 @@
     var galleryCurrentIndex = -1;
     document.getElementById('prevDrawing').addEventListener('click', function(){
       var list = loadDrawings();
-      if (galleryCurrentIndex > 0) { galleryCurrentIndex--; loadToCanvas(list[galleryCurrentIndex]); updateGalleryNav(); modeSel.value='draw'; switchMode('draw'); }
+      if (list.length === 0) return;
+      if (galleryCurrentIndex < 0) galleryCurrentIndex = 0;
+      if (galleryCurrentIndex > 0) { galleryCurrentIndex--; window.loadToCanvas(list[galleryCurrentIndex]); updateGalleryNav(); modeSel.value='draw'; switchMode('draw'); }
     });
     document.getElementById('nextDrawing').addEventListener('click', function(){
       var list = loadDrawings();
-      if (galleryCurrentIndex < list.length-1) { galleryCurrentIndex++; loadToCanvas(list[galleryCurrentIndex]); updateGalleryNav(); modeSel.value='draw'; switchMode('draw'); }
+      if (list.length === 0) return;
+      if (galleryCurrentIndex < 0) galleryCurrentIndex = 0;
+      if (galleryCurrentIndex < list.length-1) { galleryCurrentIndex++; window.loadToCanvas(list[galleryCurrentIndex]); updateGalleryNav(); modeSel.value='draw'; switchMode('draw'); }
     });
     function updateGalleryNav() {
       var list = loadDrawings();
-      document.getElementById('galleryPos').textContent = list.length ? (galleryCurrentIndex+1)+'/'+list.length : '-';
+      document.getElementById('galleryPos').textContent = list.length && galleryCurrentIndex >= 0 ? (galleryCurrentIndex+1)+'/'+list.length : '-';
     }
-    // Hook into renderGallery to track index when a drawing is tapped
-    var origLoadToCanvas = loadToCanvas;
-    window.loadToCanvas = function(d) {
-      var list = loadDrawings();
-      galleryCurrentIndex = list.findIndex(function(x){ return x.id === d.id; });
-      updateGalleryNav();
-      origLoadToCanvas(d);
-    };
   </script>
 
   <script src="/node_modules/@evenrealities/even_hub_sdk/dist/even_hub_sdk.js"></script>
