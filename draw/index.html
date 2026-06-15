@@ -101,13 +101,18 @@
     <div class="group" id="drawGroup">
       <div class="row"><label>Brush set</label><select id="brushSet"></select></div>
       <div class="brush-grid" id="drawGlyphs"></div>
-      <div class="section-title">Grid size</div>
+      <div class="section-title" style="display:flex;justify-content:space-between;align-items:center">
+        <span>Grid size</span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim);font-weight:normal;text-transform:none;letter-spacing:0">
+          <span id="splitLabel">Zoom edit</span>
+          <div class="toggle" id="splitToggle"></div>
+        </span>
+      </div>
       <div class="size-row">
         <span class="lbl">C</span><button class="size-btn" id="colMinus">−</button><span class="val" id="colVal">25</span><button class="size-btn" id="colPlus">+</button>
         <span style="flex:1"></span>
         <span class="lbl">R</span><button class="size-btn" id="rowMinus">−</button><span class="val" id="rowVal">7</span><button class="size-btn" id="rowPlus">+</button>
       </div>
-      <div class="toggle-row" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><div class="toggle" id="splitToggle"></div><span id="splitLabel">Zoom edit</span></div></div>
       <div class="btn-row"><button class="btn-sm" id="eraser">⌫ Eraser</button><button class="btn-sm" id="clear">Clear</button></div>
       <div id="zoomHint" style="display:none;text-align:center;padding:4px 0 2px;font-size:12px;color:var(--text);font-style:italic;opacity:0.7">Paint pixel by pixel</div>
       <div class="canvas-grid" id="canvas"></div>
