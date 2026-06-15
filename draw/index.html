@@ -104,7 +104,7 @@
         <span style="flex:1"></span>
         <span class="lbl">R</span><button class="size-btn" id="rowMinus">−</button><span class="val" id="rowVal">7</span><button class="size-btn" id="rowPlus">+</button>
       </div>
-      <div class="toggle-row"><div class="toggle" id="splitToggle"></div><span id="splitLabel">Split</span></div>
+      <div class="toggle-row"><div class="toggle" id="splitToggle"></div><span id="splitLabel">Zoom</span></div>
       <div class="btn-row"><button class="btn-sm" id="eraser">⌫ Eraser</button><button class="btn-sm" id="clear">Clear</button></div>
       <div class="canvas-grid" id="canvas"></div>
       <div class="canvas-grid" id="zoomCanvas" style="display:none"></div>
@@ -269,14 +269,34 @@
       var cv=document.getElementById('colVal'),rv=document.getElementById('rowVal');
       function cl(v,min,max){return Math.max(min,Math.min(max,v))}
       var ce=document.getElementById('canvas');
-      var splitMode=false,ZOOM_S=6,zoomX=0,zoomY=0;
+      var splitMode=false,ZOOM_S=6,zoomX=0,zoomY=0,mdZoom=false;
+      function paintZoom(touch){
+        var el=document.elementFromPoint(touch.clientX,touch.clientY);
+        if(el&&el.classList.contains('canvas-cell')&&el.dataset.x){
+          cd[el.dataset.x+','+el.dataset.y]=brush;
+          el.textContent=brush;el.classList.add('filled');
+          // Update mini-map cell if visible
+          var mc=ce.querySelector('[data-x="'+el.dataset.x+'"][data-y="'+el.dataset.y+'"]');
+          if(mc){mc.textContent=brush;mc.classList.add('filled')}
+        }
+      }
+      function paintZoomCell(el){
+        if(el.dataset.x){
+          cd[el.dataset.x+','+el.dataset.y]=brush;
+          el.textContent=brush;el.classList.add('filled');
+          var mc=ce.querySelector('[data-x="'+el.dataset.x+'"][data-y="'+el.dataset.y+'"]');
+          if(mc){mc.textContent=brush;mc.classList.add('filled')}
+        }
+      }
       function updateSplitGlyphs(){
         var el=document.getElementById('splitGlyphs');el.innerHTML='';
         var glyphs=BRUSH_SETS[parseInt(ss.value)].glyphs;
         glyphs.split('').forEach(function(g){
           var b=document.createElement('button');b.textContent=g;
           if(g===brush)b.classList.add('on');
-          b.addEventListener('click',function(){brush=g;updateSplitGlyphs();});
+          b.addEventListener('click',function(){brush=g;ze.addEventListener('touchmove',function(e){e.preventDefault();paintZoom(e.touches[0])});
+        ze.addEventListener('mousemove',function(e){if(mdZoom){var t=document.elementFromPoint(e.clientX,e.clientY);if(t&&t.classList.contains('canvas-cell')&&t.dataset.x)paintZoomCell(t)}});
+        updateSplitGlyphs();});
           el.appendChild(b);
         });
       }
@@ -301,10 +321,12 @@
           zc.style.width=zs+'px';zc.style.height=zs+'px';zc.style.fontSize='24px';
           zc.dataset.x=x;zc.dataset.y=y;var k=x+','+y;
           if(cd[k]){zc.textContent=cd[k];zc.classList.add('filled')}
-          zc.addEventListener('touchstart',function(e){e.preventDefault();if(this.dataset.x)cd[this.dataset.x+','+this.dataset.y]=brush;rebuild()});
-          zc.addEventListener('mousedown',function(){if(this.dataset.x)cd[this.dataset.x+','+this.dataset.y]=brush;rebuild()});
+          zc.addEventListener('touchstart',function(e){e.preventDefault();paintZoom(e.touches[0])});
+          zc.addEventListener('mousedown',function(){mdZoom=true;paintZoomCell(this)});
           ze.appendChild(zc);
         }}
+        ze.addEventListener('touchmove',function(e){e.preventDefault();paintZoom(e.touches[0])});
+        ze.addEventListener('mousemove',function(e){if(mdZoom){var t=document.elementFromPoint(e.clientX,e.clientY);if(t&&t.classList.contains('canvas-cell')&&t.dataset.x)paintZoomCell(t)}});
         updateSplitGlyphs();
       } else {
         // Compact mode (original)
@@ -330,7 +352,7 @@ document.getElementById('colMinus').addEventListener('click',function(){cols=cl(
       function cft(t){var e=document.elementFromPoint(t.clientX,t.clientY);return e&&e.classList.contains('canvas-cell')?e:null}
       ce.addEventListener('touchstart',function(e){e.preventDefault();var c=cft(e.touches[0]);if(c)paint(c,brush)});
       ce.addEventListener('touchmove',function(e){e.preventDefault();var c=cft(e.touches[0]);if(c)paint(c,brush)});
-      var md=false;ce.addEventListener('mousedown',function(e){md=true;if(e.target.classList.contains('canvas-cell'))paint(e.target,brush)});ce.addEventListener('mousemove',function(e){if(md&&e.target.classList.contains('canvas-cell'))paint(e.target,brush)});ce.addEventListener('mouseup',function(){md=false});ce.addEventListener('mouseleave',function(){md=false});
+      var md=false;ce.addEventListener('mousedown',function(e){md=true;if(e.target.classList.contains('canvas-cell'))paint(e.target,brush)});ce.addEventListener('mousemove',function(e){if(md&&e.target.classList.contains('canvas-cell'))paint(e.target,brush)});ce.addEventListener('mouseup',function(){md=false;mdZoom=false});ce.addEventListener('mouseleave',function(){md=false;mdZoom=false});
       document.getElementById('clear').addEventListener('click',function(){cd={};cellEls.forEach(function(c){c.textContent='';c.classList.remove('filled')})});
 
       document.getElementById('save').addEventListener('click',function(){var lines=[],y,x;for(y=0;y<rows;y++){var l='';for(x=0;x<cols;x++)l+=cd[x+','+y]||FW;lines.push(l)}var list=loadDrawings();list.push({id:Date.now(),name:'Drawing '+(list.length+1),cols:cols,rows:rows,lines:lines,date:new Date().toISOString()});saveDrawings(list);this.textContent='Saved!';setTimeout(function(){document.getElementById('save').textContent='Save'},1500)});
