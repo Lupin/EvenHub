@@ -1,28 +1,44 @@
 # DRAW Changelog
 
-## 0.2.4 — 2026-06-15
-- Draw mode: Save button repositioned left of "Push to glasses" (renamed from "Push to G2")
-- Consistent layout with Text mode
+## 1.1.0 — 2026-06-15
 
-## 0.2.3 — 2026-06-15
-- Version number displayed in footer ("by Gaël Abegg-Gauthey 2026 · v0.2.3")
-- Canvas grid: glyphs now white on dark theme, black on light theme — maximum contrast
+### Zoom Edit Mode
+- Precision drawing with mini-map (28×7 overview) + 7×7 zoomed grid
+- Tap mini-map to reposition zoom area
+- Large cells (48px) with 46px glyphs for comfortable painting
+- "Paint pixel by pixel" hint above mini-map
+- Brush set glyph row at bottom for tool switching without leaving Zoom
+- Exit Zoom to push or save
 
-## 0.2.2 — 2026-06-15
-- Gallery: "Display" button on each item — pushes drawing to glasses
-- Glasses: swipe up (prev) / swipe down (next) to browse gallery drawings
-- Glasses: drawing name + position displayed bottom-left on each frame
+### UI Improvements
+- Columns and Rows dropdown selectors replace +/- buttons
+- Grid / Columns+Rows / Eraser+Clear+Zoom toggle on compact single row
+- Dynamic glyph sizing in Compact mode (cell size − 4px)
+- Zoom edit toggle remains visible in Zoom mode
+- Help page rewritten with all features documented
 
-## 0.2.1 — 2026-06-15
-- Initial feature-complete build after implementing the 6-task plan
+### Gallery
+- ✎ Edit button loads drawing back to canvas for editing
+- Reload sample link when gallery is empty
 
-### Features
-- **Export All** — button in Gallery header. Uses `navigator.share()` with clipboard fallback and alert last-resort
-- **Share per-drawing** — ↗ button on each gallery item. Same share mechanism as Export All
-- **Browse on glasses** — tap cycles through saved drawings, double-tap exits. Shows name + position indicator ("Drawing 1  1/5")
-- **Save in Text mode** — Save button stores text compositions in gallery alongside drawings. Named "Text 1", "Text 2", etc.
-- **Prev/Next in gallery** — detail view with ◀ ▶ arrows, position counter ("3/12"), Share/Rename/Delete actions. Tap the drawing area to return to gallery list
-- **Onboard screen** — random glyph pattern + "draw — start a new drawing on your phone" shown at startup
-- **Theme support** — system/dark/light via Even OS 2.0 design tokens
-- **11 brush sets** — Blocks, Triangles, Shapes, Box 1-5, Blocks 2-3, Mix
-- **Footer** — "by Gaël Abegg-Gauthey 2026"
+### Brush Sets
+- 17 total: Blocks, Triangles, Shapes, Box 1-5, Blocks 2-3, Mix, Alphabet, Numbers, Symbols, Arrows, Hangul, Katakana
+
+---
+
+## 1.0.0 — 2026-06-15
+
+### Core
+- Draw mode: 28×7 resizable grid, 17 brush sets, Eraser, Clear, Save, Push to glasses
+- Text mode: 4-character 5×5 block letters, Random toggle, Save with text as title
+- Gallery: Display, Share, Rename, Delete, Export All, reload sample
+- Glasses: swipe → gallery mode, tap → next, double-tap → return to content, double-tap again → exit
+- Onboard screen: random glyph pattern with DRAW logo in medium grey blocks
+- Theme support: System/Dark/Light via Even OS design tokens
+- I♥ Vasarely default drawing, deletable, reloadable
+- Help page (? button) with full tutorial
+- Footer: "by Gaël Abegg-Gauthey 2026 · v1.0.0"
+- Buy me a coffee link (buymeacoffee.com/gaelag)
+
+### Brush Sets (original 11)
+- Blocks, Triangles, Shapes, Box 1-5, Blocks 2-3, Mix
