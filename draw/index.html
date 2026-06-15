@@ -297,8 +297,8 @@
         glyphs.split('').forEach(function(g){
           var b=document.createElement('button');b.textContent=g;
           if(g===brush)b.classList.add('on');
-          b.addEventListener('click',function(){brush=g;ze.addEventListener('touchmove',function(e){e.preventDefault();paintZoom(e.touches[0])});
-        ze.addEventListener('mousemove',function(e){if(mdZoom){var t=document.elementFromPoint(e.clientX,e.clientY);if(t&&t.classList.contains('canvas-cell')&&t.dataset.x)paintZoomCell(t)}});
+          b.addEventListener('click',function(){brush=g;
+        
         updateSplitGlyphs();});
           el.appendChild(b);
         });
@@ -326,12 +326,12 @@
           zc.style.width=zs+'px';zc.style.height=zs+'px';zc.style.fontSize='24px';
           zc.dataset.x=x;zc.dataset.y=y;var k=x+','+y;
           if(cd[k]){zc.textContent=cd[k];zc.classList.add('filled')}
-          zc.addEventListener('touchstart',function(e){e.preventDefault();paintZoom(e.touches[0])});
-          zc.addEventListener('mousedown',function(){mdZoom=true;paintZoomCell(this)});
+          zc.addEventListener('touchstart',function(e){e.preventDefault();if(this.dataset.x){cd[this.dataset.x+','+this.dataset.y]=brush}rebuild()});
+          zc.addEventListener('mousedown',function(){if(this.dataset.x){cd[this.dataset.x+','+this.dataset.y]=brush}rebuild()});
           ze.appendChild(zc);
         }}
         
-        ze.addEventListener('mousemove',function(e){if(mdZoom){var t=document.elementFromPoint(e.clientX,e.clientY);if(t&&t.classList.contains('canvas-cell')&&t.dataset.x)paintZoomCell(t)}});
+        
         updateSplitGlyphs();
       } else {
         // Compact mode (original)
