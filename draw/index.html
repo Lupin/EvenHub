@@ -279,7 +279,7 @@
       var cv=document.getElementById('colVal'),rv=document.getElementById('rowVal');
       function cl(v,min,max){return Math.max(min,Math.min(max,v))}
       var ce=document.getElementById('canvas');
-      var splitMode=false,ZOOM_S=6,zoomX=0,zoomY=0,mdZoom=false;
+      var splitMode=false,ZOOM_S=7,zoomX=0,zoomY=0,mdZoom=false;
       function paintZoom(touch){
         var el=document.elementFromPoint(touch.clientX,touch.clientY);
         if(el&&el.classList.contains('canvas-cell')&&el.dataset.x){
