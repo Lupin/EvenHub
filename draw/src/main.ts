@@ -132,7 +132,7 @@ async function main() {
     }
     const word = ['D','R','A','W']
     const startCol = 1 // left offset so it's centered (~15 cols in 18)
-    const greyBlock = '█' // full white block
+    const greyBlock = '▒' // medium grey block
     const fw = '\u3000'
 
     // Build a 7×18 grid of random glyphs
@@ -155,7 +155,7 @@ async function main() {
       col += 4 // 3 for letter + 1 space
     }
 
-    return grid.map(r => r.join('')).join('\n') + '\n\n  draw — start a new drawing on your phone'
+    return grid.map(r => r.join('')).join('\n') + '\n\n  DRAW — start a new drawing on your phone'
   }
 
   const onboard = onboardPattern()
