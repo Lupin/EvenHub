@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split Screen PoC</title>
+  <style>
+    body { margin:0; padding:12px; font-family:monospace; background:#0c0a07; color:#f0ebe3; user-select:none; -webkit-user-select:none; }
+    .info { font-size:12px; margin-bottom:8px; text-align:center; color:#8a7f72; }
+    .mini-map { display:grid; gap:1px; margin:0 auto 12px; }
+    .mini-cell { aspect-ratio:1; background:#161310; border-radius:1px; }
+    .mini-cell.filled { background:#2a2520; }
+    .mini-cell.active { outline:2px solid #4ade80; outline-offset:-2px; }
+    .zoom-grid { display:grid; gap:1px; margin:0 auto; }
+    .zoom-cell { aspect-ratio:1; background:#161310; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:28px; color:#f0ebe3; }
+    .zoom-cell.filled { background:#1a1a1a; }
+  </style>
+</head>
+<body>
+  <div class="info">tap mini-map to move | zoom: <span id="zoomPos">0,0</span></div>
+  <div class="mini-map" id="miniMap"></div>
+  <div class="zoom-grid" id="zoomGrid"></div>
+  <script>
+    var COLS=28, ROWS=7, ZOOM=6;
+    var zoomX=0, zoomY=0;
+    var cd = {};
+
+    // Fill with random glyphs for demo
+    var glyphs = '■□▣▤▥▦▧▨▩▲△▶▷◆◇◈●○';
+    for (var y=0; y<ROWS; y++)
+      for (var x=0; x<COLS; x++)
+        if (Math.random()>0.6) cd[x+','+y]=glyphs[Math.floor(Math.random()*glyphs.length)];
+
+    function drawMiniMap(){
+      var el=document.getElementById('miniMap');
+      var cs=8; el.style.gridTemplateColumns='repeat('+COLS+','+cs+'px)';
+      el.innerHTML='';
+      for(var y=0;y<ROWS;y++){
+        for(var x=0;x<COLS;x++){
+          var c=document.createElement('div');
+          c.className='mini-cell';
+          if(cd[x+','+y])c.classList.add('filled');
+          if(x>=zoomX&&x<zoomX+ZOOM&&y>=zoomY&&y<zoomY+ZOOM)c.classList.add('active');
+          c.addEventListener('click',(function(px,py){return function(){zoomX=Math.max(0,Math.min(COLS-ZOOM,px));zoomY=Math.max(0,Math.min(ROWS-ZOOM,py));redraw();}})(x,y));
+          el.appendChild(c);
+        }
+      }
+    }
+
+    function drawZoom(){
+      var el=document.getElementById('zoomGrid');
+      var cs=50; el.style.gridTemplateColumns='repeat('+ZOOM+','+cs+'px)';
+      el.innerHTML='';
+      for(var y=zoomY;y<zoomY+ZOOM;y++){
+        for(var x=zoomX;x<zoomX+ZOOM;x++){
+          var c=document.createElement('div');
+          c.className='zoom-cell';
+          var g=cd[x+','+y];
+          if(g){c.textContent=g;c.classList.add('filled')}
+          el.appendChild(c);
+        }
+      }
+      document.getElementById('zoomPos').textContent=zoomX+','+zoomY;
+    }
+
+    function redraw(){drawMiniMap();drawZoom();}
+    redraw();
+  </script>
+</body>
+</html>
