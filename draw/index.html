@@ -157,7 +157,21 @@
       { name: 'Blocks 3', glyphs: '▔▕■□▣▤▥▦▧▨▩▰▱◧◨◩' },
       { name: 'Mix', glyphs: '■▲◆●◈▣▶▼◀▤▥◐◑◧◨◩' },
     ];
-    function loadDrawings() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; } }
+    // Vasarely-inspired default drawing (zebra pattern in blocks + shapes)
+    var VASARELY = {
+      id: 0, name: 'Vasarely', cols: 28, rows: 7,
+      lines: [
+        '■□■□■□■□■□■□■□■□■□■□■□■□■□■□',
+        '□■□■□■□■□■□■□■□■□■□■□■□■□■□■',
+        '▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤',
+        '▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣▤▣',
+        '◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇',
+        '◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆',
+        '●○●○●○●○●○●○●○●○●○●○●○●○●○●○',
+      ],
+      date: '2026-06-15T00:00:00.000Z'
+    };
+    function loadDrawings() { try { var list = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; if (list.length === 0) { list.push(VASARELY); saveDrawings(list); } return list; } catch(e) { return [VASARELY]; } }
     function saveDrawings(l) { localStorage.setItem(STORAGE_KEY, JSON.stringify(l)); }
 
     var themeSel = document.getElementById('themeSel');
