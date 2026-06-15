@@ -324,7 +324,7 @@
         ze.style.gridTemplateColumns='repeat('+ZOOM_S+', '+zs+'px)';
         for(var y=0;y<rows;y++){for(var x=zoomX;x<Math.min(zoomX+ZOOM_S,cols);x++){
           var zc=document.createElement('div');zc.className='canvas-cell';
-          zc.style.width=zs+'px';zc.style.height=zs+'px';zc.style.fontSize='36px';
+          zc.style.width=zs+'px';zc.style.height=zs+'px';zc.style.fontSize='40px';
           zc.dataset.x=x;zc.dataset.y=y;var k=x+','+y;
           if(cd[k]){zc.textContent=cd[k];zc.classList.add('filled')}
           zc.addEventListener('touchstart',function(e){e.preventDefault();if(this.dataset.x){cd[this.dataset.x+','+this.dataset.y]=brush}rebuild()});
