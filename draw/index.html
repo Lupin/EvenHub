@@ -103,15 +103,15 @@
       <div class="brush-grid" id="drawGlyphs"></div>
       <div class="row">
         <span style="font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;flex-shrink:0">Grid</span>
-        <span style="display:flex;align-items:center;gap:4px;margin-left:-15px">
-          <span style="font-size:12px;color:var(--text-dim)">Columns</span>
-          <select id="colSelect" style="background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:4px 8px;font-size:14px;font-family:inherit"></select>
-        </span>
-        <span style="display:flex;align-items:center;gap:4px;margin-left:4px;margin-right:8px">
-          <span style="font-size:12px;color:var(--text-dim)">Rows</span>
-          <select id="rowSelect" style="background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:4px 8px;font-size:14px;font-family:inherit"></select>
-        </span>
         <span style="flex:1"></span>
+        <span style="display:flex;align-items:center;gap:4px;flex-shrink:0">
+          <span style="font-size:12px;color:var(--text-dim)">Columns</span>
+          <select id="colSelect" style="background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:4px 6px;font-size:13px;font-family:inherit;max-width:52px"></select>
+        </span>
+        <span style="display:flex;align-items:center;gap:4px;margin-left:6px;flex-shrink:0">
+          <span style="font-size:12px;color:var(--text-dim)">Rows</span>
+          <select id="rowSelect" style="background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:4px 6px;font-size:13px;font-family:inherit;max-width:46px"></select>
+        </span>
       </div>
       <div class="btn-row" style="align-items:center"><span style="display:flex;align-items:center;gap:6px;flex-shrink:0;padding-left:10px"><div class="toggle" id="splitToggle"></div><span id="splitLabel" style="font-size:13px;color:var(--text-dim)">Zoom edit</span></span><span style="flex:1"></span><button class="btn-sm" id="eraser" style="flex:0.7;margin-right:15px">⌫ Eraser</button><button class="btn-sm" id="clear" style="flex:0.7;margin-right:10px">Clear</button></div>
       <div id="zoomHint" style="display:none;text-align:center;padding:4px 0 2px;font-size:12px;color:var(--text);font-style:italic;opacity:0.7">Paint pixel by pixel</div>
