@@ -209,9 +209,38 @@
     })();
 
     // ── GALLERY ──
-    function renderGallery(){var list=loadDrawings(),el=document.getElementById('galleryList'),eb=document.getElementById('exportAllBtn');eb.style.display=list.length?'block':'none';if(list.length===0){el.innerHTML='<div style="padding:32px 16px;text-align:center;color:var(--text-dim)">No drawings saved.<br>Switch to Draw mode and tap Save.</div>';return}var h='';list.forEach(function(d,i){var ph='';for(var y=0;y<Math.min(3,d.rows);y++){var rh='';for(var x=0;x<Math.min(10,d.cols);x++){var ch=d.lines[y]?d.lines[y][x]||FW:FW;rh+='<span>'+(ch===FW?'':ch)+'</span>'}ph+=rh}var date=new Date(d.date).toLocaleDateString();h+='<div class="gallery-item" onclick="loadToCanvas(loadDrawings()['+i+'])"><div class="gallery-preview" style="grid-template-columns:repeat('+Math.min(10,d.cols)+',1fr)">'+ph+'</div><div class="gallery-info"><div class="name">'+d.name+'</div><div class="meta">'+d.cols+'×'+d.rows+' · '+date+'</div></div><div class="gallery-actions"><button onclick="event.stopPropagation();shareDrawing('+i+')">↗</button><button class="del" onclick="event.stopPropagation();deleteDrawing('+i+')">✕</button></div></div>'});el.innerHTML=h}
+    function renderGallery(){var list=loadDrawings(),el=document.getElementById('galleryList'),eb=document.getElementById('exportAllBtn');eb.style.display=list.length?'block':'none';if(list.length===0){el.innerHTML='<div style="padding:32px 16px;text-align:center;color:var(--text-dim)">No drawings saved.<br>Switch to Draw mode and tap Save.</div>';return}var h='';list.forEach(function(d,i){var ph='';for(var y=0;y<Math.min(3,d.rows);y++){var rh='';for(var x=0;x<Math.min(10,d.cols);x++){var ch=d.lines[y]?d.lines[y][x]||FW:FW;rh+='<span>'+(ch===FW?'':ch)+'</span>'}ph+=rh}var date=new Date(d.date).toLocaleDateString();h+='<div class="gallery-item" onclick="viewDrawing('+i+')"><div class="gallery-preview" style="grid-template-columns:repeat('+Math.min(10,d.cols)+',1fr)">'+ph+'</div><div class="gallery-info"><div class="name">'+d.name+'</div><div class="meta">'+d.cols+'×'+d.rows+' · '+date+'</div></div><div class="gallery-actions"><button onclick="event.stopPropagation();shareDrawing('+i+')">↗</button><button class="del" onclick="event.stopPropagation();deleteDrawing('+i+')">✕</button></div></div>'});el.innerHTML=h}
     window.editDrawing=function(i){var list=loadDrawings(),d=list[i],name=prompt('Rename',d.name);if(name){d.name=name;list[i]=d;saveDrawings(list);renderGallery()}};
     window.deleteDrawing=function(i){if(!confirm('Delete this drawing?'))return;var list=loadDrawings();list.splice(i,1);saveDrawings(list);renderGallery()};
+
+    // ── VIEW DRAWING (detail with prev/next) ──
+    var viewIdx=-1;
+    window.viewDrawing=function(i){
+      var list=loadDrawings();viewIdx=i;renderDetail();
+    };
+    function renderDetail(){
+      var list=loadDrawings(),el=document.getElementById('galleryList');
+      if(viewIdx<0||viewIdx>=list.length){renderGallery();return}
+      var d=list[viewIdx];
+      var ph='';for(var y=0;y<d.rows;y++){ph+=d.lines[y]+'<br>'}
+      var h='<div style="padding:12px 16px">';
+      h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">';
+      h+='<button onclick="event.stopPropagation();viewPrev()" style="background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:8px 14px;font-size:16px;cursor:pointer">◀</button>';
+      h+='<span style="font-size:14px;font-weight:600">'+d.name+'</span>';
+      h+='<span style="font-size:12px;color:var(--text-dim)">'+(viewIdx+1)+'/'+list.length+'</span>';
+      h+='<button onclick="event.stopPropagation();viewNext()" style="background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:8px 14px;font-size:16px;cursor:pointer">▶</button>';
+      h+='</div>';
+      h+='<div onclick="renderGallery()" style="background:var(--bg);border-radius:var(--radius);padding:12px;font-size:13px;line-height:1.6;font-family:monospace;white-space:pre;cursor:pointer;min-height:120px">'+ph+'</div>';
+      h+='<div style="margin-top:8px;font-size:11px;color:var(--text-dim);text-align:center">'+d.cols+'×'+d.rows+' · '+new Date(d.date).toLocaleDateString()+'</div>';
+      h+='<div style="display:flex;gap:8px;margin-top:12px">';
+      h+='<button onclick="event.stopPropagation();shareDrawing('+viewIdx+')" style="flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text-dim);border-radius:var(--radius);padding:8px;font-size:13px;cursor:pointer">↗ Share</button>';
+      h+='<button onclick="event.stopPropagation();editDrawing('+viewIdx+')" style="flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text-dim);border-radius:var(--radius);padding:8px;font-size:13px;cursor:pointer">✎ Rename</button>';
+      h+='<button onclick="event.stopPropagation();deleteDrawing('+viewIdx+');renderGallery()" class="del" style="flex:1;background:var(--bg);border:1px solid var(--red);color:var(--red);border-radius:var(--radius);padding:8px;font-size:13px;cursor:pointer">✕ Delete</button>';
+      h+='</div></div>';
+      el.innerHTML=h;
+    }
+    window.viewPrev=function(){var list=loadDrawings();if(list.length===0)return;viewIdx=(viewIdx-1+list.length)%list.length;renderDetail()};
+    window.viewNext=function(){var list=loadDrawings();if(list.length===0)return;viewIdx=(viewIdx+1)%list.length;renderDetail()};
 
     // ── EXPORT ALL ──
     window.exportAll=function(){
