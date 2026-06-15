@@ -223,7 +223,7 @@
         var rows=[[],[],[],[],[]];
         for(var ci=0;ci<chars.length;ci++){var g=glyphMap[chars[ci]]||glyphMap[' '];for(var r=0;r<5;r++)rows[r].push(g[r].map(function(c){return c?(rndOn?pool[Math.floor(Math.random()*pool.length)]:pool[0]):FW}).join(''))}
         var lines=rows.map(function(r){return r.join(FW)});
-        var list=loadDrawings();list.push({id:Date.now(),name:'Text '+(list.length+1),cols:Math.max(4,chars.length*5+chars.length-1),rows:5,lines:lines,date:new Date().toISOString()});saveDrawings(list);
+        var list=loadDrawings();list.push({id:Date.now(),name:tx,cols:Math.max(4,chars.length*5+chars.length-1),rows:5,lines:lines,date:new Date().toISOString()});saveDrawings(list);
         this.textContent='Saved!';setTimeout(function(){document.getElementById('textSave').textContent='Save'},1500);
       });
       document.getElementById('textPush').addEventListener('click',function(){
