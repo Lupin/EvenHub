@@ -320,7 +320,7 @@
         }}
         
         // Zoom zone
-        var zs=Math.min(60,Math.floor((Math.min(document.documentElement.clientWidth,576)-32-ZOOM_S)/ZOOM_S));
+        var zs=Math.min(48,Math.floor((Math.min(document.documentElement.clientWidth,576)-32-ZOOM_S)/ZOOM_S));
         ze.style.gridTemplateColumns='repeat('+ZOOM_S+', '+zs+'px)';
         for(var y=0;y<rows;y++){for(var x=zoomX;x<Math.min(zoomX+ZOOM_S,cols);x++){
           var zc=document.createElement('div');zc.className='canvas-cell';
