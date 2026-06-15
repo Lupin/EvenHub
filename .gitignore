@@ -8,3 +8,8 @@ QRcode/
 
 # SPM build artifacts
 .build/
+
+# Backup files
+*.stable
+*.v1
+*.v2

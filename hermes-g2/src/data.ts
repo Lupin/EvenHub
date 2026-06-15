@@ -23,23 +23,25 @@ export function getHealthUrl(config: G2Config): string {
 // ── Fetch ────────────────────────────────────────────────────
 
 export async function fetchStore(config: G2Config): Promise<MessageStore | null> {
-  const url = getApiUrl(config)
-  return new Promise((resolve) => {
-    fetch(url).then((resp) => {
-      if (!resp.ok) { resolve(null); return }
-      resp.json().then((store: MessageStore) => resolve(store)).catch(() => resolve(null))
-    }).catch(() => resolve(null))
-  })
+  try {
+    const url = getApiUrl(config)
+    const resp = await fetch(url)
+    if (!resp.ok) return null
+    return await resp.json() as MessageStore
+  } catch {
+    return null
+  }
 }
 
 export async function fetchHealth(config: G2Config): Promise<HealthResponse | null> {
-  const url = getHealthUrl(config)
-  return new Promise((resolve) => {
-    fetch(url).then((resp) => {
-      if (!resp.ok) { resolve(null); return }
-      resp.json().then((h: HealthResponse) => resolve(h)).catch(() => resolve(null))
-    }).catch(() => resolve(null))
-  })
+  try {
+    const url = getHealthUrl(config)
+    const resp = await fetch(url)
+    if (!resp.ok) return null
+    return await resp.json() as HealthResponse
+  } catch {
+    return null
+  }
 }
 
 // ── Filtering ────────────────────────────────────────────────

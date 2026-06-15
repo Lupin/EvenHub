@@ -510,7 +510,7 @@
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════ -->
   <!-- Phone UI                                                     -->
   <!-- ═══════════════════════════════════════════════════════════ -->
   <div id="phone-ui" class="app-container">
@@ -678,5 +678,12 @@
   <!-- ═══════════════════════════════════════════════════════════ -->
   <script type="module" src="/src/main.ts"></script>
 
+<div id="g2log" style="position:fixed;bottom:0;left:0;right:0;background:#0c0a07;color:#8a7f72;font-size:9px;padding:2px 8px;z-index:9999;font-family:monospace;max-height:60px;overflow:hidden;"></div>
 </body>
+<script>
+window._g2log = function(msg) {
+  var el = document.getElementById('g2log')
+  if (el) el.textContent = msg
+}
+</script>
 </html>
