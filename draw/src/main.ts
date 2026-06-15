@@ -80,7 +80,7 @@ async function main() {
       for (let x = 0; x < 18; x++) line += all[Math.floor(Math.random() * all.length)]
       rows.push(line)
     }
-    return rows.join('\n') + '\n\n  draw — create a new drawing on your phone'
+    return rows.join('\n') + '\n\n  draw — start a new drawing on your phone'
   }
 
   const onboard = onboardPattern()
