@@ -1,21 +1,26 @@
 DRAW turns your G2 glasses into a pixel-art canvas.
 
-Paint with 11 brush sets of block and shape glyphs on a resizable grid. Create text compositions with 5x5 block letters using any glyph. Everything you save goes to the gallery, where you can display it on your glasses, browse with swipe gestures, or share and export your work.
+Paint with 17 brush sets — Blocks, Triangles, Shapes, Box frames, Alphabet, Numbers, Symbols (stars, hearts, spades), Arrows, Korean Hangul, Japanese Katakana, and more. Create giant 5x5 block-letter text compositions. Everything you save goes to the gallery, where you can display it on your glasses, browse with swipe gestures, share, or export.
 
 MODES
 
-Draw mode — pick a brush set, choose a glyph, and paint on the grid. Grid size adjustable from 6 to 28 columns, 6 to 7 rows. Eraser, clear, save to gallery, or push directly to your glasses.
+Draw mode — pick a brush set, choose a glyph, and paint on a resizable grid (6–28 columns, 6–7 rows). Eraser, clear, save to gallery. Push to glasses sends your canvas to the G2.
 
-Text mode — type up to 4 characters rendered as giant 5x5 block letters using your selected glyphs. Toggle random glyph mode for colorful compositions. Save to gallery or push to glasses.
+Text mode — type up to 4 characters rendered as 5x5 block letters. Toggle random glyph mode. Save stores the composition with your text as its title. Push to glasses displays it.
 
-Gallery — browse all your saved drawings and text compositions. Tap for full-screen detail with previous/next arrows. Display sends any drawing to your glasses. Share exports as text. Export All dumps your entire gallery to clipboard or share sheet.
+Gallery — all saved drawings and text. Tap for full-screen detail with prev/next arrows, position counter, and actions: Display (push to glasses), Share (export as text), Rename, Delete. Export All dumps the entire gallery as one text block. Empty gallery shows a "reload sample" link to restore the Vasarely-inspired default drawing.
 
-ON THE GLASSES
+GLASSES GESTURES
 
-Swipe up or down to browse your saved drawings. Tap to cycle through them. Double-tap to return to your last pushed composition. Double-tap again to exit. Each drawing shows its name and position at the bottom.
+Swipe — enter gallery mode and browse all drawings.
+Tap — next drawing.
+Double-tap — return to your last pushed composition.
+Double-tap again — exit.
+
+Each drawing shows its name and position. Drawing name and a 28x7 grid of curated glyphs fill the startup screen.
 
 THEMES
 
-Dark, light, and system — using the Even OS design palette.
+Dark, light, and system — Even OS design palette. Help page (?) with full tutorial. Buy me a coffee link.
 
-Built by Gaël Abegg-Gauthey. Free. Open source.
+17 brush sets. Built by Gaël Abegg-Gauthey. Free. Open source.
