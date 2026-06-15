@@ -102,11 +102,6 @@
       <button class="btn" id="exportAll" style="margin-top:12px">Export All (JSON)</button>
       <button class="btn" id="startBrowse" style="margin-top:8px">▶ Browse on Glasses</button>
       <div id="galleryList"></div>
-      <div id="galleryNav" style="display:flex; gap:8px; align-items:center; justify-content:center; padding:8px 16px 12px">
-        <button class="btn-sm" id="prevDrawing">◀</button>
-        <span id="galleryPos" style="font-size:13px; color:var(--text-dim)">-</span>
-        <button class="btn-sm" id="nextDrawing">▶</button>
-      </div>
     </div>
 
     <div class="footer-credit">by Gaël Abegg-Gauthey 2026</div>
@@ -260,29 +255,6 @@
       var state = localStorage.getItem('g2-browse');
       if (!state && browseActive) { browseActive = false; document.getElementById('startBrowse').textContent = '▶ Browse on Glasses'; }
     }, 400);
-
-    // ── PREV/NEXT NAV ──
-    var galleryCurrentIndex = -1;
-    document.getElementById('prevDrawing').addEventListener('click', function(){
-      var list = loadDrawings();
-      if (galleryCurrentIndex > 0) { galleryCurrentIndex--; loadToCanvas(list[galleryCurrentIndex]); updateGalleryNav(); modeSel.value='draw'; switchMode('draw'); }
-    });
-    document.getElementById('nextDrawing').addEventListener('click', function(){
-      var list = loadDrawings();
-      if (galleryCurrentIndex < list.length-1) { galleryCurrentIndex++; loadToCanvas(list[galleryCurrentIndex]); updateGalleryNav(); modeSel.value='draw'; switchMode('draw'); }
-    });
-    function updateGalleryNav() {
-      var list = loadDrawings();
-      document.getElementById('galleryPos').textContent = list.length ? (galleryCurrentIndex+1)+'/'+list.length : '-';
-    }
-    // Hook into renderGallery to track index when a drawing is tapped
-    var origLoadToCanvas = loadToCanvas;
-    window.loadToCanvas = function(d) {
-      var list = loadDrawings();
-      galleryCurrentIndex = list.findIndex(function(x){ return x.id === d.id; });
-      updateGalleryNav();
-      origLoadToCanvas(d);
-    };
   </script>
 
   <script src="/node_modules/@evenrealities/even_hub_sdk/dist/even_hub_sdk.js"></script>
