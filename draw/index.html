@@ -101,17 +101,18 @@
     <div class="group" id="drawGroup">
       <div class="row"><label>Brush set</label><select id="brushSet"></select></div>
       <div class="brush-grid" id="drawGlyphs"></div>
-      <div class="section-title" style="display:flex;justify-content:space-between;align-items:center">
-        <span>Grid size</span>
-        <span style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim);font-weight:normal;text-transform:none;letter-spacing:0">
+      <div class="row">
+        <span style="font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px">Grid</span>
+        <span style="display:flex;align-items:center;gap:4px">
+          <span class="lbl" style="font-size:12px;color:var(--text-dim)">C</span>
+          <select id="colSelect" style="background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:4px 8px;font-size:14px;font-family:inherit"></select>
+          <span class="lbl" style="font-size:12px;color:var(--text-dim)">R</span>
+          <select id="rowSelect" style="background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:4px 8px;font-size:14px;font-family:inherit"></select>
+        </span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim)">
           <span id="splitLabel">Zoom edit</span>
           <div class="toggle" id="splitToggle"></div>
         </span>
-      </div>
-      <div class="size-row">
-        <span class="lbl">C</span><button class="size-btn" id="colMinus">−</button><span class="val" id="colVal">25</span><button class="size-btn" id="colPlus">+</button>
-        <span style="flex:1"></span>
-        <span class="lbl">R</span><button class="size-btn" id="rowMinus">−</button><span class="val" id="rowVal">7</span><button class="size-btn" id="rowPlus">+</button>
       </div>
       <div class="btn-row"><button class="btn-sm" id="eraser">⌫ Eraser</button><button class="btn-sm" id="clear">Clear</button></div>
       <div id="zoomHint" style="display:none;text-align:center;padding:4px 0 2px;font-size:12px;color:var(--text);font-style:italic;opacity:0.7">Paint pixel by pixel</div>
@@ -275,9 +276,14 @@
       var eraserOn=false;
       document.getElementById('eraser').addEventListener('click',function(){eraserOn=!eraserOn;this.textContent=eraserOn?'✎ Pen':'⌫ Eraser';if(eraserOn){brush=FW;document.querySelectorAll('#drawGlyphs .brush-cell').forEach(function(c){c.classList.remove('on')})}else{brush='■';document.querySelectorAll('#drawGlyphs .brush-cell').forEach(function(c){c.classList.toggle('on',c.textContent==='■')})}});
 
-      var cv=document.getElementById('colVal'),rv=document.getElementById('rowVal');
-      function cl(v,min,max){return Math.max(min,Math.min(max,v))}
       var ce=document.getElementById('canvas');
+      // Grid size dropdowns
+      var cs_sel=document.getElementById('colSelect');
+      for(var i=6;i<=28;i++){var o=document.createElement('option');o.value=i;o.textContent=i;if(i===cols)o.selected=true;cs_sel.appendChild(o)}
+      cs_sel.addEventListener('change',function(){cols=parseInt(this.value);rebuild()});
+      var rs_sel=document.getElementById('rowSelect');
+      for(var i=6;i<=7;i++){var o=document.createElement('option');o.value=i;o.textContent=i;if(i===rows)o.selected=true;rs_sel.appendChild(o)}
+      rs_sel.addEventListener('change',function(){rows=parseInt(this.value);rebuild()});
       var splitMode=false,ZOOM_S=7,zoomX=0,zoomY=0,mdZoom=false;
       function paintZoom(touch){
         var el=document.elementFromPoint(touch.clientX,touch.clientY);
@@ -357,10 +363,15 @@
         document.getElementById('zoomHint').style.display=splitMode?'block':'none';
         rebuild();
       });
-document.getElementById('colMinus').addEventListener('click',function(){cols=cl(cols-1,6,28);cv.textContent=cols;rebuild()});
-      document.getElementById('colPlus').addEventListener('click',function(){cols=cl(cols+1,6,28);cv.textContent=cols;rebuild()});
-      document.getElementById('rowMinus').addEventListener('click',function(){rows=cl(rows-1,6,7);rv.textContent=rows;rebuild()});
-      document.getElementById('rowPlus').addEventListener('click',function(){rows=cl(rows+1,6,7);rv.textContent=rows;rebuild()});rebuild();
+// Init column dropdown (6-28)
+      var cs_sel=document.getElementById('colSelect');
+      for(var i=6;i<=28;i++){var o=document.createElement('option');o.value=i;o.textContent=i;if(i===cols)o.selected=true;cs_sel.appendChild(o)}
+      cs_sel.addEventListener('change',function(){cols=parseInt(this.value);rebuild()});
+      // Init row dropdown (6-7)
+      var rs_sel=document.getElementById('rowSelect');
+      for(var i=6;i<=7;i++){var o=document.createElement('option');o.value=i;o.textContent=i;if(i===rows)o.selected=true;rs_sel.appendChild(o)}
+      rs_sel.addEventListener('change',function(){rows=parseInt(this.value);rebuild()});
+      rebuild();
 
       function paint(el,g){var k=el.dataset.x+','+el.dataset.y;if(g===FW){delete cd[k];el.textContent='';el.classList.remove('filled')}else{cd[k]=g;el.textContent=g;el.classList.add('filled')}}
       function cft(t){var e=document.elementFromPoint(t.clientX,t.clientY);return e&&e.classList.contains('canvas-cell')?e:null}
@@ -372,7 +383,7 @@ document.getElementById('colMinus').addEventListener('click',function(){cols=cl(
       document.getElementById('save').addEventListener('click',function(){var lines=[],y,x;for(y=0;y<rows;y++){var l='';for(x=0;x<cols;x++)l+=cd[x+','+y]||FW;lines.push(l)}var list=loadDrawings();list.push({id:Date.now(),name:'Drawing '+(list.length+1),cols:cols,rows:rows,lines:lines,date:new Date().toISOString()});saveDrawings(list);this.textContent='Saved!';setTimeout(function(){document.getElementById('save').textContent='Save'},1500)});
       document.getElementById('drawPush').addEventListener('click',function(){var lines=[],y,x;for(y=0;y<rows;y++){var l='';for(x=0;x<cols;x++)l+=cd[x+','+y]||FW;lines.push(l)}var payload=JSON.stringify({mode:'draw',lines:lines});localStorage.setItem('g2-push',payload);localStorage.setItem('g2-lastpush',payload)});
 
-      window.loadToCanvas=function(d){cols=d.cols;rows=d.rows;cv.textContent=cols;rv.textContent=rows;cd={};for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){var ch=d.lines[y][x];if(ch!==FW)cd[x+','+y]=ch}rebuild();modeSel.value='draw';switchMode('draw')};
+      window.loadToCanvas=function(d){cols=d.cols;rows=d.rows;cs_sel.value=cols;rs_sel.value=rows;cd={};for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){var ch=d.lines[y][x];if(ch!==FW)cd[x+','+y]=ch}rebuild();modeSel.value='draw';switchMode('draw')};
     })();
 
     // ── GALLERY ──
