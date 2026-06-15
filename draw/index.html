@@ -99,7 +99,6 @@
 
     <div class="group" id="galleryGroup" style="display:none">
       <button class="btn" id="exportAll" style="margin-top:12px">Export All (JSON)</button>
-      <button class="btn" id="startBrowse" style="margin-top:8px">▶ Browse on Glasses</button>
       <div id="galleryList"></div>
     </div>
 
@@ -226,29 +225,6 @@
       btn.addEventListener('click', function(){ document.body.removeChild(modal); });
       modal.appendChild(ta); modal.appendChild(btn); document.body.appendChild(modal); ta.select();
     });
-
-    // ── BROWSE ON GLASSES ──
-    var browseIndex = 0, browseActive = false;
-    document.getElementById('startBrowse').addEventListener('click', function(){
-      if (browseActive) { browseActive = false; this.textContent = '▶ Browse on Glasses'; localStorage.removeItem('g2-browse'); return; }
-      var list = loadDrawings();
-      if (!list.length) { alert('No drawings to browse'); return; }
-      browseIndex = 0; browseActive = true; this.textContent = '■ Stop Browsing'; pushBrowseSlide();
-    });
-    function pushBrowseSlide() {
-      var list = loadDrawings();
-      if (browseIndex >= list.length) { browseActive = false; document.getElementById('startBrowse').textContent = '▶ Browse on Glasses'; localStorage.removeItem('g2-browse'); return; }
-      var d = list[browseIndex];
-      localStorage.setItem('g2-push', JSON.stringify({mode:'draw', lines:d.lines}));
-      localStorage.setItem('g2-browse', JSON.stringify({active:true, index:browseIndex, total:list.length}));
-    }
-    setInterval(function(){
-      if (!browseActive) return;
-      var next = localStorage.getItem('g2-browse-next');
-      if (next) { localStorage.removeItem('g2-browse-next'); browseIndex++; pushBrowseSlide(); }
-      var state = localStorage.getItem('g2-browse');
-      if (!state && browseActive) { browseActive = false; document.getElementById('startBrowse').textContent = '▶ Browse on Glasses'; }
-    }, 400);
   </script>
 
   <script src="/node_modules/@evenrealities/even_hub_sdk/dist/even_hub_sdk.js"></script>

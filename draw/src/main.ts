@@ -97,36 +97,11 @@ async function main() {
     ],
   }))
 
-  let browseOn = false
-
   bridge.onEvenHubEvent(event => {
     const e = event.listEvent || event.textEvent || event.sysEvent
     if (!e) return
-    const et = (e.eventType ?? 0) as OsEventTypeList
-    if (et === OsEventTypeList.DOUBLE_CLICK_EVENT) {
-      if (browseOn) {
-        browseOn = false
-        localStorage.removeItem('g2-browse')
-        localStorage.removeItem('g2-browse-next')
-        bridge.textContainerUpgrade(new TextContainerUpgrade({
-          containerID: 1, containerName: 'main', content: onboardPattern(),
-        }))
-      } else {
-        bridge.shutDownPageContainer(1)
-      }
-    }
-    if (et === OsEventTypeList.CLICK_EVENT) {
-      if (browseOn) localStorage.setItem('g2-browse-next', '1')
-    }
+    if ((e.eventType ?? 0) === OsEventTypeList.DOUBLE_CLICK_EVENT) bridge.shutDownPageContainer(1)
   })
-
-  // Poll browse state from phone
-  setInterval(() => {
-    const raw = localStorage.getItem('g2-browse')
-    if (raw) {
-      try { const bs = JSON.parse(raw); browseOn = bs.active } catch(e) {}
-    }
-  }, 500)
 
   setInterval(() => {
     const raw = localStorage.getItem('g2-push')
