@@ -1,0 +1,21 @@
+DRAW turns your G2 glasses into a pixel-art canvas.
+
+Paint with 11 brush sets of block and shape glyphs on a resizable grid. Create text compositions with 5x5 block letters using any glyph. Everything you save goes to the gallery, where you can display it on your glasses, browse with swipe gestures, or share and export your work.
+
+MODES
+
+Draw mode — pick a brush set, choose a glyph, and paint on the grid. Grid size adjustable from 6 to 28 columns, 6 to 7 rows. Eraser, clear, save to gallery, or push directly to your glasses.
+
+Text mode — type up to 4 characters rendered as giant 5x5 block letters using your selected glyphs. Toggle random glyph mode for colorful compositions. Save to gallery or push to glasses.
+
+Gallery — browse all your saved drawings and text compositions. Tap for full-screen detail with previous/next arrows. Display sends any drawing to your glasses. Share exports as text. Export All dumps your entire gallery to clipboard or share sheet.
+
+ON THE GLASSES
+
+Swipe up or down to browse your saved drawings. Tap to cycle through them. Double-tap to return to your last pushed composition. Double-tap again to exit. Each drawing shows its name and position at the bottom.
+
+THEMES
+
+Dark, light, and system — using the Even OS design palette.
+
+Built by Gaël Abegg-Gauthey. Free. Open source.

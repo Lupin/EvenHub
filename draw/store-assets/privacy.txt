@@ -1,0 +1,7 @@
+DRAW does not collect, store, or transmit any personal data.
+
+All drawings and text compositions are stored locally on your device using the Even Hub SDK's local storage API. No data leaves your phone or glasses.
+
+No analytics. No tracking. No network requests.
+
+Contact: gael.abegg@me.com
