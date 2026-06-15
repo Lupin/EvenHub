@@ -35,8 +35,8 @@
     .size-row .val { font-size:14px; color:var(--text); width:24px; text-align:center; }
     .size-btn { width:36px; height:36px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
     .canvas-grid { display:grid; gap:1px; padding:8px 16px 12px; width:fit-content; margin:0 auto; }
-    .canvas-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; background:var(--bg); border-radius:2px; font-size:8px; cursor:pointer; color:var(--text-dim); }
-    .canvas-cell.filled { background:var(--border); }
+    .canvas-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; background:var(--bg); border-radius:2px; font-size:8px; cursor:pointer; color:var(--bg); }
+    .canvas-cell.filled { background:var(--bg); color:var(--text); }
     .btn-row { display:flex; gap:8px; padding:8px 16px 12px; }
     .btn-row .btn-sm { flex:1; padding:10px 0; text-align:center; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text-dim); font-size:13px; cursor:pointer; width:auto; margin:0; }
     .btn-sm.save { border-color:var(--accent); color:var(--accent); }
@@ -105,7 +105,7 @@
       <div id="galleryList"></div>
     </div>
 
-    <div class="footer-credit">by Gaël Abegg-Gauthey 2026</div>
+    <div class="footer-credit">by Gaël Abegg-Gauthey 2026 · v<span id="footerVersion">0.2.2</span></div>
   </div>
 
   <script>
