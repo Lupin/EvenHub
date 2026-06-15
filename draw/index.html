@@ -98,6 +98,7 @@
     </div>
 
     <div class="group" id="galleryGroup" style="display:none">
+      <button class="btn" id="exportAll" style="margin-top:12px">Export All (JSON)</button>
       <div id="galleryList"></div>
     </div>
 
@@ -198,6 +199,31 @@
     function renderGallery(){var list=loadDrawings(),el=document.getElementById('galleryList');if(list.length===0){el.innerHTML='<div style="padding:32px 16px;text-align:center;color:var(--text-dim)">No drawings saved.<br>Switch to Draw mode and tap Save.</div>';return}var h='';list.forEach(function(d,i){var ph='';for(var y=0;y<Math.min(3,d.rows);y++){var rh='';for(var x=0;x<Math.min(10,d.cols);x++){var ch=d.lines[y]?d.lines[y][x]||FW:FW;rh+='<span>'+(ch===FW?'':ch)+'</span>'}ph+=rh}var date=new Date(d.date).toLocaleDateString();h+='<div class="gallery-item" onclick="loadToCanvas(loadDrawings()['+i+'])"><div class="gallery-preview" style="grid-template-columns:repeat('+Math.min(10,d.cols)+',1fr)">'+ph+'</div><div class="gallery-info"><div class="name">'+d.name+'</div><div class="meta">'+d.cols+'×'+d.rows+' · '+date+'</div></div><div class="gallery-actions"><button onclick="event.stopPropagation();editDrawing('+i+')">✎</button><button class="del" onclick="event.stopPropagation();deleteDrawing('+i+')">✕</button></div></div>'});el.innerHTML=h}
     window.editDrawing=function(i){var list=loadDrawings(),d=list[i],name=prompt('Rename',d.name);if(name){d.name=name;list[i]=d;saveDrawings(list);renderGallery()}};
     window.deleteDrawing=function(i){if(!confirm('Delete this drawing?'))return;var list=loadDrawings();list.splice(i,1);saveDrawings(list);renderGallery()};
+
+    // ── EXPORT ALL ──
+    document.getElementById('exportAll').addEventListener('click', async function(){
+      var list = loadDrawings();
+      if (!list.length) { alert('No drawings to export'); return; }
+      var json = JSON.stringify(list, null, 2);
+      // Try Web Share API
+      if (navigator.share && navigator.canShare) {
+        var blob = new Blob([json], { type: 'application/json' });
+        var file = new File([blob], 'draw-gallery.json', { type: 'application/json' });
+        var data = { files: [file], title: 'DRAW Gallery' };
+        if (navigator.canShare(data)) { try { await navigator.share(data); return; } catch(e) {} }
+      }
+      // Fallback clipboard
+      try { await navigator.clipboard.writeText(json); alert('Copied to clipboard!'); return; } catch(e) {}
+      // Last resort: textarea
+      var modal = document.createElement('div');
+      modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;';
+      var ta = document.createElement('textarea'); ta.value = json;
+      ta.style.cssText = 'width:100%;height:250px;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:12px;font-family:monospace;font-size:11px;';
+      var btn = document.createElement('button'); btn.textContent = 'Close';
+      btn.style.cssText = 'margin-top:12px;padding:12px 24px;background:var(--accent);color:var(--bg);border:none;border-radius:6px;font-size:15px;cursor:pointer;';
+      btn.addEventListener('click', function(){ document.body.removeChild(modal); });
+      modal.appendChild(ta); modal.appendChild(btn); document.body.appendChild(modal); ta.select();
+    });
   </script>
 
   <script src="/node_modules/@evenrealities/even_hub_sdk/dist/even_hub_sdk.js"></script>
