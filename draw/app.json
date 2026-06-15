@@ -1,7 +1,7 @@
 {
-  "package_id": "com.vasarely.app",
+  "package_id": "com.draw.app",
   "edition": "202601",
-  "name": "Vasarely",
+  "name": "DRAW",
   "version": "0.2.0",
   "min_app_version": "2.0.0",
   "min_sdk_version": "0.0.10",
