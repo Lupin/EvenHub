@@ -116,7 +116,8 @@ async function main() {
 
   async function restoreContent(): Promise<void> {
     g2State = 'content'
-    await setContent(lastContent || '\n\n  draw — start a new drawing on your phone')
+    // Signal the phone to re-push the current draw/text
+    localStorage.setItem('g2-restore', '1')
   }
 
   // Onboard: random glyph pattern so the glasses show something at startup

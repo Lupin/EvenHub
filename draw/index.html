@@ -171,7 +171,7 @@
         this.textContent='Saved!';setTimeout(function(){document.getElementById('textSave').textContent='Save'},1500);
       });
       document.getElementById('textPush').addEventListener('click',function(){
-        localStorage.setItem('g2-push',JSON.stringify({mode:'text',text:inp.value||'8',random:rnd,glyphs:Array.from(ag)}));
+        var payload=JSON.stringify({mode:'text',text:inp.value||'8',random:rnd,glyphs:Array.from(ag)});localStorage.setItem('g2-push',payload);localStorage.setItem('g2-lastpush',payload);
       });
     })();
 
@@ -203,7 +203,7 @@
       document.getElementById('clear').addEventListener('click',function(){cd={};cellEls.forEach(function(c){c.textContent='';c.classList.remove('filled')})});
 
       document.getElementById('save').addEventListener('click',function(){var lines=[],y,x;for(y=0;y<rows;y++){var l='';for(x=0;x<cols;x++)l+=cd[x+','+y]||FW;lines.push(l)}var list=loadDrawings();list.push({id:Date.now(),name:'Drawing '+(list.length+1),cols:cols,rows:rows,lines:lines,date:new Date().toISOString()});saveDrawings(list);this.textContent='Saved!';setTimeout(function(){document.getElementById('save').textContent='Save'},1500)});
-      document.getElementById('drawPush').addEventListener('click',function(){var lines=[],y,x;for(y=0;y<rows;y++){var l='';for(x=0;x<cols;x++)l+=cd[x+','+y]||FW;lines.push(l)}localStorage.setItem('g2-push',JSON.stringify({mode:'draw',lines:lines}))});
+      document.getElementById('drawPush').addEventListener('click',function(){var lines=[],y,x;for(y=0;y<rows;y++){var l='';for(x=0;x<cols;x++)l+=cd[x+','+y]||FW;lines.push(l)}var payload=JSON.stringify({mode:'draw',lines:lines});localStorage.setItem('g2-push',payload);localStorage.setItem('g2-lastpush',payload)});
 
       window.loadToCanvas=function(d){cols=d.cols;rows=d.rows;cv.textContent=cols;rv.textContent=rows;cd={};for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){var ch=d.lines[y][x];if(ch!==FW)cd[x+','+y]=ch}rebuild();modeSel.value='draw';switchMode('draw')};
     })();
@@ -283,6 +283,14 @@
         alert(text);
       }
     };
+  // Poll for g2-restore signal (glasses want to return to content mode)
+    setInterval(function(){
+      var v=localStorage.getItem('g2-restore');
+      if(!v)return;
+      localStorage.removeItem('g2-restore');
+      var lp=localStorage.getItem('g2-lastpush');
+      if(lp)localStorage.setItem('g2-push',lp);
+    },300);
   </script>
 
   <script src="/node_modules/@evenrealities/even_hub_sdk/dist/even_hub_sdk.js"></script>
