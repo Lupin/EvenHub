@@ -175,170 +175,219 @@ git commit -m "feat: add per-drawing share button to gallery"
 
 ---
 
-### Task 4: Add "View on Glasses" slideshow mode to Gallery
+### Task 4: Add "View on Glasses" interactive browse mode to Gallery
 
-**Objective:** Add a button in the gallery that pushes drawings to the glasses one by one via tap. The glasses display a single drawing with "tap: next | double-tap: exit". The phone pushes the first drawing, then each tap on the glasses advances to the next.
+**Objective:** Add a button in the gallery that pushes drawings to the glasses interactively. No animation — each tap loads the next drawing. The glasses display one drawing. Phone pushes first drawing, then each tap on glasses advances to next. Double-tap ends browse mode.
+
+**Key constraint:** No `setInterval`/animation-based auto-advance (known to be unreliable due to BLE latency). Only tap-driven interaction.
 
 **Files:**
-- Modify: `sandbox-g2-UI/index.html` — gallery button + slideshow logic
-- Modify: `sandbox-g2-UI/src/main.ts` — handle slideshow events (tap=next, double-tap=exit)
+- Modify: `sandbox-g2-UI/index.html` — gallery button + browse logic
+- Modify: `sandbox-g2-UI/src/main.ts` — handle browse events (tap=next, double-tap=exit)
 
 **How it works:**
-1. User taps "▶ Slideshow" in the gallery
+1. User taps "▶ Browse" in the gallery
 2. Phone pushes drawing #0 to the glasses via `g2-push` localStorage
-3. Phone sets `g2-slideshow` localStorage key with `{index: 0, total: N}`
-4. On the glasses, `main.ts` sees the drawing and also polls `g2-slideshow`
-5. Single tap on glasses → phone increments index, pushes next drawing
-6. Double-tap on glasses → clear slideshow mode, show "Slideshow ended"
+3. Glasses show the drawing
+4. Single tap on glasses → glasses set `g2-browse-next` localStorage flag
+5. Phone polls `g2-browse-next`, increments index, pushes next drawing, removes flag
+6. Double-tap on glasses → glasses clear browse mode, show onboard pattern
+7. Phone detects browse ended, resets button
 
-**Step 1: Add slideshow button to gallery HTML**
+**Step 1: Add browse button to gallery HTML**
 
 ```html
-<button class="btn" id="startSlideshow" style="margin-top:8px">▶ Slideshow</button>
+<button class="btn" id="startBrowse" style="margin-top:8px">▶ Browse on Glasses</button>
 ```
 
-**Step 2: Add slideshow handler**
+**Step 2: Add browse handler (phone side)**
 
 ```js
-var slideshowIndex = 0;
-var slideshowActive = false;
+var browseIndex = 0;
+var browseActive = false;
 
-document.getElementById('startSlideshow').addEventListener('click', function(){
-  var list = loadDrawings();
-  if (!list.length) { alert('No drawings to show'); return; }
-  slideshowIndex = 0;
-  slideshowActive = true;
-  this.textContent = '■ Stop';
-  pushCurrentSlide();
-});
-
-function pushCurrentSlide() {
-  var list = loadDrawings();
-  if (slideshowIndex >= list.length) {
-    slideshowActive = false;
-    document.getElementById('startSlideshow').textContent = '▶ Slideshow';
-    localStorage.setItem('g2-slideshow', JSON.stringify({active: false}));
+document.getElementById('startBrowse').addEventListener('click', function(){
+  if (browseActive) {
+    browseActive = false;
+    this.textContent = '▶ Browse on Glasses';
+    localStorage.removeItem('g2-browse');
     return;
   }
-  var d = list[slideshowIndex];
+  var list = loadDrawings();
+  if (!list.length) { alert('No drawings to browse'); return; }
+  browseIndex = 0;
+  browseActive = true;
+  this.textContent = '■ Stop Browsing';
+  pushBrowseSlide();
+});
+
+function pushBrowseSlide() {
+  var list = loadDrawings();
+  if (browseIndex >= list.length) {
+    browseActive = false;
+    document.getElementById('startBrowse').textContent = '▶ Browse on Glasses';
+    localStorage.removeItem('g2-browse');
+    return;
+  }
+  var d = list[browseIndex];
   localStorage.setItem('g2-push', JSON.stringify({mode:'draw', lines:d.lines}));
-  localStorage.setItem('g2-slideshow', JSON.stringify({
-    active: true, index: slideshowIndex, total: list.length, name: d.name
-  }));
+  localStorage.setItem('g2-browse', JSON.stringify({active: true, index: browseIndex, total: list.length}));
 }
 
-// When slideshow button is pressed while active, stop it
-document.getElementById('startSlideshow').addEventListener('click', function(){
-  if (slideshowActive) {
-    slideshowActive = false;
-    this.textContent = '▶ Slideshow';
-    localStorage.setItem('g2-slideshow', JSON.stringify({active: false}));
-  }
-  // else: already started above (the first addEventListener handles start)
-});
-```
-
-Actually, combine start/stop into one handler:
-
-```js
-document.getElementById('startSlideshow').addEventListener('click', function(){
-  if (slideshowActive) {
-    slideshowActive = false;
-    this.textContent = '▶ Slideshow';
-    localStorage.setItem('g2-slideshow', JSON.stringify({active: false}));
-    return;
-  }
-  var list = loadDrawings();
-  if (!list.length) { alert('No drawings to show'); return; }
-  slideshowIndex = 0;
-  slideshowActive = true;
-  this.textContent = '■ Stop';
-  pushCurrentSlide();
-});
-```
-
-**Step 3: Add glasses-side slideshow logic to main.ts**
-
-In `main.ts`, after the existing `g2-push` polling interval, add:
-
-```ts
-// Slideshow: poll g2-slideshow for tap=next, double-tap=exit
-let slideshowOn = false
-
-setInterval(() => {
-  const raw = localStorage.getItem('g2-slideshow')
-  if (!raw) return
-  try {
-    const ss = JSON.parse(raw)
-    if (ss.active && !slideshowOn) {
-      // Slideshow just started — draw index 0 is already pushed via g2-push
-      slideshowOn = true
-    }
-    if (!ss.active && slideshowOn) {
-      // Slideshow stopped from phone
-      slideshowOn = false
-      bridge.textContainerUpgrade(new TextContainerUpgrade({
-        containerID: 1, containerName: 'main',
-        content: 'Slideshow ended\n\ndouble-tap: exit',
-      }))
-    }
-  } catch(e) {}
-}, 500)
-```
-
-Modify the tap handler (inside `bridge.onEvenHubEvent`) to handle slideshow next:
-
-```ts
-// Inside onEvenHubEvent, after DOUBLE_CLICK_EVENT check:
-if (et === OsEventTypeList.CLICK_EVENT) {
-  if (slideshowOn) {
-    // Tell phone to advance to next slide
-    localStorage.setItem('g2-slideshow-next', '1')
-  }
-}
-```
-
-And on the phone side, poll for `g2-slideshow-next`:
-
-```js
-// Phone-side slideshow polling (add to the gallery JS)
+// Poll for tap events from glasses
 setInterval(function(){
-  if (!slideshowActive) return;
-  var next = localStorage.getItem('g2-slideshow-next');
+  if (!browseActive) return;
+  var next = localStorage.getItem('g2-browse-next');
   if (next) {
-    localStorage.removeItem('g2-slideshow-next');
-    slideshowIndex++;
-    pushCurrentSlide();
+    localStorage.removeItem('g2-browse-next');
+    browseIndex++;
+    pushBrowseSlide();
+  }
+  // Double-tap from glasses clears g2-browse
+  var state = localStorage.getItem('g2-browse');
+  if (!state && browseActive) {
+    browseActive = false;
+    document.getElementById('startBrowse').textContent = '▶ Browse on Glasses';
   }
 }, 400);
 ```
 
-Update the double-tap handler on glasses to end slideshow instead of shutting down:
+**Step 3: Add glasses-side browse logic to main.ts**
+
+Add a browse mode flag and tap handler:
 
 ```ts
-// In onEvenHubEvent:
+let browseOn = false
+
+// In bridge.onEvenHubEvent:
+if (et === OsEventTypeList.CLICK_EVENT) {
+  if (browseOn) {
+    localStorage.setItem('g2-browse-next', '1')
+  }
+}
 if (et === OsEventTypeList.DOUBLE_CLICK_EVENT) {
-  if (slideshowOn) {
-    slideshowOn = false
-    localStorage.setItem('g2-slideshow', JSON.stringify({active: false}))
+  if (browseOn) {
+    browseOn = false
+    localStorage.removeItem('g2-browse')
+    localStorage.removeItem('g2-browse-next')
+    bridge.textContainerUpgrade(new TextContainerUpgrade({
+      containerID: 1, containerName: 'main',
+      content: onboardPattern(),
+    }))
   } else {
     bridge.shutDownPageContainer(1)
   }
 }
+
+// Poll for browse state changes from phone
+setInterval(() => {
+  const raw = localStorage.getItem('g2-browse')
+  if (raw) {
+    try {
+      const bs = JSON.parse(raw)
+      browseOn = bs.active
+    } catch(e) {}
+  }
+}, 500)
 ```
 
 **Step 4: Verify**
 
 - Build → no errors
-- Test on phone: Gallery → "▶ Slideshow"
-- Glasses show drawing #1 with "tap: next | double-tap: exit"
+- Gallery → "▶ Browse on Glasses" → glasses show drawing #0
 - Tap → next drawing
-- Double-tap → "Slideshow ended"
-- Phone button shows "■ Stop" — tap to end slideshow
+- Double-tap → onboard pattern
+- Phone button "■ Stop Browsing" stops the session
 
 **Step 5: Commit**
 
 ```bash
 git add sandbox-g2-UI/index.html sandbox-g2-UI/src/main.ts
-git commit -m "feat: add gallery slideshow mode on glasses"
+git commit -m "feat: add interactive browse mode for gallery drawings on glasses"
 ```
+
+---
+
+### Task 5: Add Save button to Text mode
+
+**Objective:** Save text-mode compositions to the gallery alongside drawings, using the same storage format. A text composition becomes a drawing-like entry with the text rendered as lines (same as draw mode output).
+
+**Files:**
+- Modify: `sandbox-g2-UI/index.html` — text mode UI + save handler
+- Modify: `sandbox-g2-UI/src/main.ts` — renderText already outputs 5-line blocks, which fits the lines[] format
+
+**How it works:**
+- Add a "Save" button next to Push in text mode
+- Clicking Save calls `renderText()` logic client-side (duplicate the glyph grid logic in JS) to produce lines[] output
+- Saves to localStorage `g2-drawings` with same format: `{id, name:'Text N', cols, rows:5, lines, date}`
+- Gallery displays text compositions same as drawings
+
+**Step 1: Add Save button to text mode HTML**
+
+```html
+<div class="btn-row"><button class="btn-sm save" id="textSave">Save</button></div>
+<button class="btn" id="textPush">Push to G2</button>
+```
+
+Place it between the glyph grid and the Push button.
+
+**Step 2: Add client-side text renderer**
+
+The text mode needs to render the 5-row glyph grid in JS (same as main.ts does on glasses) to produce lines[] output:
+
+```js
+// Text rendering (mirrors main.ts renderText logic for saving)
+var textGlyphDefs = {
+  'A':[[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,1,1,1,1],[1,0,0,0,1]],
+  'B':[[1,1,1,1,0],[1,0,0,0,1],[1,1,1,1,0],[1,0,0,0,1],[1,1,1,1,0]],
+  // ... full alphabet from main.ts
+  '0':[[0,1,1,1,0],[1,0,0,1,1],[1,0,1,0,1],[1,1,0,0,1],[0,1,1,1,0]],
+  // ... etc
+};
+
+function renderTextToLines(text, pool, randomOn) {
+  var chars = text.toUpperCase().split('').slice(0, 4);
+  var rows = [[],[],[],[],[]];
+  for (var ci = 0; ci < chars.length; ci++) {
+    var g = textGlyphDefs[chars[ci]] || textGlyphDefs[' '];
+    for (var r = 0; r < 5; r++) {
+      rows[r].push(g[r].map(function(c){ return c ? (randomOn ? pool[Math.floor(Math.random()*pool.length)] : pool[0]) : FW; }).join(''));
+    }
+  }
+  return rows.map(function(r){ return r.join(FW); });
+}
+```
+
+**Step 3: Add textSave handler**
+
+```js
+document.getElementById('textSave').addEventListener('click', function() {
+  var text = inp.value || '8';
+  var pool = Array.from(ag);
+  var lines = renderTextToLines(text, pool, rnd);
+  var list = loadDrawings();
+  list.push({
+    id: Date.now(),
+    name: 'Text ' + (list.length + 1),
+    cols: 18, rows: 5,
+    lines: lines,
+    date: new Date().toISOString()
+  });
+  saveDrawings(list);
+  this.textContent = 'Saved!';
+  setTimeout(function(){ document.getElementById('textSave').textContent = 'Save'; }, 1500);
+});
+```
+
+**Step 4: Verify**
+
+- Build → no errors
+- Text mode → type "ABC" → Save
+- Gallery → "Text N" appears with preview
+- Tap → loads into draw canvas (or just push to glasses)
+
+**Step 5: Commit**
+
+```bash
+git add sandbox-g2-UI/index.html
+git commit -m "feat: add save button to text mode, store compositions in gallery"
