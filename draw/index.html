@@ -235,6 +235,7 @@
       h+='<span style="font-size:12px;color:var(--text-dim)">'+(viewIdx+1)+'/'+list.length+'</span>';
       h+='<button onclick="event.stopPropagation();viewNext()" style="background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:8px 14px;font-size:16px;cursor:pointer">▶</button>';
       h+='</div>';
+      h+='<button onclick="event.stopPropagation();displayDrawing('+viewIdx+')" style="display:block;width:100%;margin-bottom:8px;padding:8px 0;text-align:center;background:var(--accent);color:var(--bg);border:none;border-radius:var(--radius);font-size:13px;font-weight:600;cursor:pointer">Display</button>';
       h+='<div onclick="renderGallery()" style="background:var(--bg);border-radius:var(--radius);padding:12px;font-size:13px;line-height:1.6;font-family:monospace;white-space:pre;cursor:pointer;min-height:120px">'+ph+'</div>';
       h+='<div style="margin-top:8px;font-size:11px;color:var(--text-dim);text-align:center">'+d.cols+'×'+d.rows+' · '+new Date(d.date).toLocaleDateString()+'</div>';
       h+='<div style="display:flex;gap:8px;margin-top:12px">';

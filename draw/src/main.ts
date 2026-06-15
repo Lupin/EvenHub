@@ -81,34 +81,42 @@ async function main() {
     catch (e) { return [] }
   }
 
-  // ── Browse state ──
+  // ── Glasses state machine ──
+  type G2State = 'idle' | 'content' | 'gallery'
+  let g2State: G2State = 'idle'
   let browseIndex = 0
-  let drawings: Drawing[] = []
+  let lastContent = '' // saved content to restore on double-tap from gallery
 
-  /** Render the current browse drawing to the glasses */
-  async function showBrowseDrawing(): Promise<void> {
+  async function setContent(content: string): Promise<void> {
+    await bridge.textContainerUpgrade(new TextContainerUpgrade({
+      containerID: 1, containerName: 'main', content,
+    }))
+  }
+
+  async function showGallery(): Promise<void> {
     const list = loadDrawings()
-    drawings = list
     if (list.length === 0) {
-      await bridge.textContainerUpgrade(new TextContainerUpgrade({
-        containerID: 1, containerName: 'main',
-        content: '\n\n  no drawings saved\n  tap phone to create one',
-      }))
+      await setContent('\n\n  no drawings saved\n  tap phone to create one')
       return
     }
     if (browseIndex >= list.length) browseIndex = 0
     if (browseIndex < 0) browseIndex = list.length - 1
     const d = list[browseIndex]
-    // Show name + drawing, with position indicator
-    // Drawing body at top, text label at bottom-left
     const body = d.lines.join('\n')
     const label = d.name
     const pos = (browseIndex + 1) + '/' + list.length
-    // Pad body to push label to bottom
-    const content = body + '\n\n' + label + '  ' + pos
-    await bridge.textContainerUpgrade(new TextContainerUpgrade({
-      containerID: 1, containerName: 'main', content,
-    }))
+    await setContent(body + '\n\n' + label + '  ' + pos)
+  }
+
+  async function enterGallery(): Promise<void> {
+    g2State = 'gallery'
+    browseIndex = 0
+    await showGallery()
+  }
+
+  async function restoreContent(): Promise<void> {
+    g2State = 'content'
+    await setContent(lastContent || '\n\n  draw — start a new drawing on your phone')
   }
 
   // Onboard: random glyph pattern so the glasses show something at startup
@@ -141,23 +149,44 @@ async function main() {
     const e = event.listEvent || event.textEvent || event.sysEvent
     if (!e) return
     const et = e.eventType !== undefined ? e.eventType : OsEventTypeList.CLICK_EVENT
+
+    // Double-tap: exit or return to content
     if (et === OsEventTypeList.DOUBLE_CLICK_EVENT) {
-      bridge.shutDownPageContainer(1)
+      if (g2State === 'gallery') {
+        restoreContent()
+      } else {
+        bridge.shutDownPageContainer(1)
+      }
       return
     }
+
+    // Tap: if in gallery, next drawing
     if (et === OsEventTypeList.CLICK_EVENT) {
-      // Tap: next drawing
-      browseIndex++
-      showBrowseDrawing()
+      if (g2State === 'gallery') {
+        browseIndex++
+        showGallery()
+      }
+      return
     }
-    // Swipe up = previous, swipe down = next
+
+    // Swipe: enter gallery or navigate
     if (et === OsEventTypeList.SCROLL_TOP_EVENT) {
-      browseIndex--
-      showBrowseDrawing()
+      if (g2State === 'content' || g2State === 'idle') {
+        enterGallery()
+      } else if (g2State === 'gallery') {
+        browseIndex--
+        showGallery()
+      }
+      return
     }
     if (et === OsEventTypeList.SCROLL_BOTTOM_EVENT) {
-      browseIndex++
-      showBrowseDrawing()
+      if (g2State === 'content' || g2State === 'idle') {
+        enterGallery()
+      } else if (g2State === 'gallery') {
+        browseIndex++
+        showGallery()
+      }
+      return
     }
   })
 
@@ -170,7 +199,8 @@ async function main() {
       const cmd = JSON.parse(raw)
       if (cmd.mode === 'gallery') {
         browseIndex = cmd.index ?? 0
-        showBrowseDrawing()
+        g2State = 'gallery'
+        showGallery()
       } else {
         let content = ''
         if (cmd.mode === 'text') {
@@ -180,9 +210,9 @@ async function main() {
           content = renderDraw(cmd.lines)
         }
         if (content) {
-          bridge.textContainerUpgrade(new TextContainerUpgrade({
-            containerID: 1, containerName: 'main', content,
-          }))
+          lastContent = content
+          g2State = 'content'
+          setContent(content)
         }
       }
     } catch(e) {}
