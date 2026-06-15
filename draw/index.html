@@ -44,11 +44,15 @@
     #drawGroup.split-mode .row { display:none; }
     #drawGroup.split-mode .brush-grid { display:none; }
     #drawGroup.split-mode .size-row { display:none; }
-    #drawGroup.split-mode .btn-row { display:none; }
+    /* .btn-row hidden by inline style in split toggle handler */
     #drawGroup #canvas { display:grid; }
     #drawGroup.split-mode #zoomCanvas { display:grid !important; }
     #drawGroup.split-mode #splitToggle { flex-shrink:0; }
     #drawGroup.split-mode #splitGlyphs { display:flex !important; }
+    #drawGroup.split-mode .btn-row { display:flex !important; }
+    #drawGroup.split-mode .btn-row .btn-sm { display:none; }
+    #drawGroup.split-mode .btn-row .toggle { display:block; }
+    #drawGroup.split-mode .btn-row #splitLabel { display:inline; }
     #zoomCanvas { display:none; }
     #splitGlyphs { display:none; padding:6px 8px; gap:6px; overflow-x:auto; flex-wrap:nowrap; }
     #splitGlyphs button { background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:4px; padding:6px 10px; font-size:18px; cursor:pointer; flex-shrink:0; }
