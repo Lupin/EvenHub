@@ -111,9 +111,9 @@
       <div class="toggle-row"><div class="toggle" id="splitToggle"></div><span id="splitLabel">Zoom</span></div>
       <div class="btn-row"><button class="btn-sm" id="eraser">⌫ Eraser</button><button class="btn-sm" id="clear">Clear</button></div>
       <div style="display:none" id="zoomNav">
-        <button id="zoomLeft" style="background:var(--bg);border:1px solid var(--accent);color:var(--accent);border-radius:var(--radius);padding:6px 10px;font-size:16px;cursor:pointer;flex-shrink:0">◀</button>
+        <button id="zoomLeft" style="background:var(--bg);border:1px solid var(--accent);color:var(--accent);border-radius:var(--radius);padding:10px 14px;font-size:18px;min-width:44px;cursor:pointer;flex-shrink:0">◀</button>
         <div class="canvas-grid" id="canvas"></div>
-        <button id="zoomRight" style="background:var(--bg);border:1px solid var(--accent);color:var(--accent);border-radius:var(--radius);padding:6px 10px;font-size:16px;cursor:pointer;flex-shrink:0">▶</button>
+        <button id="zoomRight" style="background:var(--bg);border:1px solid var(--accent);color:var(--accent);border-radius:var(--radius);padding:10px 14px;font-size:18px;min-width:44px;cursor:pointer;flex-shrink:0">▶</button>
       </div>
       <div class="canvas-grid" id="zoomCanvas" style="display:none"></div>
       <div id="splitGlyphs"></div>
@@ -302,7 +302,11 @@
         glyphs.split('').forEach(function(g){
           var b=document.createElement('button');b.textContent=g;
           if(g===brush)b.classList.add('on');
-          b.addEventListener('click',function(){brush=g;ze.addEventListener('touchmove',function(e){e.preventDefault();paintZoom(e.touches[0])});
+          b.addEventListener('click',function(){brush=g;var zoomPainting=false;
+        ze.addEventListener('touchstart',function(e){e.preventDefault();zoomPainting=true;paintZoom(e.touches[0])});
+        ze.addEventListener('touchmove',function(e){e.preventDefault();if(zoomPainting)paintZoom(e.touches[0])});
+        ze.addEventListener('touchend',function(e){e.preventDefault();zoomPainting=false});
+        ze.addEventListener('touchcancel',function(){zoomPainting=false});
         ze.addEventListener('mousemove',function(e){if(mdZoom){var t=document.elementFromPoint(e.clientX,e.clientY);if(t&&t.classList.contains('canvas-cell')&&t.dataset.x)paintZoomCell(t)}});
         updateSplitGlyphs();});
           el.appendChild(b);
@@ -319,6 +323,7 @@
           c.style.width=cs+'px';c.style.height=cs+'px';c.style.fontSize=Math.max(4,cs/3)+'px';
           var k=x+','+y;if(cd[k]){c.textContent=cd[k];c.classList.add('filled')}
           if(x>=zoomX&&x<zoomX+ZOOM_S)c.style.outline='2px solid var(--accent)';
+          (function(cx){c.addEventListener('click',function(){zoomX=Math.max(0,Math.min(cols-ZOOM_S,cx-Math.floor(ZOOM_S/2)));rebuild()})})(x);
           ce.appendChild(c);
         }}
         
@@ -330,7 +335,7 @@
           zc.style.width=zs+'px';zc.style.height=zs+'px';zc.style.fontSize='24px';
           zc.dataset.x=x;zc.dataset.y=y;var k=x+','+y;
           if(cd[k]){zc.textContent=cd[k];zc.classList.add('filled')}
-          zc.addEventListener('touchstart',function(e){e.preventDefault();paintZoom(e.touches[0])});
+          zc.addEventListener('touchstart',function(e){e.preventDefault();zoomPainting=true;paintZoom(e.touches[0])});
           zc.addEventListener('mousedown',function(){mdZoom=true;paintZoomCell(this)});
           ze.appendChild(zc);
         }}
