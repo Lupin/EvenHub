@@ -121,38 +121,37 @@ async function main() {
   }
 
   // Onboard: random glyph pattern with "DRAW" in medium grey blocks at center
+  // Uses the same 5×5 glyph matrices as the Text mode, on a 28×7 grid (max canvas)
   function onboardPattern(): string {
     const all = ['■','□','▣','▤','▥','▦','▧','▨','▩','▲','△','▶','▷','▼','▽','◀','◁','◆','◇','◈','◊','○','◌','◎','●','◐','◑','◢','◣','◤','◥','◯']
-    // 3×5 compact letter glyphs: D R A W
-    const letterGlyphs: Record<string, number[][]> = {
-      'D': [[1,1,0],[1,0,1],[1,0,1],[1,0,1],[1,1,0]],
-      'R': [[1,1,0],[1,0,1],[1,1,0],[1,0,1],[1,0,1]],
-      'A': [[0,1,0],[1,0,1],[1,1,1],[1,0,1],[1,0,1]],
-      'W': [[1,0,1],[1,0,1],[1,1,1],[1,1,1],[1,0,1]],
-    }
-    const word = ['D','R','A','W']
-    const startCol = 1 // left offset so it's centered (~15 cols in 18)
-    const greyBlock = '▒' // medium grey block
-    const fw = '\u3000'
+    const FW = '\u3000'
+    const greyBlock = '▒'
+    const COLS = 28, ROWS = 7
 
-    // Build a 7×18 grid of random glyphs
+    // Build a 7×28 grid of random glyphs
     const grid: string[][] = []
-    for (let y = 0; y < 7; y++) {
+    for (let y = 0; y < ROWS; y++) {
       const line: string[] = []
-      for (let x = 0; x < 18; x++) line.push(all[Math.floor(Math.random() * all.length)])
+      for (let x = 0; x < COLS; x++) line.push(all[Math.floor(Math.random() * all.length)])
       grid.push(line)
     }
 
-    // Overlay "DRAW" at rows 1-5 (centered vertically in 7 rows)
+    // DRAW in 5×5 per letter, 1 FW spacer between letters
+    // Total width: 4 letters × 5 + 3 spacers = 23 cols. Start at col 2 → ends at 24, centered in 28
+    const word = ['D','R','A','W']
+    const LETTER_W = 5, SPACER = 1
+    const totalW = word.length * LETTER_W + (word.length - 1) * SPACER
+    const startCol = Math.floor((COLS - totalW) / 2) // = 2
+
     let col = startCol
     for (const ch of word) {
-      const g = letterGlyphs[ch]
+      const g = glyphs[ch] || glyphs[' ']
       for (let dy = 0; dy < 5; dy++) {
-        for (let dx = 0; dx < 3; dx++) {
+        for (let dx = 0; dx < LETTER_W; dx++) {
           if (g[dy][dx]) grid[1 + dy][col + dx] = greyBlock
         }
       }
-      col += 4 // 3 for letter + 1 space
+      col += LETTER_W + SPACER
     }
 
     return grid.map(r => r.join('')).join('\n') + '\n\n  DRAW — start a new drawing on your phone'
