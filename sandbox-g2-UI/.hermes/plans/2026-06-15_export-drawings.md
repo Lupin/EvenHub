@@ -391,3 +391,91 @@ document.getElementById('textSave').addEventListener('click', function() {
 ```bash
 git add sandbox-g2-UI/index.html
 git commit -m "feat: add save button to text mode, store compositions in gallery"
+```
+
+---
+
+### Task 6: Add Prev/Next buttons to Gallery detail view on phone
+
+**Objective:** When browsing drawings on the phone gallery, add ◀ and ▶ buttons to navigate between drawings without going back to the list. Shows "2/5" position indicator.
+
+**Files:**
+- Modify: `sandbox-g2-UI/index.html` — gallery section
+
+**How it works:**
+- Tapping a drawing in the gallery opens it in draw mode (current behavior via `loadToCanvas`).
+- Replace that with an inline detail view showing the drawing preview larger + prev/next arrows.
+- The detail view shows: larger preview, name, "◀ prev | 2/5 | next ▶", back to gallery button.
+
+Alternative simplifiée : ajouter prev/next directement dans la liste de la galerie, sous la forme de boutons flottants en bas de la liste qui permettent de charger le dessin précédent/suivant directement dans le canvas.
+
+**Step 1: Add prev/next floating bar to gallery**
+
+```html
+<div id="galleryNav" style="display:none; padding:8px 16px; display:flex; gap:8px; align-items:center; justify-content:center">
+  <button class="btn-sm" id="prevDrawing">◀</button>
+  <span id="galleryPos" style="font-size:13px; color:var(--text-dim)">1/0</span>
+  <button class="btn-sm" id="nextDrawing">▶</button>
+</div>
+```
+
+**Step 2: Wire prev/next to loadToCanvas**
+
+```js
+var galleryCurrentIndex = -1;
+
+document.getElementById('prevDrawing').addEventListener('click', function(){
+  if (galleryCurrentIndex > 0) {
+    galleryCurrentIndex--;
+    loadToCanvas(loadDrawings()[galleryCurrentIndex]);
+    updateGalleryNav();
+    modeSel.value = 'draw'; switchMode('draw');
+  }
+});
+
+document.getElementById('nextDrawing').addEventListener('click', function(){
+  var list = loadDrawings();
+  if (galleryCurrentIndex < list.length - 1) {
+    galleryCurrentIndex++;
+    loadToCanvas(list[galleryCurrentIndex]);
+    updateGalleryNav();
+    modeSel.value = 'draw'; switchMode('draw');
+  }
+});
+
+function updateGalleryNav() {
+  var list = loadDrawings();
+  document.getElementById('galleryPos').textContent = (galleryCurrentIndex+1) + '/' + list.length;
+  document.getElementById('galleryNav').style.display = list.length > 0 ? 'flex' : 'none';
+}
+```
+
+Update `loadToCanvas` to track the current index. When a drawing is tapped in the gallery list, set `galleryCurrentIndex`.
+
+**Step 3: Verify**
+
+- Gallery → tap prev/next → drawing loads in draw canvas
+- Position indicator updates
+- Prev disabled at first drawing?
+- Next disabled at last drawing?
+
+**Step 4: Commit**
+
+```bash
+git add sandbox-g2-UI/index.html
+git commit -m "feat: add prev/next navigation buttons in gallery"
+```
+
+---
+
+## Export Strategy Decision
+
+**`navigator.share()` is the primary approach** (Tasks 1 & 2 implement it). Research confirms:
+
+- `navigator.share({files: [File]})` opens native iOS share sheet → Save to Files, AirDrop, Mail
+- Works in WKWebView on iOS 14+ (which Even App uses)
+- Requires user gesture (button click) — satisfied by our Export buttons
+- Fallback: `navigator.clipboard.writeText()` if share is blocked by the Even App
+- Last resort: textarea with manual select+copy
+
+No other viable approaches exist for WKWebView (blob download, data URI download both blocked by iOS).
