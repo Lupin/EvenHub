@@ -310,10 +310,28 @@
           c.dataset.x=x;c.dataset.y=y;var k=x+','+y;
           if(cd[k]){c.textContent=cd[k];c.classList.add('filled')}
           if(x>=zoomX&&x<zoomX+ZOOM_S&&y>=zoomY&&y<zoomY+ZOOM_S)c.style.outline='2px solid var(--accent)';
-          (function(px,py){c.addEventListener('click',function(){zoomX=Math.max(0,Math.min(cols-ZOOM_S,px));zoomY=Math.max(0,Math.min(rows-ZOOM_S,py));rebuild();})})(x,y);
+          // zoom window positioned via drag on mini-map, not per-cell click
           ce.appendChild(c);
         }}
-        // Zoom zone
+        // Drag to move zoom window on mini-map
+      (function(){
+        var dragging=false;
+        function zoomFromEvent(e){
+          var rect=ce.getBoundingClientRect();
+          var cs=8, x=Math.floor((e.clientX-rect.left)/cs), y=Math.floor((e.clientY-rect.top)/cs);
+          zoomX=Math.max(0,Math.min(cols-ZOOM_S,x-Math.floor(ZOOM_S/2)));
+          zoomY=Math.max(0,Math.min(rows-ZOOM_S,y-Math.floor(ZOOM_S/2)));
+          rebuild();
+        }
+        ce.addEventListener('touchstart',function(e){e.preventDefault();dragging=true;zoomFromEvent(e.touches[0])});
+        ce.addEventListener('touchmove',function(e){e.preventDefault();if(dragging)zoomFromEvent(e.touches[0])});
+        ce.addEventListener('touchend',function(){dragging=false});
+        ce.addEventListener('mousedown',function(e){dragging=true;zoomFromEvent(e)});
+        ce.addEventListener('mousemove',function(e){if(dragging)zoomFromEvent(e)});
+        ce.addEventListener('mouseup',function(){dragging=false});
+        ce.addEventListener('mouseleave',function(){dragging=false});
+      })();
+      // Zoom zone
         var zs=Math.min(50,Math.floor((Math.min(document.documentElement.clientWidth,576)-32-ZOOM_S)/ZOOM_S));
         ze.style.gridTemplateColumns='repeat('+ZOOM_S+', '+zs+'px)';
         for(var y=zoomY;y<Math.min(zoomY+ZOOM_S,rows);y++){for(var x=zoomX;x<Math.min(zoomX+ZOOM_S,cols);x++){
