@@ -209,9 +209,14 @@
     })();
 
     // ── GALLERY ──
-    function renderGallery(){var list=loadDrawings(),el=document.getElementById('galleryList'),eb=document.getElementById('exportAllBtn');eb.style.display=list.length?'block':'none';if(list.length===0){el.innerHTML='<div style="padding:32px 16px;text-align:center;color:var(--text-dim)">No drawings saved.<br>Switch to Draw mode and tap Save.</div>';return}var h='';list.forEach(function(d,i){var ph='';for(var y=0;y<Math.min(3,d.rows);y++){var rh='';for(var x=0;x<Math.min(10,d.cols);x++){var ch=d.lines[y]?d.lines[y][x]||FW:FW;rh+='<span>'+(ch===FW?'':ch)+'</span>'}ph+=rh}var date=new Date(d.date).toLocaleDateString();h+='<div class="gallery-item" onclick="viewDrawing('+i+')"><div class="gallery-preview" style="grid-template-columns:repeat('+Math.min(10,d.cols)+',1fr)">'+ph+'</div><div class="gallery-info"><div class="name">'+d.name+'</div><div class="meta">'+d.cols+'×'+d.rows+' · '+date+'</div></div><div class="gallery-actions"><button onclick="event.stopPropagation();shareDrawing('+i+')">↗</button><button class="del" onclick="event.stopPropagation();deleteDrawing('+i+')">✕</button></div></div>'});el.innerHTML=h}
+    function renderGallery(){var list=loadDrawings(),el=document.getElementById('galleryList'),eb=document.getElementById('exportAllBtn');eb.style.display=list.length?'block':'none';if(list.length===0){el.innerHTML='<div style="padding:32px 16px;text-align:center;color:var(--text-dim)">No drawings saved.<br>Switch to Draw mode and tap Save.</div>';return}var h='';list.forEach(function(d,i){var ph='';for(var y=0;y<Math.min(3,d.rows);y++){var rh='';for(var x=0;x<Math.min(10,d.cols);x++){var ch=d.lines[y]?d.lines[y][x]||FW:FW;rh+='<span>'+(ch===FW?'':ch)+'</span>'}ph+=rh}var date=new Date(d.date).toLocaleDateString();h+='<div class="gallery-item" onclick="viewDrawing('+i+')"><div class="gallery-preview" style="grid-template-columns:repeat('+Math.min(10,d.cols)+',1fr)">'+ph+'</div><div class="gallery-info"><div class="name">'+d.name+'</div><div class="meta">'+d.cols+'×'+d.rows+' · '+date+'</div></div><div class="gallery-actions"><button onclick="event.stopPropagation();displayDrawing('+i+')">Display</button><button onclick="event.stopPropagation();shareDrawing('+i+')">↗</button><button class="del" onclick="event.stopPropagation();deleteDrawing('+i+')">✕</button></div></div>'});el.innerHTML=h}
     window.editDrawing=function(i){var list=loadDrawings(),d=list[i],name=prompt('Rename',d.name);if(name){d.name=name;list[i]=d;saveDrawings(list);renderGallery()}};
     window.deleteDrawing=function(i){if(!confirm('Delete this drawing?'))return;var list=loadDrawings();list.splice(i,1);saveDrawings(list);renderGallery()};
+
+    // ── DISPLAY DRAWING ON GLASSES ──
+    window.displayDrawing=function(i){
+      localStorage.setItem('g2-push',JSON.stringify({mode:'gallery',index:i}));
+    };
 
     // ── VIEW DRAWING (detail with prev/next) ──
     var viewIdx=-1;

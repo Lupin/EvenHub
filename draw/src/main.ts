@@ -100,9 +100,12 @@ async function main() {
     if (browseIndex < 0) browseIndex = list.length - 1
     const d = list[browseIndex]
     // Show name + drawing, with position indicator
-    const header = '  ' + d.name + '  ' + (browseIndex + 1) + '/' + list.length
+    // Drawing body at top, text label at bottom-left
     const body = d.lines.join('\n')
-    const content = header + '\n\n' + body
+    const label = d.name
+    const pos = (browseIndex + 1) + '/' + list.length
+    // Pad body to push label to bottom
+    const content = body + '\n\n' + label + '  ' + pos
     await bridge.textContainerUpgrade(new TextContainerUpgrade({
       containerID: 1, containerName: 'main', content,
     }))
@@ -147,6 +150,15 @@ async function main() {
       browseIndex++
       showBrowseDrawing()
     }
+    // Swipe up = previous, swipe down = next
+    if (et === OsEventTypeList.SCROLL_TOP_EVENT) {
+      browseIndex--
+      showBrowseDrawing()
+    }
+    if (et === OsEventTypeList.SCROLL_BOTTOM_EVENT) {
+      browseIndex++
+      showBrowseDrawing()
+    }
   })
 
   // Poll for pushes from the phone
@@ -156,17 +168,22 @@ async function main() {
     localStorage.removeItem('g2-push')
     try {
       const cmd = JSON.parse(raw)
-      let content = ''
-      if (cmd.mode === 'text') {
-        const pool: string[] = cmd.glyphs || ['■']
-        content = renderText(cmd.text || '8', pool, cmd.random)
-      } else if (cmd.mode === 'draw') {
-        content = renderDraw(cmd.lines)
-      }
-      if (content) {
-        bridge.textContainerUpgrade(new TextContainerUpgrade({
-          containerID: 1, containerName: 'main', content,
-        }))
+      if (cmd.mode === 'gallery') {
+        browseIndex = cmd.index ?? 0
+        showBrowseDrawing()
+      } else {
+        let content = ''
+        if (cmd.mode === 'text') {
+          const pool: string[] = cmd.glyphs || ['■']
+          content = renderText(cmd.text || '8', pool, cmd.random)
+        } else if (cmd.mode === 'draw') {
+          content = renderDraw(cmd.lines)
+        }
+        if (content) {
+          bridge.textContainerUpgrade(new TextContainerUpgrade({
+            containerID: 1, containerName: 'main', content,
+          }))
+        }
       }
     } catch(e) {}
   }, 300)
