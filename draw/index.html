@@ -45,7 +45,7 @@
     #drawGroup.split-mode .brush-grid { display:none; }
     #drawGroup.split-mode .size-row { display:none; }
     #drawGroup.split-mode .btn-row { display:none; }
-    #drawGroup.split-mode #canvas { display:grid; }
+    #drawGroup #canvas { display:grid; }
     #drawGroup.split-mode #zoomCanvas { display:grid !important; }
     #drawGroup.split-mode #splitGlyphs { display:flex !important; }
     #zoomCanvas { display:none; }
@@ -53,7 +53,9 @@
     #splitGlyphs button { background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:4px; padding:6px 10px; font-size:18px; cursor:pointer; flex-shrink:0; }
     #splitGlyphs button.on { border-color:var(--accent); }
     #zoomNav { align-items:center; justify-content:center; gap:4px; padding:4px 8px; }
-    #zoomNav.show { display:flex !important; }
+    #zoomNav { display:flex !important; align-items:center; justify-content:center; gap:4px; padding:4px 8px; }
+    #zoomNav button { display:none; }
+    #drawGroup.split-mode #zoomNav button { display:block; }
     .gallery-item { padding:16px; border-top:1px solid var(--border); display:flex; align-items:center; gap:12px; }
     .gallery-item:first-child { border-top:none; }
     .gallery-preview { width:60px; height:30px; background:var(--bg); border-radius:4px; overflow:hidden; display:grid; gap:1px; flex-shrink:0; }
@@ -319,7 +321,7 @@
           if(x>=zoomX&&x<zoomX+ZOOM_S)c.style.outline='2px solid var(--accent)';
           ce.appendChild(c);
         }}
-        document.getElementById('zoomNav').classList.add('show');
+        
         // Zoom zone
         var zs=Math.min(50,Math.floor((Math.min(document.documentElement.clientWidth,576)-32-ZOOM_S)/ZOOM_S));
         ze.style.gridTemplateColumns='repeat('+ZOOM_S+', '+zs+'px)';
@@ -349,7 +351,7 @@
       document.getElementById('splitToggle').addEventListener('click',function(){
         splitMode=!splitMode;this.classList.toggle('on',splitMode);
         document.getElementById('drawGroup').classList.toggle('split-mode',splitMode);
-        if(!splitMode)document.getElementById('zoomNav').classList.remove('show');
+        
         if(splitMode){zoomX=Math.max(0,Math.min(cols-ZOOM_S,zoomX));zoomY=Math.max(0,Math.min(rows-ZOOM_S,zoomY))}
         rebuild();
       });
