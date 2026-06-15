@@ -172,3 +172,173 @@ git commit -m "feat: add per-drawing share button to gallery"
 - **Clipboard on iOS WebView** may require a user gesture (click). Our buttons provide that.
 - **Large drawing collections** (>100KB JSON) may hit clipboard limits on iOS. In that case, the textarea modal allows manual selection.
 - **No file system access** — we can't save directly to iOS Files without the share sheet.
+
+---
+
+### Task 4: Add "View on Glasses" slideshow mode to Gallery
+
+**Objective:** Add a button in the gallery that pushes drawings to the glasses one by one via tap. The glasses display a single drawing with "tap: next | double-tap: exit". The phone pushes the first drawing, then each tap on the glasses advances to the next.
+
+**Files:**
+- Modify: `sandbox-g2-UI/index.html` — gallery button + slideshow logic
+- Modify: `sandbox-g2-UI/src/main.ts` — handle slideshow events (tap=next, double-tap=exit)
+
+**How it works:**
+1. User taps "▶ Slideshow" in the gallery
+2. Phone pushes drawing #0 to the glasses via `g2-push` localStorage
+3. Phone sets `g2-slideshow` localStorage key with `{index: 0, total: N}`
+4. On the glasses, `main.ts` sees the drawing and also polls `g2-slideshow`
+5. Single tap on glasses → phone increments index, pushes next drawing
+6. Double-tap on glasses → clear slideshow mode, show "Slideshow ended"
+
+**Step 1: Add slideshow button to gallery HTML**
+
+```html
+<button class="btn" id="startSlideshow" style="margin-top:8px">▶ Slideshow</button>
+```
+
+**Step 2: Add slideshow handler**
+
+```js
+var slideshowIndex = 0;
+var slideshowActive = false;
+
+document.getElementById('startSlideshow').addEventListener('click', function(){
+  var list = loadDrawings();
+  if (!list.length) { alert('No drawings to show'); return; }
+  slideshowIndex = 0;
+  slideshowActive = true;
+  this.textContent = '■ Stop';
+  pushCurrentSlide();
+});
+
+function pushCurrentSlide() {
+  var list = loadDrawings();
+  if (slideshowIndex >= list.length) {
+    slideshowActive = false;
+    document.getElementById('startSlideshow').textContent = '▶ Slideshow';
+    localStorage.setItem('g2-slideshow', JSON.stringify({active: false}));
+    return;
+  }
+  var d = list[slideshowIndex];
+  localStorage.setItem('g2-push', JSON.stringify({mode:'draw', lines:d.lines}));
+  localStorage.setItem('g2-slideshow', JSON.stringify({
+    active: true, index: slideshowIndex, total: list.length, name: d.name
+  }));
+}
+
+// When slideshow button is pressed while active, stop it
+document.getElementById('startSlideshow').addEventListener('click', function(){
+  if (slideshowActive) {
+    slideshowActive = false;
+    this.textContent = '▶ Slideshow';
+    localStorage.setItem('g2-slideshow', JSON.stringify({active: false}));
+  }
+  // else: already started above (the first addEventListener handles start)
+});
+```
+
+Actually, combine start/stop into one handler:
+
+```js
+document.getElementById('startSlideshow').addEventListener('click', function(){
+  if (slideshowActive) {
+    slideshowActive = false;
+    this.textContent = '▶ Slideshow';
+    localStorage.setItem('g2-slideshow', JSON.stringify({active: false}));
+    return;
+  }
+  var list = loadDrawings();
+  if (!list.length) { alert('No drawings to show'); return; }
+  slideshowIndex = 0;
+  slideshowActive = true;
+  this.textContent = '■ Stop';
+  pushCurrentSlide();
+});
+```
+
+**Step 3: Add glasses-side slideshow logic to main.ts**
+
+In `main.ts`, after the existing `g2-push` polling interval, add:
+
+```ts
+// Slideshow: poll g2-slideshow for tap=next, double-tap=exit
+let slideshowOn = false
+
+setInterval(() => {
+  const raw = localStorage.getItem('g2-slideshow')
+  if (!raw) return
+  try {
+    const ss = JSON.parse(raw)
+    if (ss.active && !slideshowOn) {
+      // Slideshow just started — draw index 0 is already pushed via g2-push
+      slideshowOn = true
+    }
+    if (!ss.active && slideshowOn) {
+      // Slideshow stopped from phone
+      slideshowOn = false
+      bridge.textContainerUpgrade(new TextContainerUpgrade({
+        containerID: 1, containerName: 'main',
+        content: 'Slideshow ended\n\ndouble-tap: exit',
+      }))
+    }
+  } catch(e) {}
+}, 500)
+```
+
+Modify the tap handler (inside `bridge.onEvenHubEvent`) to handle slideshow next:
+
+```ts
+// Inside onEvenHubEvent, after DOUBLE_CLICK_EVENT check:
+if (et === OsEventTypeList.CLICK_EVENT) {
+  if (slideshowOn) {
+    // Tell phone to advance to next slide
+    localStorage.setItem('g2-slideshow-next', '1')
+  }
+}
+```
+
+And on the phone side, poll for `g2-slideshow-next`:
+
+```js
+// Phone-side slideshow polling (add to the gallery JS)
+setInterval(function(){
+  if (!slideshowActive) return;
+  var next = localStorage.getItem('g2-slideshow-next');
+  if (next) {
+    localStorage.removeItem('g2-slideshow-next');
+    slideshowIndex++;
+    pushCurrentSlide();
+  }
+}, 400);
+```
+
+Update the double-tap handler on glasses to end slideshow instead of shutting down:
+
+```ts
+// In onEvenHubEvent:
+if (et === OsEventTypeList.DOUBLE_CLICK_EVENT) {
+  if (slideshowOn) {
+    slideshowOn = false
+    localStorage.setItem('g2-slideshow', JSON.stringify({active: false}))
+  } else {
+    bridge.shutDownPageContainer(1)
+  }
+}
+```
+
+**Step 4: Verify**
+
+- Build → no errors
+- Test on phone: Gallery → "▶ Slideshow"
+- Glasses show drawing #1 with "tap: next | double-tap: exit"
+- Tap → next drawing
+- Double-tap → "Slideshow ended"
+- Phone button shows "■ Stop" — tap to end slideshow
+
+**Step 5: Commit**
+
+```bash
+git add sandbox-g2-UI/index.html sandbox-g2-UI/src/main.ts
+git commit -m "feat: add gallery slideshow mode on glasses"
+```
