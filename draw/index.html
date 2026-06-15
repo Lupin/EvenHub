@@ -35,7 +35,7 @@
     .size-row .val { font-size:14px; color:var(--text); width:24px; text-align:center; }
     .size-btn { width:36px; height:36px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
     .canvas-grid { display:grid; gap:1px; padding:8px 16px 12px; width:fit-content; margin:0 auto; }
-    .canvas-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; background:var(--bg); border-radius:2px; font-size:8px; cursor:pointer; color:var(--bg); }
+    .canvas-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; background:var(--bg); border-radius:2px; font-size:10px; cursor:pointer; color:var(--bg); }
     .canvas-cell.filled { background:var(--bg); color:var(--text); }
     .btn-row { display:flex; gap:8px; padding:8px 16px 12px; }
     .btn-row .btn-sm { flex:1; padding:10px 0; text-align:center; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text-dim); font-size:13px; cursor:pointer; width:auto; margin:0; }
@@ -339,7 +339,7 @@
         var aw=Math.min(document.documentElement.clientWidth-32,576);var mg=cols<=12?32:cols<=18?24:cols<=24?20:16;aw-=mg*2;cs=Math.floor((aw-(cols-1))/cols);var mx=cols<=10?36:cols<=14?30:cols<=18?24:20;cs=Math.max(10,Math.min(mx,cs));ce.style.gridTemplateColumns='repeat('+cols+', '+cs+'px)';cellEls=[];
         for(var y=0;y<rows;y++){for(var x=0;x<cols;x++){
           var cell=document.createElement('div');cell.className='canvas-cell';
-          cell.style.width=cs+'px';cell.style.height=cs+'px';cell.dataset.x=x;cell.dataset.y=y;var k=x+','+y;
+          cell.style.width=cs+'px';cell.style.height=cs+'px';cell.style.fontSize=Math.max(6,cs-4)+'px';cell.dataset.x=x;cell.dataset.y=y;var k=x+','+y;
           if(cd[k]){cell.textContent=cd[k];cell.classList.add('filled')}cellEls.push(cell);ce.appendChild(cell);
         }}
       }}
