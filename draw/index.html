@@ -335,7 +335,7 @@
           c.style.width=cs+'px';c.style.height=cs+'px';c.style.fontSize=Math.max(4,cs/3)+'px';
           var k=x+','+y;if(cd[k]){c.textContent=cd[k];c.classList.add('filled')}
           if(x>=zoomX&&x<zoomX+ZOOM_S)c.style.outline='2px solid var(--accent)';
-          (function(cx){c.addEventListener('click',function(){zoomX=Math.max(0,Math.min(cols-ZOOM_S,cx-Math.floor(ZOOM_S/2)));rebuild()})})(x);
+          (function(cx){c.addEventListener('touchstart',function(e){e.preventDefault();zoomX=Math.max(0,Math.min(cols-ZOOM_S,cx-Math.floor(ZOOM_S/2)));rebuild()})})(x);
           ce.appendChild(c);
         }}
         
@@ -384,9 +384,9 @@
 
       function paint(el,g){var k=el.dataset.x+','+el.dataset.y;if(g===FW){delete cd[k];el.textContent='';el.classList.remove('filled')}else{cd[k]=g;el.textContent=g;el.classList.add('filled')}}
       function cft(t){var e=document.elementFromPoint(t.clientX,t.clientY);return e&&e.classList.contains('canvas-cell')?e:null}
-      ce.addEventListener('touchstart',function(e){e.preventDefault();var c=cft(e.touches[0]);if(c)paint(c,brush)});
-      ce.addEventListener('touchmove',function(e){e.preventDefault();var c=cft(e.touches[0]);if(c)paint(c,brush)});
-      var md=false;ce.addEventListener('mousedown',function(e){md=true;if(e.target.classList.contains('canvas-cell'))paint(e.target,brush)});ce.addEventListener('mousemove',function(e){if(md&&e.target.classList.contains('canvas-cell'))paint(e.target,brush)});ce.addEventListener('mouseup',function(){md=false;mdZoom=false});ce.addEventListener('mouseleave',function(){md=false;mdZoom=false});
+      ce.addEventListener('touchstart',function(e){e.preventDefault();if(splitMode)return;var c=cft(e.touches[0]);if(c)paint(c,brush)});
+      ce.addEventListener('touchmove',function(e){e.preventDefault();if(splitMode)return;var c=cft(e.touches[0]);if(c)paint(c,brush)});
+      var md=false;ce.addEventListener('mousedown',function(e){md=true;if(splitMode)return;if(e.target.classList.contains('canvas-cell'))paint(e.target,brush)});ce.addEventListener('mousemove',function(e){if(md&&!splitMode&&e.target.classList.contains('canvas-cell'))paint(e.target,brush)});ce.addEventListener('mouseup',function(){md=false;mdZoom=false});ce.addEventListener('mouseleave',function(){md=false;mdZoom=false});
       document.getElementById('clear').addEventListener('click',function(){cd={};cellEls.forEach(function(c){c.textContent='';c.classList.remove('filled')})});
 
       document.getElementById('save').addEventListener('click',function(){var lines=[],y,x;for(y=0;y<rows;y++){var l='';for(x=0;x<cols;x++)l+=cd[x+','+y]||FW;lines.push(l)}var list=loadDrawings();list.push({id:Date.now(),name:'Drawing '+(list.length+1),cols:cols,rows:rows,lines:lines,date:new Date().toISOString()});saveDrawings(list);this.textContent='Saved!';setTimeout(function(){document.getElementById('save').textContent='Save'},1500)});
