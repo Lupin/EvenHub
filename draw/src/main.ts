@@ -120,16 +120,42 @@ async function main() {
     localStorage.setItem('g2-restore', '1')
   }
 
-  // Onboard: random glyph pattern so the glasses show something at startup
+  // Onboard: random glyph pattern with "DRAW" in medium grey blocks at center
   function onboardPattern(): string {
     const all = ['■','□','▣','▤','▥','▦','▧','▨','▩','▲','△','▶','▷','▼','▽','◀','◁','◆','◇','◈','◊','○','◌','◎','●','◐','◑','◢','◣','◤','◥','◯']
-    const rows: string[] = []
-    for (let y = 0; y < 7; y++) {
-      let line = ''
-      for (let x = 0; x < 18; x++) line += all[Math.floor(Math.random() * all.length)]
-      rows.push(line)
+    // 3×5 compact letter glyphs: D R A W
+    const letterGlyphs: Record<string, number[][]> = {
+      'D': [[1,1,0],[1,0,1],[1,0,1],[1,0,1],[1,1,0]],
+      'R': [[1,1,0],[1,0,1],[1,1,0],[1,0,1],[1,0,1]],
+      'A': [[0,1,0],[1,0,1],[1,1,1],[1,0,1],[1,0,1]],
+      'W': [[1,0,1],[1,0,1],[1,1,1],[1,1,1],[1,0,1]],
     }
-    return rows.join('\n') + '\n\n  draw — start a new drawing on your phone'
+    const word = ['D','R','A','W']
+    const startCol = 1 // left offset so it's centered (~15 cols in 18)
+    const greyBlock = '▒' // medium grey block
+    const fw = '\u3000'
+
+    // Build a 7×18 grid of random glyphs
+    const grid: string[][] = []
+    for (let y = 0; y < 7; y++) {
+      const line: string[] = []
+      for (let x = 0; x < 18; x++) line.push(all[Math.floor(Math.random() * all.length)])
+      grid.push(line)
+    }
+
+    // Overlay "DRAW" at rows 1-5 (centered vertically in 7 rows)
+    let col = startCol
+    for (const ch of word) {
+      const g = letterGlyphs[ch]
+      for (let dy = 0; dy < 5; dy++) {
+        for (let dx = 0; dx < 3; dx++) {
+          if (g[dy][dx]) grid[1 + dy][col + dx] = greyBlock
+        }
+      }
+      col += 4 // 3 for letter + 1 space
+    }
+
+    return grid.map(r => r.join('')).join('\n') + '\n\n  draw — start a new drawing on your phone'
   }
 
   const onboard = onboardPattern()
