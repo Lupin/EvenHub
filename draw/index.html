@@ -110,11 +110,7 @@
       <div class="btn-row"><button class="btn-sm" id="eraser">⌫ Eraser</button><button class="btn-sm" id="clear">Clear</button></div>
       <div style="display:none" id="zoomNav">
         <button id="zoomLeft" style="background:var(--bg);border:1px solid var(--accent);color:var(--accent);border-radius:var(--radius);padding:6px 10px;font-size:16px;cursor:pointer;flex-shrink:0">◀</button>
-        <div style="display:flex;align-items:center;gap:4px">
-          <button id="zoomUp" style="background:var(--bg);border:1px solid var(--accent);color:var(--accent);border-radius:var(--radius);padding:6px 10px;font-size:16px;cursor:pointer;flex-shrink:0">▲</button>
-          <div class="canvas-grid" id="canvas"></div>
-          <button id="zoomDown" style="background:var(--bg);border:1px solid var(--accent);color:var(--accent);border-radius:var(--radius);padding:6px 10px;font-size:16px;cursor:pointer;flex-shrink:0">▼</button>
-        </div>
+        <div class="canvas-grid" id="canvas"></div>
         <button id="zoomRight" style="background:var(--bg);border:1px solid var(--accent);color:var(--accent);border-radius:var(--radius);padding:6px 10px;font-size:16px;cursor:pointer;flex-shrink:0">▶</button>
       </div>
       <div class="canvas-grid" id="zoomCanvas" style="display:none"></div>
@@ -313,22 +309,21 @@
       function rebuild(){ce.innerHTML='';var ze=document.getElementById('zoomCanvas');ze.innerHTML='';var cs;
       if(splitMode){
         // Mini-map: 7×7 window into the full 28×7 grid. Arrows shift by STEP=3 cols.
-        var MM_COLS=7,STEP=3;
-        var mmStartCol=Math.max(0,Math.min(cols-MM_COLS,zoomX-Math.floor(MM_COLS/2)+Math.floor(ZOOM_S/2)));
-        cs=Math.min(20,Math.floor((Math.min(document.documentElement.clientWidth,576)-32-80)/MM_COLS));
-        ce.style.gridTemplateColumns='repeat('+MM_COLS+', '+cs+'px)';
-        for(var y=0;y<rows;y++){for(var dx=0;dx<MM_COLS;dx++){
-          var x=mmStartCol+dx;var c=document.createElement('div');c.className='canvas-cell';
+        var STEP=3;
+        cs=Math.min(10,Math.floor((Math.min(document.documentElement.clientWidth,576)-32-80)/cols));
+        ce.style.gridTemplateColumns='repeat('+cols+', '+cs+'px)';
+        for(var y=0;y<rows;y++){for(var x=0;x<cols;x++){
+          var c=document.createElement('div');c.className='canvas-cell';
           c.style.width=cs+'px';c.style.height=cs+'px';c.style.fontSize=Math.max(4,cs/3)+'px';
-          if(x<cols){var k=x+','+y;if(cd[k]){c.textContent=cd[k];c.classList.add('filled')}}
-          if(x>=zoomX&&x<zoomX+ZOOM_S&&y>=zoomY&&y<zoomY+ZOOM_S)c.style.outline='2px solid var(--accent)';
+          var k=x+','+y;if(cd[k]){c.textContent=cd[k];c.classList.add('filled')}
+          if(x>=zoomX&&x<zoomX+ZOOM_S)c.style.outline='2px solid var(--accent)';
           ce.appendChild(c);
         }}
         document.getElementById('zoomNav').classList.add('show');
         // Zoom zone
         var zs=Math.min(50,Math.floor((Math.min(document.documentElement.clientWidth,576)-32-ZOOM_S)/ZOOM_S));
         ze.style.gridTemplateColumns='repeat('+ZOOM_S+', '+zs+'px)';
-        for(var y=zoomY;y<Math.min(zoomY+ZOOM_S,rows);y++){for(var x=zoomX;x<Math.min(zoomX+ZOOM_S,cols);x++){
+        for(var y=0;y<rows;y++){for(var x=zoomX;x<Math.min(zoomX+ZOOM_S,cols);x++){
           var zc=document.createElement('div');zc.className='canvas-cell';
           zc.style.width=zs+'px';zc.style.height=zs+'px';zc.style.fontSize='24px';
           zc.dataset.x=x;zc.dataset.y=y;var k=x+','+y;
@@ -351,8 +346,6 @@
       }}
       document.getElementById('zoomLeft').addEventListener('click',function(){zoomX=Math.max(0,zoomX-STEP);rebuild()});
       document.getElementById('zoomRight').addEventListener('click',function(){zoomX=Math.min(cols-ZOOM_S,zoomX+STEP);rebuild()});
-      document.getElementById('zoomUp').addEventListener('click',function(){zoomY=Math.max(0,zoomY-1);rebuild()});
-      document.getElementById('zoomDown').addEventListener('click',function(){zoomY=Math.min(rows-ZOOM_S,zoomY+1);rebuild()});
       document.getElementById('splitToggle').addEventListener('click',function(){
         splitMode=!splitMode;this.classList.toggle('on',splitMode);
         document.getElementById('drawGroup').classList.toggle('split-mode',splitMode);
