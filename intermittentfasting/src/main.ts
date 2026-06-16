@@ -9,6 +9,20 @@ async function main() {
     const bridge = await waitForEvenAppBridge()
     console.log('[FastingTracker] Bridge connected')
 
+    // Expose bridge globally so companion app (inline script) can use
+    // setLocalStorage/getLocalStorage for persistent settings
+    ;(window as any).__bridge = bridge
+
+    // Expose force-refresh so companion can trigger immediate glasses update
+    ;(window as any).__forceRefresh = async () => {
+      const cfg = await loadConfig()
+      if (cfg.displayMode === 'text') {
+        await rebuildTextModeFull(bridge)
+      } else {
+        await rebuildCurrentMode(bridge)
+      }
+    }
+
     // Share bridge with storage layer (persistent bridge storage)
     setBridge(bridge)
 

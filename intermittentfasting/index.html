@@ -404,11 +404,40 @@ body{
 
   <div class="save-status" id="saveStatus">Saved ✓</div>
 
+  <!-- Debug info — remove once storage persistence is confirmed -->
+  <div class="section-heading">Debug</div>
+  <div class="settings-group">
+    <div class="list-item list-item-select">
+      <div class="item-body">
+        <div class="item-title">Version</div>
+      </div>
+      <span class="item-value" id="debugVersion">-</span>
+    </div>
+    <div class="list-item list-item-select">
+      <div class="item-body">
+        <div class="item-title">Storage backend</div>
+      </div>
+      <span class="item-value" id="debugStorage">-</span>
+    </div>
+    <div class="list-item list-item-select">
+      <div class="item-body">
+        <div class="item-title">Bridge ready</div>
+      </div>
+      <span class="item-value" id="debugBridge">-</span>
+    </div>
+    <div class="list-item list-item-select">
+      <div class="item-body">
+        <div class="item-title">Saved config</div>
+      </div>
+      <span class="item-value" id="debugConfig" style="font-size:11px;word-break:break-all">-</span>
+    </div>
+  </div>
+
   <footer class="app-footer">v<span id="appVersion">1.0.4</span></footer>
 </div>
 
 <script>
-var APP_VERSION = '1.0.12';
+var APP_VERSION = '1.0.13';
 (function(){
 'use strict';
 
@@ -542,15 +571,32 @@ var T = {
 var storeReady = false;
 var storeBridge = null;
 
-async function initStore() {
-  try {
-    // Even Hub injects EvenAppBridge into the WebView
-    if (window.EvenAppBridge) {
-      storeBridge = window.EvenAppBridge.getInstance ? window.EvenAppBridge.getInstance() : window.EvenAppBridge;
-      storeReady = true;
-    }
-  } catch(e) {}
-  // If no bridge, fall back to localStorage (dev mode / navigateur)
+// Wait for bridge exposed by main.ts (module script, runs after inline)
+// Falls back to localStorage if bridge never appears (dev mode / navigateur)
+function initStore() {
+  // Check immediately — main.ts may have already set __bridge
+  if (window.__bridge) {
+    storeBridge = window.__bridge;
+    storeReady = true;
+    return;
+  }
+  // Poll for up to 5 seconds — main.ts is a module script so it runs async
+  var attempts = 0;
+  return new Promise(function(resolve) {
+    var check = setInterval(function() {
+      attempts++;
+      if (window.__bridge) {
+        storeBridge = window.__bridge;
+        storeReady = true;
+        clearInterval(check);
+        resolve();
+      } else if (attempts > 50) {
+        clearInterval(check);
+        console.log('[FastingTracker] Bridge not found, using localStorage fallback');
+        resolve();
+      }
+    }, 100);
+  });
 }
 
 async function loadStore() {
@@ -609,9 +655,22 @@ initStore().then(async function(){
   // Show UI
   document.getElementById('phone-ui').style.display = 'block';
   render();
+  updateDebug();
 });
 
-async function saveCfg(){ await saveStore(cfg); }
+async function saveCfg(){ await saveStore(cfg); updateDebug(); }
+
+// ── Debug info ─────────────────────────────────────────
+function updateDebug() {
+  var dv = document.getElementById('debugVersion');
+  var ds = document.getElementById('debugStorage');
+  var db = document.getElementById('debugBridge');
+  var dc = document.getElementById('debugConfig');
+  if (dv) dv.textContent = APP_VERSION;
+  if (ds) ds.textContent = storeReady ? 'bridge' : 'localStorage';
+  if (db) db.textContent = storeReady ? 'yes' : 'no';
+  if (dc) dc.textContent = JSON.stringify(cfg);
+}
 
 // ── i18n ────────────────────────────────────────────
 window.getFastingConfig = function(){ return cfg; };
@@ -718,12 +777,17 @@ document.getElementById('fastStart').addEventListener('input', function(){
   cfg.schedule.fastEnd = String(neh).padStart(2,'0') + ':' + String(nem).padStart(2,'0');
 });
 
-// SegmentedControl tap
-document.getElementById('modeSelector').addEventListener('click', function(e){
+// SegmentedControl tap — force push to glasses immediately
+document.getElementById('modeSelector').addEventListener('click', async function(e){
   var b = e.target.closest('button');
   if (!b) return;
   cfg.displayMode = b.dataset.mode;
   render();
+  // Save config and force immediate refresh on glasses
+  await saveCfg();
+  if (window.__forceRefresh) {
+    try { await window.__forceRefresh(); } catch(e) {}
+  }
 });
 
 // Language select

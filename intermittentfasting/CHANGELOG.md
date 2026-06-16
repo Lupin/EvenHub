@@ -1,5 +1,21 @@
 Changelog - Intermittent Fasting for Even Realities G2
 
+v1.0.13 (2026-06-16)
+
+  Fixed
+  - Bridge storage: companion now uses window.__bridge (exposed by
+    main.ts after SDK handshake) instead of guessing at
+    EvenAppBridge.getInstance(). This ensures setLocalStorage/
+    getLocalStorage actually persists across app restarts.
+  - Text/Timeline toggle now saves config and immediately pushes
+    the display change to the glasses — no more waiting for the
+    next polling cycle.
+  - Save button saves all settings without pushing to glasses
+    (normal polling handles the refresh).
+  - Debug panel added to companion app showing version, storage
+    backend, bridge status, and current saved config. Will be
+    removed once persistence is confirmed stable.
+
 v1.0.12 (2026-06-16)
 
   Fixed
