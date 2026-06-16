@@ -580,7 +580,7 @@ function initStore() {
     storeReady = true;
     return;
   }
-  // Poll for up to 5 seconds — main.ts is a module script so it runs async
+  // Poll for up to 2 seconds — main.ts is a module script so it runs async
   var attempts = 0;
   return new Promise(function(resolve) {
     var check = setInterval(function() {
@@ -590,7 +590,7 @@ function initStore() {
         storeReady = true;
         clearInterval(check);
         resolve();
-      } else if (attempts > 50) {
+      } else if (attempts > 20) {
         clearInterval(check);
         console.log('[FastingTracker] Bridge not found, using localStorage fallback');
         resolve();
