@@ -2,7 +2,7 @@ import { waitForEvenAppBridge } from '@evenrealities/even_hub_sdk'
 import { renderCurrentMode, rebuildCurrentMode, rebuildTextModeFull, loadAndPushImage, setStorageReady } from './display'
 import { setupInputHandlers } from './input'
 import { loadConfig, setBridge } from './storage'
-import { getPreset, isFastingDay } from './config'
+import { getPreset, isFastingDay, getCurrentFastingState } from './config'
 
 async function main() {
   try {
@@ -38,8 +38,10 @@ async function main() {
       console.error('[FastingTracker] createStartUpPageContainer failed:', created)
     }
 
-    // ── Push background image to G2 (centered, mode texte) ──
-    await loadAndPushImage(bridge)
+    // ── Push correct EAT/FAST image to G2 ──
+    const state = getCurrentFastingState(config.schedule)
+    const imageUrl = state.isFasting ? '/FAST.png' : '/EAT.png'
+    await loadAndPushImage(bridge, imageUrl)
 
     // ── Double-click to toggle modes ──
     setupInputHandlers(bridge)
