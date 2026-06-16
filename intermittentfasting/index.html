@@ -404,40 +404,11 @@ body{
 
   <div class="save-status" id="saveStatus">Saved ✓</div>
 
-  <!-- Debug info — remove once storage persistence is confirmed -->
-  <div class="section-heading">Debug</div>
-  <div class="settings-group">
-    <div class="list-item list-item-select">
-      <div class="item-body">
-        <div class="item-title">Version</div>
-      </div>
-      <span class="item-value" id="debugVersion">-</span>
-    </div>
-    <div class="list-item list-item-select">
-      <div class="item-body">
-        <div class="item-title">Storage backend</div>
-      </div>
-      <span class="item-value" id="debugStorage">-</span>
-    </div>
-    <div class="list-item list-item-select">
-      <div class="item-body">
-        <div class="item-title">Bridge ready</div>
-      </div>
-      <span class="item-value" id="debugBridge">-</span>
-    </div>
-    <div class="list-item list-item-select">
-      <div class="item-body">
-        <div class="item-title">Saved config</div>
-      </div>
-      <span class="item-value" id="debugConfig" style="font-size:11px;word-break:break-all">-</span>
-    </div>
-  </div>
-
-  <footer class="app-footer">v<span id="appVersion">1.0.16</span></footer>
+  <footer class="app-footer">v<span id="appVersion">1.0.17</span></footer>
 </div>
 
 <script>
-var APP_VERSION = '1.0.16';
+var APP_VERSION = '1.0.17';
 (function(){
 'use strict';
 
@@ -655,22 +626,9 @@ initStore().then(async function(){
   // Show UI
   document.getElementById('phone-ui').style.display = 'block';
   render();
-  updateDebug();
 });
 
-async function saveCfg(){ await saveStore(cfg); updateDebug(); }
-
-// ── Debug info ─────────────────────────────────────────
-function updateDebug() {
-  var dv = document.getElementById('debugVersion');
-  var ds = document.getElementById('debugStorage');
-  var db = document.getElementById('debugBridge');
-  var dc = document.getElementById('debugConfig');
-  if (dv) dv.textContent = APP_VERSION;
-  if (ds) ds.textContent = storeReady ? 'bridge' : 'localStorage';
-  if (db) db.textContent = storeReady ? 'yes' : 'no';
-  if (dc) dc.textContent = JSON.stringify(cfg);
-}
+async function saveCfg(){ await saveStore(cfg); }
 
 // ── i18n ────────────────────────────────────────────
 window.getFastingConfig = function(){ return cfg; };

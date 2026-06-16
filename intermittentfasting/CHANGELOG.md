@@ -1,5 +1,12 @@
 Changelog - Intermittent Fasting for Even Realities G2
 
+v1.0.17 (2026-06-16) — Public release
+
+  Changed
+  - Removed debug panel from companion app and glasses display.
+    Clean production build, no diagnostic overlays.
+  - Back to 3 containers in text mode (top bar, bottom bar, image).
+
 v1.0.16 (2026-06-16)
 
   Added
