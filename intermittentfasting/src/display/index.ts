@@ -6,7 +6,7 @@ import { buildTimelinePage } from './timeline-mode'
 import { buildDebugFooter } from '../debug-line'
 
 const IMAGE_URL = '/chatgpt-image-g2.png'
-const APP_VERSION = '1.0.13'
+const APP_VERSION = '1.0.14'
 
 // Whether bridge storage is ready (set externally by main.ts)
 let storageReady = false
