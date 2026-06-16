@@ -1,5 +1,19 @@
 # DRAW Changelog
 
+## 1.1.2 — 2026-06-16
+### Fix
+- Persistent storage via `bridge.setLocalStorage` — gallery survives `.ehpk` repacks
+- Bridge-backed cache with localStorage fallback for browser/simulator
+- Debounced saves (500ms) to avoid flooding the bridge
+- Flush on `beforeunload` to save before app close
+- Vasarely seeded only when storage is truly empty
+
+## 1.1.1 — 2026-06-16
+### Fix
+- iOS: mini-map touch responsiveness — `touchstart` instead of `click`
+- `touch-action` rules cleaned up — body no longer blocks canvas interactions
+- Paint handlers guarded by `splitMode` to prevent drawing on mini-map
+
 ## 1.1.0 — 2026-06-15
 
 ### Zoom Edit Mode
