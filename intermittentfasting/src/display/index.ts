@@ -7,7 +7,7 @@ import { buildTimelinePage } from './timeline-mode'
 const IMAGE_URL = '/chatgpt-image-g2.png'
 
 export async function renderCurrentMode(bridge: EvenAppBridge) {
-  const config = loadConfig()
+  const config = await loadConfig()
   if (config.displayMode === 'text') {
     const { topBar, bottomBar, image } = buildTextPage(config)
     return bridge.createStartUpPageContainer(
@@ -26,7 +26,7 @@ export async function renderCurrentMode(bridge: EvenAppBridge) {
 }
 
 export async function rebuildCurrentMode(bridge: EvenAppBridge) {
-  const config = loadConfig()
+  const config = await loadConfig()
   if (config.displayMode === 'text') {
     const { topBar, bottomBar } = buildTextPage(config)
     // Lightweight: update text only, don't touch the image
@@ -47,7 +47,7 @@ export async function rebuildCurrentMode(bridge: EvenAppBridge) {
 // Full text mode rebuild — used when switching from timeline → text
 // (timeline's rebuildPageContainer destroyed the image container, so we recreate it)
 export async function rebuildTextModeFull(bridge: EvenAppBridge) {
-  const config = loadConfig()
+  const config = await loadConfig()
   const { topBar, bottomBar, image } = buildTextPage(config)
   await bridge.rebuildPageContainer(
     new RebuildPageContainer({
@@ -100,8 +100,8 @@ export async function loadAndPushImage(bridge: EvenAppBridge) {
   }
 }
 
-export function toggleDisplayMode() {
-  const config = loadConfig()
+export async function toggleDisplayMode() {
+  const config = await loadConfig()
   config.displayMode = config.displayMode === 'text' ? 'timeline' : 'text'
-  saveConfig(config)
+  await saveConfig(config)
 }

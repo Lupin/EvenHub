@@ -408,7 +408,7 @@ body{
 </div>
 
 <script>
-var APP_VERSION = '1.0.11';
+var APP_VERSION = '1.0.12';
 (function(){
 'use strict';
 
@@ -538,6 +538,44 @@ var T = {
   }
 };
 
+// ── Storage bridge ─────────────────────────────────────
+var storeReady = false;
+var storeBridge = null;
+
+async function initStore() {
+  try {
+    // Even Hub injects EvenAppBridge into the WebView
+    if (window.EvenAppBridge) {
+      storeBridge = window.EvenAppBridge.getInstance ? window.EvenAppBridge.getInstance() : window.EvenAppBridge;
+      storeReady = true;
+    }
+  } catch(e) {}
+  // If no bridge, fall back to localStorage (dev mode / navigateur)
+}
+
+async function loadStore() {
+  if (storeBridge && storeReady) {
+    try {
+      var raw = await storeBridge.getLocalStorage('even-fasting-config');
+      if (raw) return JSON.parse(raw);
+    } catch(e) {}
+  }
+  // Fallback: localStorage
+  try {
+    var raw = localStorage.getItem('even-fasting-config');
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return null;
+}
+
+async function saveStore(data) {
+  var json = JSON.stringify(data);
+  if (storeBridge && storeReady) {
+    try { await storeBridge.setLocalStorage('even-fasting-config', json); } catch(e) {}
+  }
+  try { localStorage.setItem('even-fasting-config', json); } catch(e) {}
+}
+
 // ── Config ────────────────────────────────────────────
 var cfg = {
   presetId:'16:8',
@@ -547,28 +585,33 @@ var cfg = {
   timeFormat:'24h',
   theme:'dark'
 };
-try{
-  var raw = localStorage.getItem('even-fasting-config');
-  if (raw) {
-    var saved = JSON.parse(raw);
-    // Deep merge: preserve nested schedule if not fully provided
-    if (saved.schedule) {
-      if (saved.schedule.fastStart) cfg.schedule.fastStart = saved.schedule.fastStart;
-      if (saved.schedule.fastEnd) cfg.schedule.fastEnd = saved.schedule.fastEnd;
+
+// Restore from persistent storage
+initStore().then(async function(){
+  try {
+    var saved = await loadStore();
+    if (saved) {
+      // Deep merge: preserve nested schedule if not fully provided
+      if (saved.schedule) {
+        if (saved.schedule.fastStart) cfg.schedule.fastStart = saved.schedule.fastStart;
+        if (saved.schedule.fastEnd) cfg.schedule.fastEnd = saved.schedule.fastEnd;
+      }
+      if (saved.presetId) cfg.presetId = saved.presetId;
+      if (saved.displayMode) cfg.displayMode = saved.displayMode;
+      if (saved.lang) cfg.lang = saved.lang;
+      if (saved.timeFormat) cfg.timeFormat = saved.timeFormat;
+      if (saved.theme) cfg.theme = saved.theme;
     }
-    // Shallow merge top-level keys (except schedule, already handled)
-    if (saved.presetId) cfg.presetId = saved.presetId;
-    if (saved.displayMode) cfg.displayMode = saved.displayMode;
-    if (saved.lang) cfg.lang = saved.lang;
-    if (saved.timeFormat) cfg.timeFormat = saved.timeFormat;
-    if (saved.theme) cfg.theme = saved.theme;
-  }
-}catch(e){}
+  } catch(e) {}
 
-// Apply saved theme on load
-applyTheme(cfg.theme);
+  // Apply saved theme on load
+  applyTheme(cfg.theme);
+  // Show UI
+  document.getElementById('phone-ui').style.display = 'block';
+  render();
+});
 
-function saveCfg(){ localStorage.setItem('even-fasting-config', JSON.stringify(cfg)); }
+async function saveCfg(){ await saveStore(cfg); }
 
 // ── i18n ────────────────────────────────────────────
 window.getFastingConfig = function(){ return cfg; };
@@ -702,7 +745,7 @@ themeSelect.value = cfg.theme;
 themeSelect.addEventListener('change', function(){
   cfg.theme = this.value;
   applyTheme(cfg.theme);
-  localStorage.setItem('even-fasting-config', JSON.stringify(cfg));
+  saveStore(cfg);
 });
 
 // Save
@@ -715,11 +758,10 @@ document.getElementById('btnSave').addEventListener('click', function(){
 });
 
 // Cancel (revert from storage)
-document.getElementById('btnCancel').addEventListener('click', function(){
+document.getElementById('btnCancel').addEventListener('click', async function(){
   try{
-    var raw = localStorage.getItem('even-fasting-config');
-    if (raw) {
-      var saved = JSON.parse(raw);
+    var saved = await loadStore();
+    if (saved) {
       if (saved.schedule) {
         if (saved.schedule.fastStart) cfg.schedule.fastStart = saved.schedule.fastStart;
         if (saved.schedule.fastEnd) cfg.schedule.fastEnd = saved.schedule.fastEnd;
@@ -735,9 +777,6 @@ document.getElementById('btnCancel').addEventListener('click', function(){
   render();
 });
 
-// Init
-document.getElementById('phone-ui').style.display = 'block';
-render();
 })();
 </script>
 

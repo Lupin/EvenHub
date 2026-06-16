@@ -1,5 +1,16 @@
 Changelog - Intermittent Fasting for Even Realities G2
 
+v1.0.12 (2026-06-16)
+
+  Fixed
+  - Persistent storage: migrated from window.localStorage to bridge
+    setLocalStorage/getLocalStorage. Settings now survive app repacks
+    and restarts — your fasting schedule, time format, language, and
+    theme preferences are preserved permanently.
+  - Background keep-alive: the fasting tracker now continues running
+    even when the app is in the background (SDK v0.0.10+ keep-alive).
+    Progress bar and phase transitions update without reopening.
+
 v1.0.11 (2026-06-16)
 
   Fixed

@@ -1,18 +1,19 @@
 import { waitForEvenAppBridge } from '@evenrealities/even_hub_sdk'
 import { renderCurrentMode, rebuildCurrentMode, rebuildTextModeFull, loadAndPushImage } from './display'
 import { setupInputHandlers } from './input'
-import { loadConfig } from './storage'
+import { loadConfig, setBridge } from './storage'
 import { getPreset, isFastingDay } from './config'
-
-const STORAGE_KEY = 'even-fasting-config'
 
 async function main() {
   try {
     const bridge = await waitForEvenAppBridge()
     console.log('[FastingTracker] Bridge connected')
 
+    // Share bridge with storage layer (persistent bridge storage)
+    setBridge(bridge)
+
     // ── First render ──
-    const config = loadConfig()
+    const config = await loadConfig()
     const preset = getPreset(config.presetId)
     if (preset && !isFastingDay(preset)) {
       console.log('[FastingTracker] Rest day — no fasting today')
@@ -28,49 +29,38 @@ async function main() {
     // ── Double-click to toggle modes ──
     setupInputHandlers(bridge)
 
-    // ── Config change detection: storage event + polling ──
-    // 'storage' event fires when companion app (different WebView context)
-    // writes to localStorage. But on some SDK versions it may not fire,
-    // so we also poll every 2s as fallback.
-    let lastConfigRaw = localStorage.getItem(STORAGE_KEY)
-    let lastDisplayMode = loadConfig().displayMode
+    // ── Config change detection: poll for changes ──
+    // Use bridge storage as source of truth (survives repacks).
+    // Companion app writes config → bridge setLocalStorage → we poll it.
+    let lastConfigRaw = ''
+    let lastDisplayMode = config.displayMode
 
-    window.addEventListener('storage', (e) => {
-      if (e.key === STORAGE_KEY && e.newValue && e.newValue !== lastConfigRaw) {
-        console.log('[FastingTracker] Config changed (storage event), rebuilding')
-        lastConfigRaw = e.newValue
-        const newConfig = loadConfig()
-        if (newConfig.displayMode !== lastDisplayMode) {
-          lastDisplayMode = newConfig.displayMode
-          if (newConfig.displayMode === 'text') {
-            rebuildTextModeFull(bridge)
-          } else {
-            rebuildCurrentMode(bridge)
-          }
-        } else {
-          rebuildCurrentMode(bridge)
-        }
-      }
-    })
+    // Initial read of bridge storage for the raw string
+    try {
+      lastConfigRaw = await bridge.getLocalStorage('even-fasting-config') || ''
+    } catch {}
 
-    // Polling fallback every 2s — catches config changes even if
-    // storage event doesn't fire (same-origin iframe, etc.)
-    setInterval(() => {
-      const current = localStorage.getItem(STORAGE_KEY)
-      if (current && current !== lastConfigRaw) {
-        console.log('[FastingTracker] Config changed (poll detected), rebuilding')
-        lastConfigRaw = current
-        const newConfig = loadConfig()
-        if (newConfig.displayMode !== lastDisplayMode) {
-          lastDisplayMode = newConfig.displayMode
-          if (newConfig.displayMode === 'text') {
-            rebuildTextModeFull(bridge)
+    // Polling every 2s — detects config changes from companion app
+    setInterval(async () => {
+      try {
+        const current = await bridge.getLocalStorage('even-fasting-config')
+        if (current && current !== lastConfigRaw) {
+          console.log('[FastingTracker] Config changed (poll detected), rebuilding')
+          lastConfigRaw = current
+          const newConfig = await loadConfig()
+          if (newConfig.displayMode !== lastDisplayMode) {
+            lastDisplayMode = newConfig.displayMode
+            if (newConfig.displayMode === 'text') {
+              await rebuildTextModeFull(bridge)
+            } else {
+              await rebuildCurrentMode(bridge)
+            }
           } else {
-            rebuildCurrentMode(bridge)
+            await rebuildCurrentMode(bridge)
           }
-        } else {
-          rebuildCurrentMode(bridge)
         }
+      } catch (e) {
+        // bridge may not be ready on first tick — ignore
       }
     }, 2000)
 
@@ -81,7 +71,7 @@ async function main() {
 
     // ── Fast refresh for blinking indicator — text mode only ──
     setInterval(async () => {
-      const config = loadConfig()
+      const config = await loadConfig()
       if (config.displayMode === 'text') {
         await rebuildCurrentMode(bridge)
       }
