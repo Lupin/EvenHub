@@ -13,14 +13,16 @@ async function main() {
   const STORAGE_KEY = 'g2-drawings'
 
   // ── Persistent storage: bridge ↔ localStorage sync ──
-  // On startup: restore drawings from bridge storage into localStorage
-  // On save: watch localStorage changes and mirror to bridge
-  try {
-    const saved = await bridge.getLocalStorage(STORAGE_KEY)
-    if (saved) {
-      localStorage.setItem(STORAGE_KEY, saved)
-    }
-  } catch(e) { /* bridge storage unavailable, use whatever is in localStorage */ }
+  // On startup: if localStorage is empty, try restoring from bridge
+  const existing = localStorage.getItem(STORAGE_KEY)
+  if (!existing || existing === '[]') {
+    try {
+      const saved = await bridge.getLocalStorage(STORAGE_KEY)
+      if (saved && saved !== '[]') {
+        localStorage.setItem(STORAGE_KEY, saved)
+      }
+    } catch(e) { /* bridge unavailable, keep localStorage as-is */ }
+  }
 
   // Mirror localStorage writes to bridge (survives .ehpk repack)
   const origSetItem = localStorage.setItem.bind(localStorage)

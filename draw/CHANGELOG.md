@@ -1,5 +1,9 @@
 # DRAW Changelog
 
+## 1.1.4 — 2026-06-16
+### Fix
+- Bridge restore only if localStorage is empty — no longer overwrites Vasarely seed
+
 ## 1.1.3 — 2026-06-16
 ### Fix
 - Simplified persistent storage: `main.ts` intercepts `localStorage.setItem` and mirrors to bridge
