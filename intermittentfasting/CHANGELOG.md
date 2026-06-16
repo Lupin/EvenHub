@@ -1,5 +1,29 @@
 Changelog - Intermittent Fasting for Even Realities G2
 
+v1.0.16 (2026-06-16)
+
+  Added
+  - EAT.png / FAST.png images in text mode: the bottom-right image
+    now shows EAT during eating windows and FAST during fasting
+    periods. Switches automatically when the phase changes.
+
+v1.0.15 (2026-06-16)
+
+  Fixed
+  - Version sync: all 5 version locations now consistently show the
+    same build number (footer, inline JS, glasses debug footer,
+    app.json, dist/app.json).
+
+v1.0.14 (2026-06-16)
+
+  Fixed
+  - Debug footer added to glasses display (bottom line) showing
+    version, preset, mode, language, and time format. Helps diagnose
+    persistence issues on hardware.
+  - Companion bridge handoff: window.__bridge polling from main.ts
+    replaces EvenAppBridge.getInstance() for reliable persistent
+    storage in the companion app.
+
 v1.0.13 (2026-06-16)
 
   Fixed
