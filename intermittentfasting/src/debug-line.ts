@@ -12,7 +12,7 @@ export function buildDebugFooter(config: any, storageReady: boolean, version: st
   const line = `v${version} ${store} ${preset} ${mode} ${lang}/${fmt}`
 
   return new TextContainerProperty({
-    xPosition: 0, yPosition: 272, width: 576, height: 16,
+    xPosition: 0, yPosition: 133, width: 576, height: 16,
     containerID: 4, containerName: 'debug',
     isEventCapture: 0,
     content: line,
