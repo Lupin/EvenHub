@@ -12,25 +12,57 @@ async function main() {
   const FW = '\u3000'
   const STORAGE_KEY = 'g2-drawings'
 
-  // ── Persistent storage: bridge ↔ localStorage sync ──
-  // On startup: if localStorage is empty, try restoring from bridge
-  const existing = localStorage.getItem(STORAGE_KEY)
-  if (!existing || existing === '[]') {
-    try {
-      const saved = await bridge.getLocalStorage(STORAGE_KEY)
-      if (saved && saved !== '[]') {
-        localStorage.setItem(STORAGE_KEY, saved)
-      }
-    } catch(e) { /* bridge unavailable, keep localStorage as-is */ }
+  // ── Persistent storage: bridge-backed cache with debounce ──
+  // Expose a bridgeStorage object for index.html to use (see bridge-persistent-storage.md)
+  let _storageCache: Drawing[] | null = null
+  let _storageLoaded = false
+  let _flushTimer: any = null
+
+  function flushToBridge(): void {
+    clearTimeout(_flushTimer)
+    _flushTimer = null
+    if (_storageCache != null && bridge) {
+      bridge.setLocalStorage(STORAGE_KEY, JSON.stringify(_storageCache))
+        .catch((e: any) => console.error('[DRAW] bridge.setLocalStorage failed', e))
+    }
   }
 
-  // Mirror localStorage writes to bridge (survives .ehpk repack)
-  const origSetItem = localStorage.setItem.bind(localStorage)
-  localStorage.setItem = function(key: string, value: string) {
-    origSetItem(key, value)
-    if (key === STORAGE_KEY) {
-      bridge.setLocalStorage(STORAGE_KEY, value).catch(() => {})
-    }
+  ;(window as any).bridgeStorage = {
+    async load(): Promise<Drawing[]> {
+      if (_storageLoaded) return _storageCache || []
+      // Try bridge first
+      try {
+        const raw = await bridge.getLocalStorage(STORAGE_KEY)
+        if (raw && raw !== '[]') {
+          _storageCache = JSON.parse(raw)
+          _storageLoaded = true
+          return _storageCache || []
+        }
+      } catch(e) { console.error('[DRAW] bridge.getLocalStorage failed', e) }
+      // Fallback: localStorage (may have been seeded by index.html before bridge was ready)
+      try {
+        const local = localStorage.getItem(STORAGE_KEY)
+        if (local && local !== '[]') {
+          _storageCache = JSON.parse(local)
+          _storageLoaded = true
+          return _storageCache || []
+        }
+      } catch(e) {}
+      _storageCache = []
+      _storageLoaded = true
+      return []
+    },
+    get cached(): Drawing[] { return _storageCache || [] },
+    save(data: Drawing[]): void {
+      _storageCache = data
+      _storageLoaded = true
+      // Update localStorage for dev/debug and sync reads
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)) } catch(e) {}
+      // Debounce bridge writes — rapid saves only flush once after 500ms of inactivity
+      clearTimeout(_flushTimer)
+      _flushTimer = setTimeout(flushToBridge, 500)
+    },
+    flush(): void { flushToBridge() }
   }
 
   // Table minuscule → majuscule
@@ -98,8 +130,8 @@ async function main() {
   }
 
   function loadDrawings(): Drawing[] {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') }
-    catch (e) { return [] }
+    // Bridge-backed cache (memory, no I/O)
+    return ((window as any).bridgeStorage?.cached) || []
   }
 
   // ── Glasses state machine ──

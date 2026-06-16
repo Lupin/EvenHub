@@ -167,7 +167,7 @@
       </div>
     </div>
 
-    <div class="footer-credit">by Gaël Abegg-Gauthey 2026 · v<span id="footerVersion">1.1.4</span></div>
+    <div class="footer-credit">by Gaël Abegg-Gauthey 2026 · v<span id="footerVersion">1.1.5</span></div>
     <div style="text-align:center;padding:0 16px 24px">
       <a href="https://buymeacoffee.com/gaelag" target="_blank" rel="noopener" style="color:var(--text-dim);text-decoration:none;font-size:13px;opacity:0.5">☕ Buy me a coffee</a>
     </div>
@@ -211,11 +211,51 @@
       ],
       date: '2026-06-15T00:00:00.000Z'
     };
-    function loadDrawings() { try { var list = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; return list; } catch(e) { return []; } }
-    function saveDrawings(l) { localStorage.setItem(STORAGE_KEY, JSON.stringify(l)); }
+    function loadDrawings() {
+      // Bridge-backed: read from cache if available, fallback to localStorage
+      if (window.bridgeStorage && window.bridgeStorage.cached) {
+        var list = window.bridgeStorage.cached;
+        return list.slice(); // defensive copy
+      }
+      try { var list = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; return list; } catch(e) { return []; }
+    }
+    function saveDrawings(l) {
+      if (window.bridgeStorage) {
+        window.bridgeStorage.save(l);
+      } else {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(l));
+      }
+    }
     function loadDrawingsWithVasarely() { var list = loadDrawings(); if (!list.some(function(d){return d.id===0})) { list.unshift(VASARELY); } return list; }
     // Seed Vasarely once if gallery is empty
     (function(){ var list = loadDrawings(); if (list.length === 0) { list.push(VASARELY); saveDrawings(list); } })();
+
+    // Flush bridge storage before the page unloads (user kills the app)
+    window.addEventListener('beforeunload', function() {
+      if (window.bridgeStorage) window.bridgeStorage.flush();
+    });
+
+    // Async init: when bridge becomes ready, load persistent data and merge
+    // with any localStorage seed that happened before bridge was available
+    (function() {
+      var pollCount = 0;
+      var maxPolls = 50; // 5 seconds max
+      var interval = setInterval(function() {
+        pollCount++;
+        if (window.bridgeStorage) {
+          clearInterval(interval);
+          window.bridgeStorage.load().then(function(data) {
+            if (data && data.length > 0) {
+              saveDrawings(data); // merge into storage cache
+              renderGallery();
+            }
+          });
+        } else if (pollCount >= maxPolls) {
+          clearInterval(interval);
+          console.error('[DRAW] bridgeStorage not available after 5s — persistence will not work');
+        }
+      }, 100);
+    })();
 
     var themeSel = document.getElementById('themeSel');
     function applyTheme(v) { document.documentElement.setAttribute('data-theme', v); localStorage.setItem(THEME_KEY, v); }

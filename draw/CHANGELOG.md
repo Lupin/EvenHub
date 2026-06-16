@@ -1,5 +1,13 @@
 # DRAW Changelog
 
+## 1.1.5 — 2026-06-16
+### Fix
+- Persistent storage: bridge-backed cache with debounce — gallery now survives app kill on iPhone
+- `main.ts` exposes `window.bridgeStorage` (cache + debounce 500ms + flush on beforeunload)
+- `index.html` uses bridge-aware `saveDrawings`/`loadDrawings` with localStorage fallback
+- Async init polls for bridge readiness and merges persistent data into cache
+- Error logging on bridge failures (was silent `.catch(() => {})`)
+
 ## 1.1.4 — 2026-06-16
 ### Fix
 - Bridge restore only if localStorage is empty — no longer overwrites Vasarely seed
