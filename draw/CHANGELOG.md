@@ -1,5 +1,12 @@
 # DRAW Changelog
 
+## 1.1.3 — 2026-06-16
+### Fix
+- Simplified persistent storage: `main.ts` intercepts `localStorage.setItem` and mirrors to bridge
+- Bridge restores drawings into localStorage on startup
+- `index.html` uses standard localStorage — no bridge-aware code needed
+- Vasarely seeded correctly on first launch
+
 ## 1.1.2 — 2026-06-16
 ### Fix
 - Persistent storage via `bridge.setLocalStorage` — gallery survives `.ehpk` repacks
