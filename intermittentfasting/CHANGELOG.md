@@ -1,5 +1,13 @@
 Changelog - Intermittent Fasting for Even Realities G2
 
+v1.0.11 (2026-06-16)
+
+  Fixed
+  - Fixed settings not saving: your fasting schedule, time format, and
+    preferences now persist correctly across app restarts.
+  - Fixed schedule resetting to 08:00pm on every launch.
+  - Fixed time format toggle: switching between 24h and AM/PM now works.
+
 v1.0.10 (2026-06-12)
 
   Changed

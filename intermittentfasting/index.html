@@ -408,7 +408,7 @@ body{
 </div>
 
 <script>
-var APP_VERSION = '1.0.10';
+var APP_VERSION = '1.0.11';
 (function(){
 'use strict';
 
@@ -549,7 +549,20 @@ var cfg = {
 };
 try{
   var raw = localStorage.getItem('even-fasting-config');
-  if (raw) Object.assign(cfg, JSON.parse(raw));
+  if (raw) {
+    var saved = JSON.parse(raw);
+    // Deep merge: preserve nested schedule if not fully provided
+    if (saved.schedule) {
+      if (saved.schedule.fastStart) cfg.schedule.fastStart = saved.schedule.fastStart;
+      if (saved.schedule.fastEnd) cfg.schedule.fastEnd = saved.schedule.fastEnd;
+    }
+    // Shallow merge top-level keys (except schedule, already handled)
+    if (saved.presetId) cfg.presetId = saved.presetId;
+    if (saved.displayMode) cfg.displayMode = saved.displayMode;
+    if (saved.lang) cfg.lang = saved.lang;
+    if (saved.timeFormat) cfg.timeFormat = saved.timeFormat;
+    if (saved.theme) cfg.theme = saved.theme;
+  }
 }catch(e){}
 
 // Apply saved theme on load
@@ -705,7 +718,18 @@ document.getElementById('btnSave').addEventListener('click', function(){
 document.getElementById('btnCancel').addEventListener('click', function(){
   try{
     var raw = localStorage.getItem('even-fasting-config');
-    if (raw) Object.assign(cfg, JSON.parse(raw));
+    if (raw) {
+      var saved = JSON.parse(raw);
+      if (saved.schedule) {
+        if (saved.schedule.fastStart) cfg.schedule.fastStart = saved.schedule.fastStart;
+        if (saved.schedule.fastEnd) cfg.schedule.fastEnd = saved.schedule.fastEnd;
+      }
+      if (saved.presetId) cfg.presetId = saved.presetId;
+      if (saved.displayMode) cfg.displayMode = saved.displayMode;
+      if (saved.lang) cfg.lang = saved.lang;
+      if (saved.timeFormat) cfg.timeFormat = saved.timeFormat;
+      if (saved.theme) cfg.theme = saved.theme;
+    }
   }catch(e){}
   applyTheme(cfg.theme);
   render();

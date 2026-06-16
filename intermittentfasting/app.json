@@ -1,7 +1,7 @@
 {
   "package_id": "com.gael.intermittentfasting",
   "name": "Intermittent Fasting",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Intermittent fasting tracker with text and timeline display modes, 7 presets, EN/FR i18n",
   "author": "Gael",
   "edition": "202601",
