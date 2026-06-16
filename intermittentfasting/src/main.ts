@@ -1,5 +1,5 @@
 import { waitForEvenAppBridge } from '@evenrealities/even_hub_sdk'
-import { renderCurrentMode, rebuildCurrentMode, rebuildTextModeFull, loadAndPushImage } from './display'
+import { renderCurrentMode, rebuildCurrentMode, rebuildTextModeFull, loadAndPushImage, setStorageReady } from './display'
 import { setupInputHandlers } from './input'
 import { loadConfig, setBridge } from './storage'
 import { getPreset, isFastingDay } from './config'
@@ -12,6 +12,7 @@ async function main() {
     // Expose bridge globally so companion app (inline script) can use
     // setLocalStorage/getLocalStorage for persistent settings
     ;(window as any).__bridge = bridge
+    setStorageReady(true)
 
     // Expose force-refresh so companion can trigger immediate glasses update
     ;(window as any).__forceRefresh = async () => {

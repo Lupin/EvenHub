@@ -3,24 +3,32 @@ import { CreateStartUpPageContainer, RebuildPageContainer, TextContainerUpgrade,
 import { loadConfig, saveConfig } from '../storage'
 import { buildTextPage } from './text-mode'
 import { buildTimelinePage } from './timeline-mode'
+import { buildDebugFooter } from '../debug-line'
 
 const IMAGE_URL = '/chatgpt-image-g2.png'
+const APP_VERSION = '1.0.13'
+
+// Whether bridge storage is ready (set externally by main.ts)
+let storageReady = false
+export function setStorageReady(ready: boolean) { storageReady = ready }
 
 export async function renderCurrentMode(bridge: EvenAppBridge) {
   const config = await loadConfig()
   if (config.displayMode === 'text') {
     const { topBar, bottomBar, image } = buildTextPage(config)
+    const debug = buildDebugFooter(config, storageReady, APP_VERSION)
     return bridge.createStartUpPageContainer(
       new CreateStartUpPageContainer({
-        containerTotalNum: 3,
-        textObject: [topBar, bottomBar],
+        containerTotalNum: 4,
+        textObject: [topBar, bottomBar, debug],
         imageObject: [image],
       })
     )
   } else {
     const { containers, containerTotalNum } = buildTimelinePage(config)
+    const debug = buildDebugFooter(config, storageReady, APP_VERSION)
     return bridge.createStartUpPageContainer(
-      new CreateStartUpPageContainer({ containerTotalNum, textObject: containers })
+      new CreateStartUpPageContainer({ containerTotalNum: containerTotalNum + 1, textObject: [...containers, debug] })
     )
   }
 }
@@ -29,6 +37,7 @@ export async function rebuildCurrentMode(bridge: EvenAppBridge) {
   const config = await loadConfig()
   if (config.displayMode === 'text') {
     const { topBar, bottomBar } = buildTextPage(config)
+    const debug = buildDebugFooter(config, storageReady, APP_VERSION)
     // Lightweight: update text only, don't touch the image
     await bridge.textContainerUpgrade(
       new TextContainerUpgrade({ containerID: 1, containerName: 'topBar', content: topBar.content })
@@ -36,10 +45,14 @@ export async function rebuildCurrentMode(bridge: EvenAppBridge) {
     await bridge.textContainerUpgrade(
       new TextContainerUpgrade({ containerID: 2, containerName: 'bottomBar', content: bottomBar.content })
     )
+    await bridge.textContainerUpgrade(
+      new TextContainerUpgrade({ containerID: 4, containerName: 'debug', content: debug.content })
+    )
   } else {
     const { containers, containerTotalNum } = buildTimelinePage(config)
+    const debug = buildDebugFooter(config, storageReady, APP_VERSION)
     return bridge.rebuildPageContainer(
-      new RebuildPageContainer({ containerTotalNum, textObject: containers })
+      new RebuildPageContainer({ containerTotalNum: containerTotalNum + 1, textObject: [...containers, debug] })
     )
   }
 }
@@ -49,10 +62,11 @@ export async function rebuildCurrentMode(bridge: EvenAppBridge) {
 export async function rebuildTextModeFull(bridge: EvenAppBridge) {
   const config = await loadConfig()
   const { topBar, bottomBar, image } = buildTextPage(config)
+  const debug = buildDebugFooter(config, storageReady, APP_VERSION)
   await bridge.rebuildPageContainer(
     new RebuildPageContainer({
-      containerTotalNum: 3,
-      textObject: [topBar, bottomBar],
+      containerTotalNum: 4,
+      textObject: [topBar, bottomBar, debug],
       imageObject: [image],
     }),
   )
