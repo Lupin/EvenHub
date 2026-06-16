@@ -12,6 +12,42 @@ async function main() {
   const FW = '\u3000'
   const STORAGE_KEY = 'g2-drawings'
 
+  // ── Persistent storage bridge (survives .ehpk repack) ──
+  // Expose async get/set so index.html can use bridge storage instead of localStorage
+  ;(window as any).bridgeStorage = {
+    _cache: null as any,
+    _dirty: false,
+    _loaded: false,
+    async load(): Promise<any> {
+      if (this._loaded) return this._cache
+      try {
+        const raw = await bridge.getLocalStorage(STORAGE_KEY)
+        this._cache = raw ? JSON.parse(raw) : null
+      } catch(e) { this._cache = null }
+      this._loaded = true
+      return this._cache
+    },
+    async save(data: any): Promise<void> {
+      this._cache = data
+      this._dirty = true
+      this._loaded = true
+      // Debounced write — many rapid saves only flush once
+      clearTimeout((this as any)._timer)
+      ;(this as any)._timer = setTimeout(async () => {
+        try { await bridge.setLocalStorage(STORAGE_KEY, JSON.stringify(data)) }
+        catch(e) { console.error('bridge setLocalStorage failed', e) }
+      }, 500)
+    },
+    async flush(): Promise<void> {
+      clearTimeout((this as any)._timer)
+      if (this._dirty && this._cache != null) {
+        try { await bridge.setLocalStorage(STORAGE_KEY, JSON.stringify(this._cache)) }
+        catch(e) { console.error('bridge flush failed', e) }
+      }
+      this._dirty = false
+    }
+  }
+
   // Table minuscule → majuscule
   const LOWER: Record<string, string> = {}
   for (let i = 0; i < 26; i++) LOWER[String.fromCharCode(97 + i)] = String.fromCharCode(65 + i)

@@ -167,7 +167,7 @@
       </div>
     </div>
 
-    <div class="footer-credit">by Gaël Abegg-Gauthey 2026 · v<span id="footerVersion">1.1.1</span></div>
+    <div class="footer-credit">by Gaël Abegg-Gauthey 2026 · v<span id="footerVersion">1.1.2</span></div>
     <div style="text-align:center;padding:0 16px 24px">
       <a href="https://buymeacoffee.com/gaelag" target="_blank" rel="noopener" style="color:var(--text-dim);text-decoration:none;font-size:13px;opacity:0.5">☕ Buy me a coffee</a>
     </div>
@@ -211,11 +211,35 @@
       ],
       date: '2026-06-15T00:00:00.000Z'
     };
-    function loadDrawings() { try { var list = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; return list; } catch(e) { return []; } }
+    // Persistent storage: bridge-backed when available (survives .ehpk repack), localStorage fallback
+    var _drawingsCache = null;
+    function saveDrawings(l) {
+      _drawingsCache = l;
+      if (window.bridgeStorage) { window.bridgeStorage.save(l); }
+      else { localStorage.setItem(STORAGE_KEY, JSON.stringify(l)); }
+    }
+    function loadDrawings() {
+      if (_drawingsCache) return _drawingsCache.slice();
+      try {
+        var raw = window.bridgeStorage ? null : localStorage.getItem(STORAGE_KEY);
+        var list = raw ? JSON.parse(raw) : [];
+        _drawingsCache = list;
+        return list.slice();
+      } catch(e) { return []; }
+    }
+    // Async init from bridge — called once at startup
+    if (window.bridgeStorage) {
+      window.bridgeStorage.load().then(function(data) {
+        _drawingsCache = data || [];
+        if (_drawingsCache.length === 0) {
+          _drawingsCache.push(VASARELY);
+          window.bridgeStorage.save(_drawingsCache);
+        }
+      });
+    }
+    function flushStorage() { if (window.bridgeStorage) window.bridgeStorage.flush(); }
+    window.addEventListener('beforeunload', flushStorage);
     function loadDrawingsWithVasarely() { var list = loadDrawings(); if (!list.some(function(d){return d.id===0})) { list.unshift(VASARELY); } return list; }
-    function saveDrawings(l) { localStorage.setItem(STORAGE_KEY, JSON.stringify(l)); }
-    // Seed Vasarely once if gallery is empty
-    (function(){ var list = loadDrawings(); if (list.length === 0) { list.push(VASARELY); saveDrawings(list); } })();
 
     var themeSel = document.getElementById('themeSel');
     function applyTheme(v) { document.documentElement.setAttribute('data-theme', v); localStorage.setItem(THEME_KEY, v); }
