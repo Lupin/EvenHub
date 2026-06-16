@@ -1,5 +1,9 @@
 # DRAW Changelog
 
+## 1.1.6 — 2026-06-16
+### Fix
+- Store manifest: added `description`, `author`, and structured `permissions` for Even Hub store
+
 ## 1.1.5 — 2026-06-16
 ### Fix
 - Persistent storage: bridge-backed cache with debounce — gallery now survives app kill on iPhone

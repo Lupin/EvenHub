@@ -2,11 +2,15 @@
   "package_id": "com.draw.app",
   "edition": "202601",
   "name": "DRAW",
-  "version": "1.1.5",
+  "version": "1.1.6",
+  "description": "Pixel-art canvas for G2 glasses. Paint with 17 brush sets, compose giant letters, zoom-edit with mini-map, and browse your gallery with gestures.",
+  "author": "Gaël Abegg-Gauthey",
   "min_app_version": "2.0.0",
   "min_sdk_version": "0.0.10",
   "entrypoint": "index.html",
-  "permissions": [],
+  "permissions": [
+    { "name": "network", "desc": "Local bridge storage — no external requests" }
+  ],
   "supported_languages": [
     "en",
     "fr"
